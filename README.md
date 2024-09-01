@@ -14,126 +14,103 @@ Laboratorio de analisis y diseño 2
 | Brayan Alexander Mejia Barrientos  |  201900576   |  
 ## 2. Core del Negocio
 
-## a. Descripción
+### a. Descripción
 
 El **"Core del Negocio"** de Qnave se centra en proporcionar un servicio de transporte privado confiable y seguro en Guatemala. La aplicación busca resolver problemas operativos y de seguridad enfrentados por los usuarios y conductores mediante la modernización de sus operaciones. A continuación, se detalla la descripción del core del negocio:
 
-- **Servicio Principal**: La aplicación de transporte privado facilita la conexión entre usuarios que requieren un viaje y conductores que ofrecen servicios de transporte. Permite a los usuarios solicitar viajes, pagar por ellos, calificar a los conductores y reportar problemas.
+- **Servicio Principal**:  
+  La aplicación de transporte privado facilita la conexión entre usuarios que requieren un viaje y conductores que ofrecen servicios de transporte. Permite a los usuarios solicitar viajes, pagar por ellos, calificar a los conductores y reportar problemas.
 
-- **Seguridad**: La aplicación incluye mecanismos para verificar la identidad de los usuarios y conductores, asegurando la autenticidad de la información y proporcionando una plataforma segura para los pagos. Implementa un sistema de verificación por correo electrónico y encriptación de datos sensibles para proteger la información del usuario.
+- **Seguridad**:  
+  La aplicación incluye mecanismos para verificar la identidad de los usuarios y conductores, asegurando la autenticidad de la información y proporcionando una plataforma segura para los pagos. Implementa un sistema de verificación por correo electrónico y encriptación de datos sensibles para proteger la información del usuario.
 
-- **Administración**: La plataforma también permite a los administradores gestionar los registros de usuarios y conductores, verificar documentos y supervisar el estado de la plataforma. Los asistentes y administradores tienen funciones específicas para mantener la operación de la empresa de manera eficiente y segura.
+- **Administración**:  
+  La plataforma también permite a los administradores gestionar los registros de usuarios y conductores, verificar documentos y supervisar el estado de la plataforma. Los asistentes y administradores tienen funciones específicas para mantener la operación de la empresa de manera eficiente y segura.
 
-- **Operación**: Los conductores pueden aceptar viajes, ver la información del usuario y recibir pagos. Los usuarios pueden solicitar viajes, seleccionar métodos de pago, calificar a los conductores y guardar ubicaciones frecuentes.
+- **Operación**:  
+  Los conductores pueden aceptar viajes, ver la información del usuario y recibir pagos. Los usuarios pueden solicitar viajes, seleccionar métodos de pago, calificar a los conductores y guardar ubicaciones frecuentes.
 
 ### Visión General de la Empresa
+
 Qnave es una empresa de transporte privado en Guatemala que busca mejorar la seguridad y eficiencia en la coordinación de viajes entre usuarios y conductores mediante una solución tecnológica avanzada.
 
 ### Problemas Actuales
-La empresa enfrenta problemas de seguridad debido a la delincuencia organizada que afecta tanto a usuarios como a conductores. Esto ha llevado a la pérdida de confianza y la competencia con otras empresas más seguras.
+
+La empresa enfrenta problemas de seguridad debido a la delincuencia organizada que afecta tanto a usuarios como a conductores. Esto ha llevado a la pérdida de confianza y a una competencia desleal con otras empresas más seguras.
 
 ### Solución Propuesta
+
 Modernizar las operaciones a través de una aplicación que mejore la seguridad y eficiencia, centralice la gestión de datos y ofrezca funcionalidades mejoradas para usuarios, conductores y administradores.
 
 ### Beneficios Esperados
+
 - Reducción de incidentes de seguridad.
 - Mejor experiencia para los usuarios.
 - Mayor control sobre los conductores y asistentes.
 - Un sistema de pago eficiente y seguro.
 
-## b. Diagrama de CDU de Alto Nivel y su Primera Descomposición (CDU de Alto Nivel)
+### b. Diagrama de CDU de Alto Nivel y su Primera Descomposición (CDU de Alto Nivel)
 
-A continuaicon se muestra una imagen del diagrama de casos de uso de alto nivel y su descomposicion.
-![Diagrama CDU ](./Imagenes/CasosDeUsoAltoNivel.png)  
-De no ser posible la visualizacion correcta abra el siguiente link:  
-[Diagrama de casos de uso expandido (CDU)](https://drive.google.com/file/d/1C2ZjXQ7WkfcIYpbFYBW3_Md_Gb1_05qC/view?usp=sharing)  
+A continuación se muestra una imagen del diagrama de casos de uso de alto nivel y su descomposición:
+![Diagrama CDU](./Imagenes/CasosDeUsoAltoNivel.png)
+
+Si no es posible la visualización correcta, puedes acceder al siguiente enlace:  
+[Diagrama de casos de uso expandido (CDU)](https://drive.google.com/file/d/1C2ZjXQ7WkfcIYpbFYBW3_Md_Gb1_05qC/view?usp=sharing)
 
 ## Actores y Casos de Uso
 
 ### Usuarios
-- **Solicitar Viaje**  
-  El usuario inicia una solicitud de viaje.  
-  - **Relaciones**:  
-    - `<<include>>` con **Calcular Tarifa**: El cálculo de la tarifa es una parte obligatoria al solicitar un viaje.
-    - `<<include>>` con **Enviar Solicitud a Conductores**: Enviar la solicitud a los conductores disponibles es necesario para completar la solicitud del viaje.
 
-- **Calificar Conductor**  
-  Después de completar un viaje, el usuario puede calificar al conductor.  
-  - **Relaciones**: No lleva ninguna relación `<<include>>` o `<<extend>>` porque es una función principal e independiente.
-
-- **Pagar Viaje**  
-  El usuario realiza el pago al finalizar el viaje.  
-  - **Relaciones**:  
-    - `<<include>>` con **Confirmar Pago**: El proceso de pago necesariamente incluye la confirmación del mismo.
-    - `<<extend>>` con **Generar Recibo**: La generación del recibo es opcional y ocurre después de la confirmación del pago.
+| Caso de Uso            | Descripción                                      | Relaciones                                                                                   |
+|------------------------|--------------------------------------------------|----------------------------------------------------------------------------------------------|
+| **Solicitar Viaje**     | El usuario inicia una solicitud de viaje.        | `<<include>>` con **Calcular Tarifa**<br>`<<include>>` con **Enviar Solicitud a Conductores** |
+| **Calificar Conductor** | El usuario califica al conductor después del viaje. | No tiene relaciones `<<include>>` o `<<extend>>`                                            |
+| **Pagar Viaje**         | El usuario realiza el pago al finalizar el viaje. | `<<include>>` con **Confirmar Pago**<br>`<<extend>>` con **Generar Recibo**                   |
 
 ### Conductores
-- **Aceptar Viaje**  
-  El conductor recibe una solicitud de viaje y la acepta.  
-  - **Relaciones**:  
-    - `<<include>>` con **Confirmar Viaje al Usuario**: Aceptar el viaje incluye confirmar al usuario que el viaje ha sido aceptado.
 
-- **Cancelar Viaje**  
-  El conductor decide cancelar un viaje previamente aceptado.  
-  - **Relaciones**:  
-    - `<<extend>>` con **Aceptar Viaje**: La cancelación es una extensión de lo que podría suceder después de aceptar un viaje.
+| Caso de Uso            | Descripción                                        | Relaciones                                                                                   |
+|------------------------|----------------------------------------------------|----------------------------------------------------------------------------------------------|
+| **Aceptar Viaje**       | El conductor recibe y acepta una solicitud de viaje. | `<<include>>` con **Confirmar Viaje al Usuario**                                             |
+| **Cancelar Viaje**      | El conductor cancela un viaje previamente aceptado. | `<<extend>>` con **Aceptar Viaje**                                                            |
 
 ### Asistentes
-- **Gestionar Registros**  
-  El asistente gestiona y actualiza los registros de usuarios y conductores.  
-  - **Relaciones**:  
-    - `<<include>>` con **Revisar Documentos**: Gestionar registros incluye la revisión de los documentos.
 
-- **Revisar Documentos**  
-  El asistente revisa los documentos de los usuarios y conductores.  
-  - **Relaciones**:  
-    - Es un caso de uso individual, por lo que no lleva relaciones `<<include>>` o `<<extend>>`.
-
-- **Asistir a Conductores y Usuarios**  
-  El asistente proporciona ayuda o soporte a conductores y usuarios.  
-  - **Relaciones**:  
-    - `<<include>>` con **Gestionar Registros**: Asistir a conductores y usuarios incluye la gestión de registros y documentación.
+| Caso de Uso                | Descripción                                                | Relaciones                                                        |
+|----------------------------|------------------------------------------------------------|-------------------------------------------------------------------|
+| **Gestionar Registros**     | El asistente gestiona y actualiza los registros.           | `<<include>>` con **Revisar Documentos**                          |
+| **Revisar Documentos**      | El asistente revisa los documentos de usuarios y conductores. | No tiene relaciones `<<include>>` o `<<extend>>`                  |
+| **Asistir a Conductores y Usuarios** | El asistente proporciona ayuda a conductores y usuarios. | `<<include>>` con **Gestionar Registros**                         |
 
 ### Administrador
-- **Manejar Problemas de Seguridad**  
-  El administrador interviene en situaciones que involucran la seguridad del sistema.  
-  - **Relaciones**:  
-    - `<<include>>` con **Bloquear Usuario o Conductor**: Manejar problemas de seguridad puede incluir bloquear a un usuario o conductor.
-    - `<<extend>>` con **Generar Reporte de Incidente**: Generar un reporte de incidente es una extensión que puede seguir después de manejar un problema de seguridad.
+
+| Caso de Uso                 | Descripción                                                         | Relaciones                                                                                  |
+|-----------------------------|---------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| **Manejar Problemas de Seguridad** | El administrador interviene en problemas de seguridad del sistema. | `<<include>>` con **Bloquear Usuario o Conductor**<br>`<<extend>>` con **Generar Reporte de Incidente** |
 
 ## Descomposición de Casos de Uso
 
 ### Solicitar Viaje
-1. **Usuario selecciona punto de partida y destino**  
-   Este es el primer paso del proceso de solicitar un viaje.  
-   - **Relaciones**: No lleva ninguna relación `<<include>>` o `<<extend>>` porque es una actividad básica del caso de uso principal.
 
-2. **Calcular Tarifa**  
-   El sistema calcula la tarifa del viaje basado en el punto de partida y destino seleccionados.  
-   - **Relaciones**:  
-     - `<<include>>` con **Solicitar Viaje**: Calcular la tarifa es una parte integral de solicitar un viaje.
-
-3. **Enviar Solicitud a Conductores**  
-   La solicitud se envía a los conductores disponibles para que la acepten.  
-   - **Relaciones**:  
-     - `<<include>>` con **Solicitar Viaje**: Enviar la solicitud a los conductores es parte necesaria del proceso de solicitud.
+| Secuencia                     | Descripción                                                                 | Relaciones                                    |
+|-------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------|
+| **1. Usuario selecciona punto de partida y destino** | Primer paso del proceso de solicitar un viaje.                                     | No tiene relaciones `<<include>>` o `<<extend>>` |
+| **2. Calcular Tarifa**         | El sistema calcula la tarifa del viaje basado en los puntos seleccionados.  | `<<include>>` con **Solicitar Viaje**         |
+| **3. Enviar Solicitud a Conductores** | La solicitud se envía a los conductores disponibles.                             | `<<include>>` con **Solicitar Viaje**         |
 
 ### Aceptar Viaje
-1. **Conductor recibe notificación**  
-   El conductor recibe una notificación de una nueva solicitud de viaje.  
-   - **Relaciones**:  
-     - `<<include>>` con **Aceptar Viaje**: Recibir la notificación es un paso necesario para aceptar el viaje.
 
-2. **Conductor acepta o rechaza el viaje**  
-   El conductor decide si acepta o rechaza la solicitud.  
-   - **Relaciones**: No lleva ninguna relación `<<include>>` o `<<extend>>` porque es la acción principal del caso de uso.
+| Secuencia                     | Descripción                                                    | Relaciones                                    |
+|-------------------------------|----------------------------------------------------------------|-----------------------------------------------|
+| **1. Conductor recibe notificación** | El conductor recibe una notificación de una nueva solicitud de viaje.         | `<<include>>` con **Aceptar Viaje**           |
+| **2. Conductor acepta o rechaza el viaje** | El conductor decide si acepta o rechaza la solicitud.                        | No tiene relaciones `<<include>>` o `<<extend>>` |
+| **3. Confirmar Viaje al Usuario** | El sistema confirma al usuario que su viaje ha sido aceptado.                     | `<<include>>` con **Aceptar Viaje**           |
 
-3. **Confirmar Viaje al Usuario**  
-   El sistema confirma al usuario que su viaje ha sido aceptado.  
-   - **Relaciones**:  
-     - `<<include>>` con **Aceptar Viaje**: Confirmar al usuario es parte necesaria del proceso de aceptar el viaje.
+## Explicación de Relaciones `<<include>>` y `<<extend>>`
 
+- **`<<include>>`**: Se usa cuando un caso de uso obliga a la ejecución de otro caso de uso. El comportamiento del caso de uso principal depende de la ejecución del caso incluido. Ejemplo: **Solicitar Viaje** incluye **Calcular Tarifa**.
 
+- **`<<extend>>`**: Se usa cuando un caso de uso opcionalmente amplía el comportamiento de otro caso de uso. No es necesario para el funcionamiento principal, pero se agrega en ciertos contextos. Ejemplo: **Pagar Viaje** extiende **Generar Recibo**.
 
 ## 5. Matrices de Trazabilidad
 
