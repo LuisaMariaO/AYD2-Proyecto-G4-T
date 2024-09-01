@@ -12,6 +12,41 @@ Laboratorio de analisis y diseño 2
 | Luis Manuel Chay Marroquin  | 202000343  |
 | Cristian Alessander Blanco Gonzalez  | 202000173  |
 | Brayan Alexander Mejia Barrientos  |  201900576   |  
+
+
+## Índice
+
+1. [Antecedentes](#1-antecedentes)
+2. [Core del Negocio](#2-core-del-negocio)
+   - [Descripción](#a-descripción)
+   - [Diagrama de CDU de Alto Nivel y su Primera Descomposición](#b-diagrama-de-cdu-de-alto-nivel-y-su-primera-descomposición)
+3. [Lista de Requerimientos Funcionales Generales](#3-lista-de-requerimientos-funcionales-generales)
+4. [Diagrama de CDU Expandidos](#4-diagrama-de-cdu-expandidos)
+5. [Matrices de Trazabilidad](#5-matrices-de-trazabilidad)
+   - [Stakeholders vs Requerimientos](#a-stakeholders-vs-requerimientos)
+   - [Stakeholders vs CDU](#b-stakeholders-vs-cdu)
+   - [Requerimiento vs CDU](#c-requerimiento-vs-cdu)
+6. [Diagrama de Despliegue de la Arquitectura](#6-diagrama-de-despliegue-de-la-arquitectura)
+7. [Selección del o los Estilos Arquitectónicos](#7-selección-del-o-los-estilos-arquitectónicos)
+8. [Diagrama de Implementación (Despliegue y Componentes)](#8-diagrama-de-implementación-despliegue-y-componentes)
+9. [Diagrama Entidad-Relación](#9-diagrama-entidad-relación)
+10. [Prototipos de Interfaces](#10-prototipos-de-interfaces)
+11. [Patrones de Diseño](#11-patrones-de-diseño)
+12. [Tablero Kanban](#12-tablero-kanban)
+
+
+## 1. Antecedentes
+
+El proyecto de la aplicación QNave surge a partir de los desafíos que enfrentó una empresa de transporte privado en Guatemala, que inició sus operaciones en el año 2020. Inicialmente, la empresa operaba coordinando viajes mediante llamadas telefónicas entre los usuarios y los conductores. Sin embargo, este modelo operativo pronto encontró obstáculos significativos debido a la pandemia global y al creciente problema de inseguridad en el país.
+
+Uno de los principales desafíos fue el aumento de la delincuencia organizada, que afectaba tanto a conductores como a usuarios. La situación se agravó hasta el punto en que los incidentes de robos, fraudes y amenazas se volvieron comunes, lo que generó una creciente sensación de inseguridad entre los conductores. Como resultado, muchos de ellos optaron por dejar la empresa en busca de empleos más seguros, y los usuarios comenzaron a migrar hacia competidores que ofrecían mayores garantías de seguridad.
+
+Reconociendo la creciente insatisfacción y los riesgos a los que se enfrentaban tanto usuarios como empleados, el CEO de QNave decidió modernizar las operaciones de la empresa. El primer paso hacia este objetivo fue contratar a un programador freelance para desarrollar una solución tecnológica que mejorara la eficiencia y seguridad del servicio. Sin embargo, a pesar de los esfuerzos del programador, la solución propuesta carecía de claridad en su documentación, lo que dejó a la gerencia de la empresa con dudas sobre su viabilidad y escalabilidad a largo plazo.
+
+Debido a estas preocupaciones, la gerencia de QNave decidió buscar una segunda opinión de un equipo profesional (incluyendo a ti y a tu grupo) para obtener una perspectiva más amplia y estratégica. El objetivo es abordar los desafíos actuales, optimizar los costos operativos y posicionar a QNave como líder en el mercado de transporte privado en Guatemala.
+
+Este proyecto tiene como finalidad crear un marco de arquitectura de software robusto que asegure la adaptabilidad del sistema a futuros cambios, con un enfoque en mejorar la seguridad, escalabilidad y sostenibilidad financiera.
+
 ## 2. Core del Negocio
 
 ### a. Descripción
@@ -155,6 +190,23 @@ Esta matriz muestra qué casos de uso cubren cada requerimiento del sistema, ase
 | Interacción y Calificación       |                 |             | X                    |               |                |                      |                    |                                  |                              |
 | Gestión de Pagos                 |                 | X           |                      |               |                |                      |                    |                                  |                              |
 | Reportes y Estadísticas          |                 |             |                      |               |                |                      |                    |                                  | X                            |
+
+## 7. Selección del o los Estilos Arquitectónicos
+
+Se eligió la arquitectura de tres niveles para el proyecto por las siguientes razones:
+
+1. **Separación de Responsabilidades**: La arquitectura de tres niveles divide la aplicación en tres capas distintas: la capa de presentación (cliente), la capa de lógica de negocio (servidor de aplicaciones), y la capa de datos (base de datos). Esta separación permite que cada capa se enfoque en su propia función, lo que facilita el mantenimiento y la escalabilidad del sistema. Por ejemplo, el cliente maneja la interfaz de usuario y la interacción, mientras que el servidor de aplicaciones gestiona la lógica del negocio y la base de datos se encarga del almacenamiento y recuperación de datos.
+
+2. **Escalabilidad**: Al separar la lógica de negocio y la base de datos del cliente, es más fácil escalar cada capa de manera independiente. Si se necesita manejar más solicitudes, se puede escalar horizontalmente el servidor de aplicaciones sin necesidad de modificar el cliente o la base de datos. 
+
+3. **Mantenimiento y Flexibilidad**: Al tener capas separadas, es más sencillo actualizar o modificar una capa sin afectar las otras. Por ejemplo, si se decide cambiar la tecnología de la base de datos o se necesita agregar una nueva funcionalidad al servidor de aplicaciones, se pueden hacer estos cambios sin afectar directamente al cliente. 
+
+4. **Seguridad**: En esta arquitectura, los datos sensibles y la lógica de negocio se manejan en el servidor, no en el cliente. Esto reduce el riesgo de que usuarios malintencionados accedan a partes críticas del sistema.
+
+5. **Modularidad**: La modularidad de esta arquitectura permite a los desarrolladores trabajar de manera independiente en diferentes capas. Por ejemplo, un equipo puede estar desarrollando la interfaz de usuario mientras otro se enfoca en la lógica de negocio.
+
+6. **Mejora en el Rendimiento**: Al gestionar las tareas intensivas en el servidor de aplicaciones, como el acceso a la base de datos o el envío de correos electrónicos, el cliente puede mantenerse ligero y responder rápidamente a las acciones del usuario. 
+
 ## 8. Diagrama de Despliegue de la Arquitectura
 
 Este diagrama ilustra la distribución física de los componentes del sistema en la infraestructura de hardware. En el caso de Qnave, se podría representar así:
