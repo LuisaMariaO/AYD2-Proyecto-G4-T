@@ -174,3 +174,112 @@ Este diagrama ilustra la distribución física de los componentes del sistema en
 
 Este diagrama ayuda a visualizar cómo se distribuyen los componentes del sistema y cómo se comunican entre sí, asegurando una correcta implementación y operación del sistema.
 
+## 4. Diagrama de CDU expandidos
+## Caso de Uso: Manejar Problemas de Seguridad
+
+| **Campo**                   | **Descripción**                                                                 |
+|-----------------------------|---------------------------------------------------------------------------------|
+| **Nombre**                  | Manejar Problemas de Seguridad                                                    |
+| **Actores**                 | Administrador                                                                    |
+| **Propósito**               | Intervenir en problemas de seguridad del sistema.                                |
+| **Tipo**                    | Principal                                                                        |
+| **Descripción**             | El administrador maneja y resuelve problemas de seguridad que ocurren en el sistema. |
+| **Curso Normal de Eventos** | 1. Identificar un problema de seguridad.<br>2. Evaluar el problema.<br>3. Intervenir y aplicar solución.<br>4. Notificar a los usuarios afectados si es necesario. |
+| **Eventos Alternos**        | 1. Si el problema es crítico, generar un reporte de incidente.<br>2. Bloquear usuarios o conductores si es necesario. |
+
+## Caso de Uso: Asistir a Conductores y Usuarios
+
+| **Campo**                   | **Descripción**                                                                 |
+|-----------------------------|---------------------------------------------------------------------------------|
+| **Nombre**                  | Asistir a Conductores y Usuarios                                                 |
+| **Actores**                 | Asistente                                                                       |
+| **Propósito**               | Proporcionar ayuda a conductores y usuarios.                                      |
+| **Tipo**                    | Principal                                                                        |
+| **Descripción**             | El asistente brinda soporte y ayuda a conductores y usuarios en diversas situaciones. |
+| **Curso Normal de Eventos** | 1. Recibir solicitud de asistencia.<br>2. Evaluar la solicitud.<br>3. Proporcionar la asistencia requerida.<br>4. Confirmar que el problema ha sido resuelto. |
+| **Eventos Alternos**        | 1. Si el asistente no puede resolver el problema, escalar a un superior.          |
+
+## Caso de Uso: Gestionar Registros
+
+| **Campo**                   | **Descripción**                                                                 |
+|-----------------------------|---------------------------------------------------------------------------------|
+| **Nombre**                  | Gestionar Registros                                                               |
+| **Actores**                 | Asistente                                                                       |
+| **Propósito**               | Gestionar y actualizar los registros del sistema.                                |
+| **Tipo**                    | Principal                                                                        |
+| **Descripción**             | El asistente actualiza y gestiona la información de registros en el sistema.      |
+| **Curso Normal de Eventos** | 1. Acceder a los registros.<br>2. Realizar actualizaciones necesarias.<br>3. Verificar que los cambios se han aplicado correctamente.<br>4. Documentar las modificaciones realizadas. |
+| **Eventos Alternos**        | 1. Si hay errores en los registros, corregirlos antes de proceder.                |
+
+## Caso de Uso: Revisar Documentos
+
+| **Campo**                   | **Descripción**                                                                 |
+|-----------------------------|---------------------------------------------------------------------------------|
+| **Nombre**                  | Revisar Documentos                                                               |
+| **Actores**                 | Asistente                                                                       |
+| **Propósito**               | Revisar los documentos de usuarios y conductores.                                |
+| **Tipo**                    | Principal                                                                        |
+| **Descripción**             | El asistente verifica la validez y completitud de los documentos proporcionados. |
+| **Curso Normal de Eventos** | 1. Recibir los documentos.<br>2. Revisar los documentos.<br>3. Validar la información.<br>4. Aprobar o solicitar correcciones. |
+| **Eventos Alternos**        | 1. Solicitar documentos adicionales si los originales están incompletos.         |
+
+## Caso de Uso: Aceptar Viaje
+
+| **Campo**                   | **Descripción**                                                                 |
+|-----------------------------|---------------------------------------------------------------------------------|
+| **Nombre**                  | Aceptar Viaje                                                                     |
+| **Actores**                 | Conductor                                                                        |
+| **Propósito**               | Aceptar una solicitud de viaje recibida del sistema.                             |
+| **Tipo**                    | Principal                                                                        |
+| **Descripción**             | El conductor recibe y acepta una solicitud de viaje.                              |
+| **Curso Normal de Eventos** | 1. Recibir notificación de la solicitud.<br>2. Revisar los detalles del viaje.<br>3. Aceptar o rechazar la solicitud.<br>4. Confirmar la aceptación al usuario. |
+| **Eventos Alternos**        | 1. Cancelar el viaje si el conductor no puede aceptar la solicitud.              |
+
+## Caso de Uso: Cancelar Viaje
+
+| **Campo**                   | **Descripción**                                                                 |
+|-----------------------------|---------------------------------------------------------------------------------|
+| **Nombre**                  | Cancelar Viaje                                                                    |
+| **Actores**                 | Conductor                                                                        |
+| **Propósito**               | Cancelar un viaje previamente aceptado.                                           |
+| **Tipo**                    | Alternativo                                                                       |
+| **Descripción**             | El conductor cancela un viaje que había aceptado anteriormente.                   |
+| **Curso Normal de Eventos** | 1. Seleccionar el viaje a cancelar.<br>2. Confirmar la cancelación.<br>3. Notificar al usuario. |
+| **Eventos Alternos**        | 1. Si el viaje ya está en progreso, coordinar con el usuario para una solución alternativa. |
+
+## Caso de Uso: Solicitar Viaje
+
+| **Campo**                   | **Descripción**                                                                 |
+|-----------------------------|---------------------------------------------------------------------------------|
+| **Nombre**                  | Solicitar Viaje                                                                   |
+| **Actores**                 | Usuario                                                                          |
+| **Propósito**               | Iniciar una solicitud de viaje en el sistema.                                    |
+| **Tipo**                    | Principal                                                                        |
+| **Descripción**             | El usuario solicita un viaje especificando el punto de partida y destino.         |
+| **Curso Normal de Eventos** | 1. Seleccionar punto de partida y destino.<br>2. Calcular tarifa.<br>3. Enviar solicitud a conductores.<br>4. Confirmar solicitud. |
+| **Eventos Alternos**        | 1. Si no hay conductores disponibles, notificar al usuario y ofrecer alternativas. |
+
+## Caso de Uso: Calificar Conductor
+
+| **Campo**                   | **Descripción**                                                                 |
+|-----------------------------|---------------------------------------------------------------------------------|
+| **Nombre**                  | Calificar Conductor                                                               |
+| **Actores**                 | Usuario                                                                          |
+| **Propósito**               | Evaluar y calificar al conductor después de finalizar el viaje.                  |
+| **Tipo**                    | Principal                                                                        |
+| **Descripción**             | El usuario califica al conductor basado en su experiencia durante el viaje.      |
+| **Curso Normal de Eventos** | 1. Completar el viaje.<br>2. Acceder a la opción de calificación.<br>3. Ingresar la calificación y comentarios.<br>4. Enviar la calificación. |
+| **Eventos Alternos**        | 1. Si el usuario no califica inmediatamente, permitir la calificación en una fecha posterior. |
+
+## Caso de Uso: Pagar Viaje
+
+| **Campo**                   | **Descripción**                                                                 |
+|-----------------------------|---------------------------------------------------------------------------------|
+| **Nombre**                  | Pagar Viaje                                                                      |
+| **Actores**                 | Usuario                                                                          |
+| **Propósito**               | Realizar el pago del viaje una vez finalizado.                                   |
+| **Tipo**                    | Principal                                                                        |
+| **Descripción**             | El usuario realiza el pago por el viaje y el sistema confirma la transacción.    |
+| **Curso Normal de Eventos** | 1. Finalizar el viaje.<br>2. Ingresar detalles de pago.<br>3. Confirmar el pago.<br>4. Generar recibo si es necesario. |
+| **Eventos Alternos**        | 1. Si hay un problema con el pago, ofrecer opciones de resolución o reintento.   |
+
