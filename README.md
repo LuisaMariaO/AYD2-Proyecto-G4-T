@@ -43,8 +43,8 @@ Modernizar las operaciones a través de una aplicación que mejore la seguridad 
 
 ## b. Diagrama de CDU de Alto Nivel y su Primera Descomposición (CDU de Alto Nivel)
 
-A continuaicon se muestra una imagen del diagrama de casos de uso extendido.
-![Diagrama CDU ](./Imagenes/Casos de uso Fase 1.drawio)  
+A continuaicon se muestra una imagen del diagrama de casos de uso de alto nivel y su descomposicion.
+![Diagrama CDU ](./Imagenes/CasosDeUsoAltoNivel.png)  
 De no ser posible la visualizacion correcta abra el siguiente link:  
 [Diagrama de casos de uso expandido (CDU)](https://drive.google.com/file/d/1C2ZjXQ7WkfcIYpbFYBW3_Md_Gb1_05qC/view?usp=sharing)  
 
