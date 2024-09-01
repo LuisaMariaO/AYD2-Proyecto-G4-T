@@ -139,37 +139,53 @@ De no ser posible la visualizacion correcta abra el siguiente link:
 [Diagrama de casos de uso expandido (CDU)](https://drive.google.com/file/d/1C2ZjXQ7WkfcIYpbFYBW3_Md_Gb1_05qC/view?usp=sharing)  
 
 ## 5. Matrices de Trazabilidad
-Las matrices de trazabilidad ayudan a asegurar que todos los requerimientos están cubiertos por los elementos de diseño y los stakeholders están correctamente identificados. Aquí se detallan las matrices:
 
-### a. Stakeholders vs Requerimientos
-Objetivo: Asegurar que los requerimientos del sistema están alineados con las necesidades de todos los stakeholders.
+### a. Matriz de Stakeholders vs Requerimientos
 
-| Requerimiento             | Stakeholder(s)        |
-|---------------------------|-----------------------|
-| Registro de usuario        | Usuario, Administrador|
-| Calificación de conductor  | Usuario, Conductor    |
-| Gestión de conductores     | Administrador, Asistentes |
-| Reporte de problemas       | Usuario, Conductor    |
+Esta matriz vincula cada stakeholder con los requerimientos del sistema para asegurar que las necesidades de todos los actores están cubiertas.
 
-### b. Stakeholders vs CDU
-Objetivo: Asegurar que todos los procesos en el Diagrama de CDU están alineados con las necesidades y roles de los stakeholders.
+| **Stakeholder** | **Requerimiento 1** | **Requerimiento 2** | **Requerimiento 3** | ... |
+|-----------------|----------------------|----------------------|----------------------|-----|
+| Usuario         | X                    | X                    | X                    | ... |
+| Conductor       | X                    | X                    |                      | ... |
+| Asistente       | X                    |                      | X                    | ... |
+| Administrador    | X                    | X                    |                      | ... |
 
-| CDU Proceso                | Stakeholder(s)        |
-|----------------------------|-----------------------|
-| Solicitar Viaje             | Usuario               |
-| Aceptar Viaje               | Conductor             |
-| Gestión de Registros        | Administrador, Asistentes |
-| Reporte de Problemas        | Usuario, Conductor    |
+**Ejemplo:**
 
-### c. Requerimiento vs CDU
-Objetivo: Verificar que cada requerimiento se cubre adecuadamente en el Diagrama de CDU.
+| **Stakeholder** | **Solicitar Viaje** | **Pagar Viaje** | **Calificar Conductor** | **Aceptar Viaje** | **Cancelar Viaje** | **Gestionar Registros** | **Revisar Documentos** | **Asistir a Conductores y Usuarios** | **Manejar Problemas de Seguridad** |
+|-----------------|----------------------|------------------|--------------------------|-------------------|---------------------|-------------------------|-------------------------|-------------------------------------|-----------------------------------|
+| Usuario         | X                    | X                | X                        |                   |                     |                         |                         |                                     |                                   |
+| Conductor       |                      |                  |                          | X                 | X                   |                         |                         |                                     |                                   |
+| Asistente       |                      |                  |                          |                   |                     | X                       | X                       | X                                   |                                   |
+| Administrador    |                      |                  |                          |                   |                     |                         |                         |                                     | X                                 |
 
-| Requerimiento             | CDU Proceso            |
-|---------------------------|------------------------|
-| Registro de usuario        | Solicitar Viaje, Gestión de Registros |
-| Calificación de conductor  | Finalizar Viaje        |
-| Gestión de conductores     | Aceptar Viaje, Modificar Información |
-| Reporte de problemas       | Reporte de Problemas   |
+### b. Matriz de Stakeholders vs CDU
+
+Esta matriz vincula cada stakeholder con los casos de uso del sistema para asegurarse de que cada actor interactúe con las funcionalidades necesarias.
+
+| **Stakeholder** | **Solicitar Viaje** | **Pagar Viaje** | **Calificar Conductor** | **Aceptar Viaje** | **Cancelar Viaje** | **Gestionar Registros** | **Revisar Documentos** | **Asistir a Conductores y Usuarios** | **Manejar Problemas de Seguridad** |
+|-----------------|----------------------|------------------|--------------------------|-------------------|---------------------|-------------------------|-------------------------|-------------------------------------|-----------------------------------|
+| Usuario         | X                    | X                | X                        |                   |                     |                         |                         |                                     |                                   |
+| Conductor       |                      |                  |                          | X                 | X                   |                         |                         |                                     |                                   |
+| Asistente       |                      |                  |                          |                   |                     | X                       | X                       | X                                   |                                   |
+| Administrador    |                      |                  |                          |                   |                     |                         |                         |                                     | X                                 |
+
+### c. Matriz de Requerimiento vs CDU
+
+Esta matriz muestra qué casos de uso cubren cada requerimiento del sistema, asegurando que cada requerimiento esté asociado con los casos de uso correspondientes.
+
+| **Requerimiento**       | **Solicitar Viaje** | **Pagar Viaje** | **Calificar Conductor** | **Aceptar Viaje** | **Cancelar Viaje** | **Gestionar Registros** | **Revisar Documentos** | **Asistir a Conductores y Usuarios** | **Manejar Problemas de Seguridad** |
+|-------------------------|----------------------|------------------|--------------------------|-------------------|---------------------|-------------------------|-------------------------|-------------------------------------|-----------------------------------|
+| Solicitar Viaje         | X                    |                  |                          |                   |                     |                         |                         |                                     |                                   |
+| Pagar Viaje             |                      | X                |                          |                   |                     |                         |                         |                                     |                                   |
+| Calificar Conductor     |                      |                  | X                        |                   |                     |                         |                         |                                     |                                   |
+| Aceptar Viaje           |                      |                  |                          | X                 |                     |                         |                         |                                     |                                   |
+| Cancelar Viaje          |                      |                  |                          | X                 | X                   |                         |                         |                                     |                                   |
+| Gestionar Registros     |                      |                  |                          |                   |                     | X                       | X                       | X                                   |                                   |
+| Revisar Documentos      |                      |                  |                          |                   |                     | X                       | X                       |                                     |                                   |
+| Asistir a Conductores y Usuarios |                  |                  |                          |                   |                     | X                       |                         | X                                   |                                   |
+| Manejar Problemas de Seguridad |                  |                  |                          |                   |                     |                         |                         |                                     | X                                 |
 
 ## 8. Diagrama de Despliegue de la Arquitectura
 
