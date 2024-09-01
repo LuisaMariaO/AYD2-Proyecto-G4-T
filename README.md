@@ -117,13 +117,16 @@ Si no es posible la visualización correcta, puedes acceder al siguiente enlace:
 ### a. Matriz de Stakeholders vs Requerimientos
 
 Esta matriz vincula cada stakeholder con los requerimientos del sistema para asegurar que las necesidades de todos los actores están cubiertas.
+## a. Matriz de Stakeholders vs Requerimientos
 
-| **Stakeholder** | **Solicitar Viaje** | **Pagar Viaje** | **Calificar Conductor** | **Aceptar Viaje** | **Cancelar Viaje** | **Gestionar Registros** | **Revisar Documentos** | **Asistir a Conductores y Usuarios** | **Manejar Problemas de Seguridad** |
-|-----------------|----------------------|------------------|--------------------------|-------------------|---------------------|-------------------------|-------------------------|-------------------------------------|-----------------------------------|
-| Usuario         | X                    | X                | X                        |                   |                     |                         |                         |                                     |                                   |
-| Conductor       |                      |                  |                          | X                 | X                   |                         |                         |                                     |                                   |
-| Asistente       |                      |                  |                          |                   |                     | X                       | X                       | X                                   |                                   |
-| Administrador    |                      |                  |                          |                   |                     |                         |                         |                                     | X                                 |
+| Stakeholder    | Registro de Usuario | Registro de Conductor | Registro de Asistente | Autenticación y Seguridad | Gestión de Viajes | Gestión de Información Personal | Interacción y Calificación | Gestión de Pagos | Reportes y Estadísticas |
+|----------------|----------------------|------------------------|------------------------|---------------------------|-------------------|-------------------------------|----------------------------|------------------|--------------------------|
+| Usuario        | X                    |                        |                        | X                         | X                 | X                             | X                          | X                |                          |
+| Conductor      |                      | X                      |                        | X                         | X                 | X                             | X                          | X                |                          |
+| Asistente      |                      |                        | X                      | X                         |                   | X                             |                            |                  |                          |
+| Administrador  |                      |                        |                        | X                         |                   |                               |                            |                  | X                        |
+
+
 
 ### b. Matriz de Stakeholders vs CDU
 
@@ -140,18 +143,18 @@ Esta matriz vincula cada stakeholder con los casos de uso del sistema para asegu
 
 Esta matriz muestra qué casos de uso cubren cada requerimiento del sistema, asegurando que cada requerimiento esté asociado con los casos de uso correspondientes.
 
-| **Requerimiento**       | **Solicitar Viaje** | **Pagar Viaje** | **Calificar Conductor** | **Aceptar Viaje** | **Cancelar Viaje** | **Gestionar Registros** | **Revisar Documentos** | **Asistir a Conductores y Usuarios** | **Manejar Problemas de Seguridad** |
-|-------------------------|----------------------|------------------|--------------------------|-------------------|---------------------|-------------------------|-------------------------|-------------------------------------|-----------------------------------|
-| Solicitar Viaje         | X                    |                  |                          |                   |                     |                         |                         |                                     |                                   |
-| Pagar Viaje             |                      | X                |                          |                   |                     |                         |                         |                                     |                                   |
-| Calificar Conductor     |                      |                  | X                        |                   |                     |                         |                         |                                     |                                   |
-| Aceptar Viaje           |                      |                  |                          | X                 |                     |                         |                         |                                     |                                   |
-| Cancelar Viaje          |                      |                  |                          | X                 | X                   |                         |                         |                                     |                                   |
-| Gestionar Registros     |                      |                  |                          |                   |                     | X                       | X                       | X                                   |                                   |
-| Revisar Documentos      |                      |                  |                          |                   |                     | X                       | X                       |                                     |                                   |
-| Asistir a Conductores y Usuarios |                  |                  |                          |                   |                     | X                       |                         | X                                   |                                   |
-| Manejar Problemas de Seguridad |                  |                  |                          |                   |                     |                         |                         |                                     | X                                 |
 
+| Requerimiento                    | Solicitar Viaje | Pagar Viaje | Calificar Conductor | Aceptar Viaje | Cancelar Viaje | Gestionar Registros | Revisar Documentos | Asistir a Conductores y Usuarios | Manejar Problemas de Seguridad |
+|----------------------------------|-----------------|-------------|----------------------|---------------|----------------|----------------------|--------------------|----------------------------------|------------------------------|
+| Registro de Usuario              |                 |             |                      |               |                |                      |                    |                                  |                              |
+| Registro de Conductor            |                 |             |                      |               |                |                      |                    |                                  |                              |
+| Registro de Asistente            |                 |             |                      |               |                |                      |                    |                                  |                              |
+| Autenticación y Seguridad        |                 |             |                      |               |                |                      |                    |                                  | X                            |
+| Gestión de Viajes                | X               | X           | X                    | X             | X              |                      |                    |                                  |                              |
+| Gestión de Información Personal  |                 |             |                      |               |                | X                    |                    |                                  |                              |
+| Interacción y Calificación       |                 |             | X                    |               |                |                      |                    |                                  |                              |
+| Gestión de Pagos                 |                 | X           |                      |               |                |                      |                    |                                  |                              |
+| Reportes y Estadísticas          |                 |             |                      |               |                |                      |                    |                                  | X                            |
 ## 8. Diagrama de Despliegue de la Arquitectura
 
 Este diagrama ilustra la distribución física de los componentes del sistema en la infraestructura de hardware. En el caso de Qnave, se podría representar así:
