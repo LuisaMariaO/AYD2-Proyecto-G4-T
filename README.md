@@ -144,15 +144,6 @@ De no ser posible la visualizacion correcta abra el siguiente link:
 
 Esta matriz vincula cada stakeholder con los requerimientos del sistema para asegurar que las necesidades de todos los actores están cubiertas.
 
-| **Stakeholder** | **Requerimiento 1** | **Requerimiento 2** | **Requerimiento 3** | ... |
-|-----------------|----------------------|----------------------|----------------------|-----|
-| Usuario         | X                    | X                    | X                    | ... |
-| Conductor       | X                    | X                    |                      | ... |
-| Asistente       | X                    |                      | X                    | ... |
-| Administrador    | X                    | X                    |                      | ... |
-
-**Ejemplo:**
-
 | **Stakeholder** | **Solicitar Viaje** | **Pagar Viaje** | **Calificar Conductor** | **Aceptar Viaje** | **Cancelar Viaje** | **Gestionar Registros** | **Revisar Documentos** | **Asistir a Conductores y Usuarios** | **Manejar Problemas de Seguridad** |
 |-----------------|----------------------|------------------|--------------------------|-------------------|---------------------|-------------------------|-------------------------|-------------------------------------|-----------------------------------|
 | Usuario         | X                    | X                | X                        |                   |                     |                         |                         |                                     |                                   |
