@@ -43,9 +43,10 @@ Modernizar las operaciones a través de una aplicación que mejore la seguridad 
 
 ## b. Diagrama de CDU de Alto Nivel y su Primera Descomposición (CDU de Alto Nivel)
 
-# Diagrama de Casos de Uso de Alto Nivel para Qnave
-
-Este diagrama representa los principales procesos del sistema y sus interacciones a un nivel general en el contexto de Qnave.
+A continuaicon se muestra una imagen del diagrama de casos de uso extendido.
+![Diagrama CDU ](./Imagenes/Casos de uso Fase 1.drawio)  
+De no ser posible la visualizacion correcta abra el siguiente link:  
+[Diagrama de casos de uso expandido (CDU)](https://drive.google.com/file/d/1C2ZjXQ7WkfcIYpbFYBW3_Md_Gb1_05qC/view?usp=sharing)  
 
 ## Actores y Casos de Uso
 
@@ -132,11 +133,7 @@ Este diagrama representa los principales procesos del sistema y sus interaccione
    - **Relaciones**:  
      - `<<include>>` con **Aceptar Viaje**: Confirmar al usuario es parte necesaria del proceso de aceptar el viaje.
 
-### Diagrama CDU extendido
-A continuaicon se muestra una imagen del diagrama de casos de uso extendido.
-![Diagrama CDU ](./Imagenes/Casos de uso Fase 1.drawio)  
-De no ser posible la visualizacion correcta abra el siguiente link:  
-[Diagrama de casos de uso expandido (CDU)](https://drive.google.com/file/d/1C2ZjXQ7WkfcIYpbFYBW3_Md_Gb1_05qC/view?usp=sharing)  
+
 
 ## 5. Matrices de Trazabilidad
 
