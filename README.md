@@ -19,7 +19,7 @@ Laboratorio de analisis y diseño 2
 1. [Antecedentes](#1-antecedentes)
 2. [Core del Negocio](#2-core-del-negocio)
    - [Descripción](#a-descripción)
-   - [Diagrama de CDU de Alto Nivel y su Primera Descomposición](#b-diagrama-de-cdu-de-alto-nivel-y-su-primera-descomposición)
+   - [Diagrama de CDU de Alto Nivel y su Primera Descomposición](#b-diagrama-de-cdu-de-alto-Nivel-y-su-primera-descomposición-(cdu-de-alto-nivel))
 3. [Lista de Requerimientos Funcionales Generales](#3-lista-de-requerimientos-funcionales-generales)
 4. [Diagrama de CDU Expandidos](#4-diagrama-de-cdu-expandidos)
 5. [Matrices de Trazabilidad](#5-matrices-de-trazabilidad)
@@ -549,18 +549,23 @@ Esta matriz vincula cada stakeholder con los casos de uso del sistema para asegu
 
 Esta matriz muestra qué casos de uso cubren cada requerimiento del sistema, asegurando que cada requerimiento esté asociado con los casos de uso correspondientes.
 
+# c. Matriz de Requerimiento vs Casos de Uso (CDU)
+Esta matriz muestra la relación entre los requerimientos y los casos de uso, asegurando que cada requerimiento esté cubierto por los casos de uso correspondientes.
 
-| Requerimiento                    | Solicitar Viaje | Pagar Viaje | Calificar Conductor | Aceptar Viaje | Cancelar Viaje | Gestionar Registros | Revisar Documentos | Asistir a Conductores y Usuarios | Manejar Problemas de Seguridad |
-|----------------------------------|-----------------|-------------|----------------------|---------------|----------------|----------------------|--------------------|----------------------------------|------------------------------|
-| Registro de Usuario              |                 |             |                      |               |                |                      |                    |                                  |                              |
-| Registro de Conductor            |                 |             |                      |               |                |                      |                    |                                  |                              |
-| Registro de Asistente            |                 |             |                      |               |                |                      |                    |                                  |                              |
-| Autenticación y Seguridad        |                 |             |                      |               |                |                      |                    |                                  | X                            |
-| Gestión de Viajes                | X               | X           | X                    | X             | X              |                      |                    |                                  |                              |
-| Gestión de Información Personal  |                 |             |                      |               |                | X                    |                    |                                  |                              |
-| Interacción y Calificación       |                 |             | X                    |               |                |                      |                    |                                  |                              |
-| Gestión de Pagos                 |                 | X           |                      |               |                |                      |                    |                                  |                              |
-| Reportes y Estadísticas          |                 |             |                      |               |                |                      |                    |                                  | X                            |
+| **Requerimiento**               | **Solicitar Viaje** | **Pagar Viaje** | **Calificar Conductor** | **Aceptar Viaje** | **Cancelar Viaje** | **Gestionar Registros** | **Revisar Documentos** | **Asistir a Conductores y Usuarios** | **Manejar Problemas de Seguridad** |
+|---------------------------------|--------------------|----------------|-------------------------|-------------------|--------------------|-------------------------|------------------------|------------------------------------|-----------------------------------|
+| **Registro de Usuario**          |                    |                |                         |                   |                    | X                       |                        |                                    |                                   |
+| **Registro de Conductor**        |                    |                |                         |                   |                    | X                       |                        |                                    |                                   |
+| **Registro de Asistente**        |                    |                |                         |                   |                    | X                       |                        |                                    |                                   |
+| **Autenticación y Seguridad**    |                    |                |                         |                   |                    |                         |                        |                                    | X                                 |
+| **Gestión de Viajes**            | X                  |                |                         | X                 | X                  |                         |                        |                                    |                                   |
+| **Gestión de Información Personal** |                    |                |                         |                   |                    |                         |                        | X                                  |                                   |
+| **Interacción y Calificación**   |                    |                | X                       |                   |                    |                         |                        |                                    |                                   |
+| **Gestión de Pagos**             |                    | X              |                         |                   |                    |                         |                        |                                    |                                   |
+| **Reportes y Estadísticas**      |                    |                |                         |                   |                    |                         |                        |                                    |                                   |
+
+## 6. Diagrama de despliegue de la arquitectura
+![Diagrama de despliegue](./Imagenes/comp&despliegue.png)
 
 ## 7. Selección del o los Estilos Arquitectónicos
 
@@ -788,3 +793,30 @@ La combinación de React, Node.js, Axios y MySQL ofrece una solución completa y
 #### **13.2. Vista de Baja de Asistentes**
 - **Descripción:** Vista utilizada por los administradores para dar de baja a asistentes, similar a la baja de conductores.
 - **Imagen:** ![Baja de asistentes](Imagenes/mockups/Qnave-Baja-de-asistente.png)
+
+## 11. Patrones de diseño
+### Patrón Singleton
+![Patrón Singleton](Imagenes/Singleton.drawio.png)
+ 
+Este patrón es utilizado para garantizar una sola instancia de la base de datos.
+
+
+### Patrón Proxy
+![Patrón Proxy](Imagenes/Proxy.drawio.png)
+ 
+Utilizado para proteger la instancia de la base de datos, logrando que el servidor de aplicaciones se conecte al proxy, el cual, a su vez, se conecta  a la instancia real de la base de datos, permitiendo pre-procesar las consultas antes de ejecutarlas.
+
+### Patrón Observer
+![Patrón Observer](Imagenes/Observer.drawio.png)
+ 
+Este patrón es utilizado para enviar notificaciones a los conductores cuando un usuario a solicitado un viaje, permitiéndoles aceptar o rechazar el viaje. El patrón observer permite a los conductores estar siempre suscritos a las solicitudes de viajes.
+
+### Patrón Command
+![Patrón Command](Imagenes/Command.drawio.png)
+ 
+Permite enmascarar el envío de correos de verificación, para poder personalizar el mensaje según el tipo de registro (asitente o conductor) y luego acceder al servicio de envíos de correo electrónico.
+
+## 12. Tablero Kanban
+[Tablero Kanban](https://luisamaria.atlassian.net/jira/software/projects/AYD2P/boards/3?atlOrigin=eyJpIjoiNjk2NzhmZTkyYzRkNDhjNmI2MTY2ZTBhODAxODM2MGMiLCJwIjoiaiJ9) 
+
+
