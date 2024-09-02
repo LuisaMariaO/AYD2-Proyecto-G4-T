@@ -147,84 +147,8 @@ Si no es posible la visualización correcta, puedes acceder al siguiente enlace:
 
 - **`<<extend>>`**: Se usa cuando un caso de uso opcionalmente amplía el comportamiento de otro caso de uso. No es necesario para el funcionamiento principal, pero se agrega en ciertos contextos. Ejemplo: **Pagar Viaje** extiende **Generar Recibo**.
 
-## 5. Matrices de Trazabilidad
-
-### a. Matriz de Stakeholders vs Requerimientos
-
-Esta matriz vincula cada stakeholder con los requerimientos del sistema para asegurar que las necesidades de todos los actores están cubiertas.
-## a. Matriz de Stakeholders vs Requerimientos
-
-| Stakeholder    | Registro de Usuario | Registro de Conductor | Registro de Asistente | Autenticación y Seguridad | Gestión de Viajes | Gestión de Información Personal | Interacción y Calificación | Gestión de Pagos | Reportes y Estadísticas |
-|----------------|----------------------|------------------------|------------------------|---------------------------|-------------------|-------------------------------|----------------------------|------------------|--------------------------|
-| Usuario        | X                    |                        |                        | X                         | X                 | X                             | X                          | X                |                          |
-| Conductor      |                      | X                      |                        | X                         | X                 | X                             | X                          | X                |                          |
-| Asistente      |                      |                        | X                      | X                         |                   | X                             |                            |                  |                          |
-| Administrador  |                      |                        |                        | X                         |                   |                               |                            |                  | X                        |
 
 
-
-### b. Matriz de Stakeholders vs CDU
-
-Esta matriz vincula cada stakeholder con los casos de uso del sistema para asegurarse de que cada actor interactúe con las funcionalidades necesarias.
-
-| **Stakeholder** | **Solicitar Viaje** | **Pagar Viaje** | **Calificar Conductor** | **Aceptar Viaje** | **Cancelar Viaje** | **Gestionar Registros** | **Revisar Documentos** | **Asistir a Conductores y Usuarios** | **Manejar Problemas de Seguridad** |
-|-----------------|----------------------|------------------|--------------------------|-------------------|---------------------|-------------------------|-------------------------|-------------------------------------|-----------------------------------|
-| Usuario         | X                    | X                | X                        |                   |                     |                         |                         |                                     |                                   |
-| Conductor       |                      |                  |                          | X                 | X                   |                         |                         |                                     |                                   |
-| Asistente       |                      |                  |                          |                   |                     | X                       | X                       | X                                   |                                   |
-| Administrador    |                      |                  |                          |                   |                     |                         |                         |                                     | X                                 |
-
-### c. Matriz de Requerimiento vs CDU
-
-Esta matriz muestra qué casos de uso cubren cada requerimiento del sistema, asegurando que cada requerimiento esté asociado con los casos de uso correspondientes.
-
-
-| Requerimiento                    | Solicitar Viaje | Pagar Viaje | Calificar Conductor | Aceptar Viaje | Cancelar Viaje | Gestionar Registros | Revisar Documentos | Asistir a Conductores y Usuarios | Manejar Problemas de Seguridad |
-|----------------------------------|-----------------|-------------|----------------------|---------------|----------------|----------------------|--------------------|----------------------------------|------------------------------|
-| Registro de Usuario              |                 |             |                      |               |                |                      |                    |                                  |                              |
-| Registro de Conductor            |                 |             |                      |               |                |                      |                    |                                  |                              |
-| Registro de Asistente            |                 |             |                      |               |                |                      |                    |                                  |                              |
-| Autenticación y Seguridad        |                 |             |                      |               |                |                      |                    |                                  | X                            |
-| Gestión de Viajes                | X               | X           | X                    | X             | X              |                      |                    |                                  |                              |
-| Gestión de Información Personal  |                 |             |                      |               |                | X                    |                    |                                  |                              |
-| Interacción y Calificación       |                 |             | X                    |               |                |                      |                    |                                  |                              |
-| Gestión de Pagos                 |                 | X           |                      |               |                |                      |                    |                                  |                              |
-| Reportes y Estadísticas          |                 |             |                      |               |                |                      |                    |                                  | X                            |
-
-## 7. Selección del o los Estilos Arquitectónicos
-
-Se eligió la arquitectura de tres niveles para el proyecto por las siguientes razones:
-
-1. **Separación de Responsabilidades**: La arquitectura de tres niveles divide la aplicación en tres capas distintas: la capa de presentación (cliente), la capa de lógica de negocio (servidor de aplicaciones), y la capa de datos (base de datos). Esta separación permite que cada capa se enfoque en su propia función, lo que facilita el mantenimiento y la escalabilidad del sistema. Por ejemplo, el cliente maneja la interfaz de usuario y la interacción, mientras que el servidor de aplicaciones gestiona la lógica del negocio y la base de datos se encarga del almacenamiento y recuperación de datos.
-
-2. **Escalabilidad**: Al separar la lógica de negocio y la base de datos del cliente, es más fácil escalar cada capa de manera independiente. Si se necesita manejar más solicitudes, se puede escalar horizontalmente el servidor de aplicaciones sin necesidad de modificar el cliente o la base de datos. 
-
-3. **Mantenimiento y Flexibilidad**: Al tener capas separadas, es más sencillo actualizar o modificar una capa sin afectar las otras. Por ejemplo, si se decide cambiar la tecnología de la base de datos o se necesita agregar una nueva funcionalidad al servidor de aplicaciones, se pueden hacer estos cambios sin afectar directamente al cliente. 
-
-4. **Seguridad**: En esta arquitectura, los datos sensibles y la lógica de negocio se manejan en el servidor, no en el cliente. Esto reduce el riesgo de que usuarios malintencionados accedan a partes críticas del sistema.
-
-5. **Modularidad**: La modularidad de esta arquitectura permite a los desarrolladores trabajar de manera independiente en diferentes capas. Por ejemplo, un equipo puede estar desarrollando la interfaz de usuario mientras otro se enfoca en la lógica de negocio.
-
-6. **Mejora en el Rendimiento**: Al gestionar las tareas intensivas en el servidor de aplicaciones, como el acceso a la base de datos o el envío de correos electrónicos, el cliente puede mantenerse ligero y responder rápidamente a las acciones del usuario. 
-
-## 8. Diagrama de Despliegue de la Arquitectura
-
-Este diagrama ilustra la distribución física de los componentes del sistema en la infraestructura de hardware. En el caso de Qnave, se podría representar así:
-
-### Componentes Principales:
-
-- **Servidor de Aplicación:** Hospeda la aplicación web y la lógica de negocio.
-- **Servidor de Base de Datos:** Almacena toda la información de usuarios, conductores, viajes, etc.
-- **Servidor de Correo Electrónico:** Envía notificaciones y confirmaciones por correo.
-- **Dispositivos de Usuario:** Smartphones, tablets y computadoras que los usuarios y conductores utilizan para interactuar con la aplicación.
-
-### Conexiones:
-
-- **Aplicación Web <-> Servidor de Base de Datos:** Comunicación para consultas y actualizaciones de datos.
-- **Aplicación Web <-> Servidor de Correo Electrónico:** Envío de notificaciones y confirmaciones.
-- **Usuarios/Conductores <-> Aplicación Web:** Interacción a través de interfaces de usuario.
-
-Este diagrama ayuda a visualizar cómo se distribuyen los componentes del sistema y cómo se comunican entre sí, asegurando una correcta implementación y operación del sistema.
 
 ## 4. Diagrama de CDU expandidos
 ## Caso de Uso: Manejar Problemas de Seguridad
@@ -335,3 +259,118 @@ Este diagrama ayuda a visualizar cómo se distribuyen los componentes del sistem
 | **Curso Normal de Eventos** | 1. Finalizar el viaje.<br>2. Ingresar detalles de pago.<br>3. Confirmar el pago.<br>4. Generar recibo si es necesario. |
 | **Eventos Alternos**        | 1. Si hay un problema con el pago, ofrecer opciones de resolución o reintento.   |
 
+
+## 5. Matrices de Trazabilidad
+
+### a. Matriz de Stakeholders vs Requerimientos
+
+Esta matriz vincula cada stakeholder con los requerimientos del sistema para asegurar que las necesidades de todos los actores están cubiertas.
+## a. Matriz de Stakeholders vs Requerimientos
+
+| Stakeholder    | Registro de Usuario | Registro de Conductor | Registro de Asistente | Autenticación y Seguridad | Gestión de Viajes | Gestión de Información Personal | Interacción y Calificación | Gestión de Pagos | Reportes y Estadísticas |
+|----------------|----------------------|------------------------|------------------------|---------------------------|-------------------|-------------------------------|----------------------------|------------------|--------------------------|
+| Usuario        | X                    |                        |                        | X                         | X                 | X                             | X                          | X                |                          |
+| Conductor      |                      | X                      |                        | X                         | X                 | X                             | X                          | X                |                          |
+| Asistente      |                      |                        | X                      | X                         |                   | X                             |                            |                  |                          |
+| Administrador  |                      |                        |                        | X                         |                   |                               |                            |                  | X                        |
+
+
+
+### b. Matriz de Stakeholders vs CDU
+
+Esta matriz vincula cada stakeholder con los casos de uso del sistema para asegurarse de que cada actor interactúe con las funcionalidades necesarias.
+
+| **Stakeholder** | **Solicitar Viaje** | **Pagar Viaje** | **Calificar Conductor** | **Aceptar Viaje** | **Cancelar Viaje** | **Gestionar Registros** | **Revisar Documentos** | **Asistir a Conductores y Usuarios** | **Manejar Problemas de Seguridad** |
+|-----------------|----------------------|------------------|--------------------------|-------------------|---------------------|-------------------------|-------------------------|-------------------------------------|-----------------------------------|
+| Usuario         | X                    | X                | X                        |                   |                     |                         |                         |                                     |                                   |
+| Conductor       |                      |                  |                          | X                 | X                   |                         |                         |                                     |                                   |
+| Asistente       |                      |                  |                          |                   |                     | X                       | X                       | X                                   |                                   |
+| Administrador    |                      |                  |                          |                   |                     |                         |                         |                                     | X                                 |
+
+### c. Matriz de Requerimiento vs CDU
+
+Esta matriz muestra qué casos de uso cubren cada requerimiento del sistema, asegurando que cada requerimiento esté asociado con los casos de uso correspondientes.
+
+
+| Requerimiento                    | Solicitar Viaje | Pagar Viaje | Calificar Conductor | Aceptar Viaje | Cancelar Viaje | Gestionar Registros | Revisar Documentos | Asistir a Conductores y Usuarios | Manejar Problemas de Seguridad |
+|----------------------------------|-----------------|-------------|----------------------|---------------|----------------|----------------------|--------------------|----------------------------------|------------------------------|
+| Registro de Usuario              |                 |             |                      |               |                |                      |                    |                                  |                              |
+| Registro de Conductor            |                 |             |                      |               |                |                      |                    |                                  |                              |
+| Registro de Asistente            |                 |             |                      |               |                |                      |                    |                                  |                              |
+| Autenticación y Seguridad        |                 |             |                      |               |                |                      |                    |                                  | X                            |
+| Gestión de Viajes                | X               | X           | X                    | X             | X              |                      |                    |                                  |                              |
+| Gestión de Información Personal  |                 |             |                      |               |                | X                    |                    |                                  |                              |
+| Interacción y Calificación       |                 |             | X                    |               |                |                      |                    |                                  |                              |
+| Gestión de Pagos                 |                 | X           |                      |               |                |                      |                    |                                  |                              |
+| Reportes y Estadísticas          |                 |             |                      |               |                |                      |                    |                                  | X                            |
+
+## 7. Selección del o los Estilos Arquitectónicos
+
+Se eligió la arquitectura de tres niveles para el proyecto por las siguientes razones:
+
+1. **Separación de Responsabilidades**: La arquitectura de tres niveles divide la aplicación en tres capas distintas: la capa de presentación (cliente), la capa de lógica de negocio (servidor de aplicaciones), y la capa de datos (base de datos). Esta separación permite que cada capa se enfoque en su propia función, lo que facilita el mantenimiento y la escalabilidad del sistema. Por ejemplo, el cliente maneja la interfaz de usuario y la interacción, mientras que el servidor de aplicaciones gestiona la lógica del negocio y la base de datos se encarga del almacenamiento y recuperación de datos.
+
+2. **Escalabilidad**: Al separar la lógica de negocio y la base de datos del cliente, es más fácil escalar cada capa de manera independiente. Si se necesita manejar más solicitudes, se puede escalar horizontalmente el servidor de aplicaciones sin necesidad de modificar el cliente o la base de datos. 
+
+3. **Mantenimiento y Flexibilidad**: Al tener capas separadas, es más sencillo actualizar o modificar una capa sin afectar las otras. Por ejemplo, si se decide cambiar la tecnología de la base de datos o se necesita agregar una nueva funcionalidad al servidor de aplicaciones, se pueden hacer estos cambios sin afectar directamente al cliente. 
+
+4. **Seguridad**: En esta arquitectura, los datos sensibles y la lógica de negocio se manejan en el servidor, no en el cliente. Esto reduce el riesgo de que usuarios malintencionados accedan a partes críticas del sistema.
+
+5. **Modularidad**: La modularidad de esta arquitectura permite a los desarrolladores trabajar de manera independiente en diferentes capas. Por ejemplo, un equipo puede estar desarrollando la interfaz de usuario mientras otro se enfoca en la lógica de negocio.
+
+6. **Mejora en el Rendimiento**: Al gestionar las tareas intensivas en el servidor de aplicaciones, como el acceso a la base de datos o el envío de correos electrónicos, el cliente puede mantenerse ligero y responder rápidamente a las acciones del usuario. 
+
+## 8. Diagrama de Despliegue de la Arquitectura
+
+### Diagrama de despliegue y componentes
+
+![Diagrama componentes](./Imagenes/comp&despliegue.png)
+
+### Diagrama de de implementacion
+
+![Diagrama despliegue](./Imagenes/Implementacion.png)
+
+
+La arquitectura compuesta por React, Node.js, Axios y MySQL se ha convertido en un estándar de la industria para el desarrollo de aplicaciones web modernas. Esta combinación ofrece una serie de ventajas que la convierten en una opción ideal para una amplia gama de proyectos.
+
+## ¿Por qué elegir esta combinación?
+
+### Multiplataforma: 
+- *Progressive*: Significa que una aplicación, software o servicio puede funcionar en diferentes sistemas operativos (como Windows, macOS, Linux) o dispositivos (como computadoras de escritorio, laptops, tablets, smartphones).
+
+### Desarrollo ágil y eficiente:
+- *React*: Su enfoque basado en componentes y su declaración JSX facilitan la creación de interfaces de usuario complejas de manera rápida y eficiente.
+- *Node.js*: Al compartir el mismo lenguaje (JavaScript) tanto en el frontend como en el backend, se reduce la curva de aprendizaje y se agiliza el desarrollo.
+- *Axios*: Simplifica las llamadas HTTP entre el frontend y el backend, reduciendo la cantidad de código a escribir.
+
+### Aplicaciones de alto rendimiento:
+- *React*: El renderizado virtual y la optimización de la DOM contribuyen a una experiencia de usuario fluida y rápida.
+- *Node.js*: Su modelo de E/S no bloqueante permite manejar múltiples solicitudes de manera eficiente, lo que resulta en un mejor rendimiento.
+- *Axios*: Ofrece características avanzadas para la optimización de solicitudes, como la interceptación de solicitudes y respuestas.
+
+### Arquitectura modular y escalable:
+- *React*: La estructura basada en componentes promueve la modularidad y la reutilización del código.
+- *Node.js*: Es altamente escalable y puede manejar grandes cargas de trabajo gracias a su modelo de eventos.
+- *MySQL*: Ofrece una alta disponibilidad y escalabilidad, lo que permite manejar grandes volúmenes de datos.
+
+### Experiencia de usuario excepcional:
+- *React*: Crea interfaces de usuario intuitivas y responsivas que se adaptan a diferentes dispositivos.
+- *Node.js*: Permite construir API RESTful eficientes que alimentan las interfaces de usuario de React.
+
+### Amplio ecosistema:
+- *React, Node.js y Axios*: Cuentan con una gran comunidad de desarrolladores, lo que significa una amplia variedad de bibliotecas, herramientas y recursos disponibles.
+
+## Beneficios concretos:
+- *Mayor productividad*: Reducción del tiempo de desarrollo gracias a la reutilización de código y herramientas integradas.
+- *Aplicaciones más robustas*: Menor cantidad de errores y mayor estabilidad debido a la madurez de estos frameworks y a la amplia comunidad que los respalda.
+- *Facilidad de mantenimiento*: Código más fácil de entender y modificar, lo que facilita el mantenimiento a largo plazo.
+- *Adaptabilidad a las nuevas tecnologías*: Aprovecha las últimas tendencias y tecnologías, ya que estos frameworks están en constante evolución.
+
+## ¿Por qué elegir esta combinación en lugar de otras?
+
+- *JavaScript unificado*: Al utilizar JavaScript tanto en el frontend como en el backend, se simplifica el desarrollo y se reduce la curva de aprendizaje.
+- *Rendimiento excepcional*: La combinación de React, Node.js y Axios ofrece un rendimiento superior en comparación con otras tecnologías.
+- *Gran comunidad y ecosistema*: La amplia comunidad de desarrolladores garantiza un soporte constante y una gran cantidad de recursos disponibles.
+- *Escalabilidad*: Esta arquitectura se adapta fácilmente a proyectos de cualquier tamaño, desde pequeñas aplicaciones hasta grandes plataformas.
+
+La combinación de React, Node.js, Axios y MySQL ofrece una solución completa y robusta para el desarrollo de aplicaciones web modernas. Al elegir esta tecnología, estarás invirtiendo en un futuro a prueba del tiempo y en la creación de aplicaciones de alta calidad que satisfacen las necesidades de los usuarios.
