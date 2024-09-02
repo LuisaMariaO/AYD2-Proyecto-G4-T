@@ -633,6 +633,9 @@ La arquitectura compuesta por React, Node.js, Axios y MySQL se ha convertido en 
 
 La combinación de React, Node.js, Axios y MySQL ofrece una solución completa y robusta para el desarrollo de aplicaciones web modernas. Al elegir esta tecnología, estarás invirtiendo en un futuro a prueba del tiempo y en la creación de aplicaciones de alta calidad que satisfacen las necesidades de los usuarios.
 
+## 9. Diagrama Entidad - Relación
+![Diagrama componentes](./Imagenes/Fase1-DiagramaER.png)
+
 ## 10. Prototipos de interfaces
 
 ### **1. Registro y Autenticación**
