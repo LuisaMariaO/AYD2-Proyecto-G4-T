@@ -561,6 +561,8 @@ Esta matriz muestra qué casos de uso cubren cada requerimiento del sistema, ase
 | Interacción y Calificación       |                 |             | X                    |               |                |                      |                    |                                  |                              |
 | Gestión de Pagos                 |                 | X           |                      |               |                |                      |                    |                                  |                              |
 | Reportes y Estadísticas          |                 |             |                      |               |                |                      |                    |                                  | X                            |
+## 6. Diagrama de despliegue de la arquitectura
+![Diagrama de despliegue](./Imagenes/comp&despliegue.png)
 
 ## 7. Selección del o los Estilos Arquitectónicos
 
@@ -785,3 +787,30 @@ La combinación de React, Node.js, Axios y MySQL ofrece una solución completa y
 #### **13.2. Vista de Baja de Asistentes**
 - **Descripción:** Vista utilizada por los administradores para dar de baja a asistentes, similar a la baja de conductores.
 - **Imagen:** ![Baja de asistentes](Imagenes/mockups/Qnave-Baja-de-asistente.png)
+
+## 11. Patrones de diseño
+### Patrón Singleton
+![Patrón Singleton](Imagenes/Singleton.drawio.png)
+ 
+Este patrón es utilizado para garantizar una sola instancia de la base de datos.
+
+
+### Patrón Proxy
+![Patrón Proxy](Imagenes/Proxy.drawio.png)
+ 
+Utilizado para proteger la instancia de la base de datos, logrando que el servidor de aplicaciones se conecte al proxy, el cual, a su vez, se conecta  a la instancia real de la base de datos, permitiendo pre-procesar las consultas antes de ejecutarlas.
+
+### Patrón Observer
+![Patrón Observer](Imagenes/Observer.drawio.png)
+ 
+Este patrón es utilizado para enviar notificaciones a los conductores cuando un usuario a solicitado un viaje, permitiéndoles aceptar o rechazar el viaje. El patrón observer permite a los conductores estar siempre suscritos a las solicitudes de viajes.
+
+### Patrón Command
+![Patrón Command](Imagenes/Command.drawio.png)
+ 
+Permite enmascarar el envío de correos de verificación, para poder personalizar el mensaje según el tipo de registro (asitente o conductor) y luego acceder al servicio de envíos de correo electrónico.
+
+## 12. Tablero Kanban
+[Tablero Kanban](https://luisamaria.atlassian.net/jira/software/projects/AYD2P/boards/3?atlOrigin=eyJpIjoiNjk2NzhmZTkyYzRkNDhjNmI2MTY2ZTBhODAxODM2MGMiLCJwIjoiaiJ9) 
+
+
