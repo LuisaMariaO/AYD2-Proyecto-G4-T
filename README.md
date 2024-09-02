@@ -149,6 +149,7 @@ Si no es posible la visualización correcta, puedes acceder al siguiente enlace:
 
 
 
+
 ## 4. Diagrama de CDU expandidos
 ## Caso de Uso: Manejar Problemas de Seguridad
 
@@ -334,6 +335,9 @@ La arquitectura compuesta por React, Node.js, Axios y MySQL se ha convertido en 
 
 ## ¿Por qué elegir esta combinación?
 
+### Multiplataforma: 
+- *Progressive*: Significa que una aplicación, software o servicio puede funcionar en diferentes sistemas operativos (como Windows, macOS, Linux) o dispositivos (como computadoras de escritorio, laptops, tablets, smartphones).
+
 ### Desarrollo ágil y eficiente:
 - *React*: Su enfoque basado en componentes y su declaración JSX facilitan la creación de interfaces de usuario complejas de manera rápida y eficiente.
 - *Node.js*: Al compartir el mismo lenguaje (JavaScript) tanto en el frontend como en el backend, se reduce la curva de aprendizaje y se agiliza el desarrollo.
@@ -369,4 +373,4 @@ La arquitectura compuesta por React, Node.js, Axios y MySQL se ha convertido en 
 - *Gran comunidad y ecosistema*: La amplia comunidad de desarrolladores garantiza un soporte constante y una gran cantidad de recursos disponibles.
 - *Escalabilidad*: Esta arquitectura se adapta fácilmente a proyectos de cualquier tamaño, desde pequeñas aplicaciones hasta grandes plataformas.
 
-En resumen, la combinación de React, Node.js, Axios y MySQL ofrece una solución completa y robusta para el desarrollo de aplicaciones web modernas. Al elegir esta tecnología, estarás invirtiendo en un futuro a prueba del tiempo y en la creación de aplicaciones de alta calidad que satisfacen las necesidades de los usuarios.
+La combinación de React, Node.js, Axios y MySQL ofrece una solución completa y robusta para el desarrollo de aplicaciones web modernas. Al elegir esta tecnología, estarás invirtiendo en un futuro a prueba del tiempo y en la creación de aplicaciones de alta calidad que satisfacen las necesidades de los usuarios.
