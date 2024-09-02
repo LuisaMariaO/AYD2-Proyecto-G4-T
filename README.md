@@ -816,6 +816,11 @@ Este patrón es utilizado para enviar notificaciones a los conductores cuando un
  
 Permite enmascarar el envío de correos de verificación, para poder personalizar el mensaje según el tipo de registro (asitente o conductor) y luego acceder al servicio de envíos de correo electrónico.
 
+### Patrón Estrategia
+![Patron Estrategia](Imagenes/PatronEstrategia.jpg)
+
+El patrón Estrategia es útil cuando existen diferentes comportamientos que pueden variar según el contexto. Una interfaz en la que se encuentran las operaciones en común de cada tipo de rol, un contexto encargado de delegar operaciones de acuerdo al rol. Cada rol implementa la estrategia.
+
 ## 12. Tablero Kanban
 [Tablero Kanban](https://luisamaria.atlassian.net/jira/software/projects/AYD2P/boards/3?atlOrigin=eyJpIjoiNjk2NzhmZTkyYzRkNDhjNmI2MTY2ZTBhODAxODM2MGMiLCJwIjoiaiJ9) 
 
