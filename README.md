@@ -148,7 +148,265 @@ Si no es posible la visualización correcta, puedes acceder al siguiente enlace:
 - **`<<extend>>`**: Se usa cuando un caso de uso opcionalmente amplía el comportamiento de otro caso de uso. No es necesario para el funcionamiento principal, pero se agrega en ciertos contextos. Ejemplo: **Pagar Viaje** extiende **Generar Recibo**.
 
 
+## 3. Lista de requerimientos funcionales generales
+Consiste en la identificación y especificación de las funcionalidades que el sistema debe cumplir para satisfacer las necesidades del negocio y de los usuarios. Este punto es crucial para establecer una base sólida sobre la cual se desarrollará el sistema. A continuación, se detallan los requerimientos funcionales generales para el proyecto "Qnave".
 
+---
+
+### **1. Registro de Usuarios, Conductores y Asistentes**
+
+- **1.1. Registro de Usuario:**
+  - El sistema debe permitir que un usuario se registre proporcionando los siguientes datos:
+    - Nombre completo
+    - Fecha de nacimiento
+    - Género
+    - Correo electrónico
+    - Fotografía del DPI
+    - Número de celular
+    - Contraseña y confirmación de contraseña
+    - Métodos de pago opcionales (tarjeta de crédito o efectivo)
+  - El sistema debe validar que todos los campos obligatorios estén completos y sean correctos.
+  - Se debe enviar una notificación por correo electrónico para la confirmación de la cuenta.
+  - Los datos sensibles, como la contraseña y la información de la tarjeta de crédito, deben ser encriptados.
+
+- **1.2. Registro de Conductor:**
+  - El sistema debe permitir que un conductor se registre proporcionando:
+    - Nombre completo
+    - Número de teléfono
+    - Edad
+    - Número de DPI
+    - Correo electrónico
+    - Papelería completa (CV en formato PDF)
+    - Fotografía
+    - Fotografía del vehículo y número de placa
+    - Marca y año del vehículo
+    - Género
+    - Estado civil
+    - Número de cuenta bancaria
+    - Dirección de domicilio
+  - El sistema debe generar un código de empleado y una contraseña temporal, que el conductor deberá cambiar en su primer inicio de sesión.
+  - Todos los datos proporcionados deben ser validados por el sistema para garantizar su precisión y completitud.
+
+- **1.3. Registro de Asistente:**
+  - El asistente debe ser registrado por el administrador, proporcionando los siguientes datos:
+    - Nombre completo
+    - Número de teléfono
+    - Edad
+    - Número de DPI
+    - Correo electrónico
+    - Papelería completa (CV en formato PDF)
+    - Fotografía
+    - Género
+    - Estado civil
+    - Número de cuenta bancaria
+    - Dirección de domicilio
+  - Al igual que con los conductores, se debe generar un código de empleado y una contraseña temporal, que deberá ser cambiada en el primer inicio de sesión.
+
+- **1.4. Pantallas Asociadas:**
+  - **Pantalla de bienvenida:** Mostrar el logo, texto de bienvenida, y botones para registrarse o iniciar sesión.
+  - **Pantalla de Registro de Usuarios:** Formulario de registro con todos los campos necesarios.
+  - **Pantalla de Registro de Conductores:** Formulario similar al de usuarios, pero con campos adicionales para la información del vehículo.
+  - **Pantalla de Registro de Asistentes:** Formulario similar al de conductores, sin campos para el vehículo.
+  - **Pantalla de Inicio de Sesión:** Permitir a los usuarios iniciar sesión con su correo y contraseña.
+  - **Pantalla de Recuperación de Contraseña:** Formulario para restablecer la contraseña olvidada.
+  - **Pantalla de Confirmación de Correo Electrónico:** Solicitar a los usuarios verificar su cuenta a través del correo electrónico.
+  - **Pantalla de Bloqueo de Cuenta:** Mostrar cuando una cuenta es bloqueada por intentos fallidos de inicio de sesión.
+
+### **2. Autenticación y Seguridad**
+
+- **2.1. Inicio de Sesión:**
+  - El sistema debe permitir que los usuarios, conductores y asistentes inicien sesión utilizando su correo electrónico y contraseña.
+  - Los conductores y asistentes también pueden iniciar sesión usando un código de empleado.
+  - La contraseña debe ser almacenada encriptada en la base de datos.
+
+- **2.2. Recuperación de Contraseña:**
+  - El sistema debe permitir a los usuarios, conductores y asistentes recuperar su contraseña a través de un proceso de validación por correo electrónico.
+  - En caso de que un asistente olvide su contraseña, el administrador debe poder restablecerla desde su plataforma.
+
+- **2.3. Bloqueo de Cuenta:**
+  - Si un usuario, conductor o asistente ingresa incorrectamente su contraseña cinco veces, la cuenta debe ser bloqueada y se debe enviar un correo electrónico notificando el bloqueo.
+  - El desbloqueo de la cuenta puede ser gestionado mediante un proceso de recuperación o intervención del administrador.
+
+- **2.4. Pantallas Asociadas:**
+  - **Pantalla de Ingreso de Clave .ayd para Administradores:** Solicita a los administradores ingresar una clave adicional para acceder a funciones avanzadas.
+  - **Pantalla de Cambio de Contraseña Obligatorio:** Solicita a los conductores y asistentes cambiar su contraseña temporal al iniciar sesión por primera vez.
+  - **Pantalla de Error de Confirmación de Cuenta:** Muestra cuando un usuario intenta iniciar sesión sin haber confirmado su cuenta.
+
+### **3. Gestión de Viajes**
+
+- **3.1. Solicitud de Viaje:**
+  - El usuario debe poder solicitar un viaje indicando su punto de partida y destino.
+  - El sistema debe calcular automáticamente la tarifa del viaje basado en las zonas predefinidas.
+
+- **3.2. Asignación de Conductor:**
+  - El sistema debe enviar la solicitud de viaje a todos los conductores disponibles, garantizando que solo un conductor pueda aceptar el viaje.
+  - El conductor que acepte primero la solicitud será asignado al viaje.
+
+- **3.3. Cancelación de Viaje:**
+  - Tanto el usuario como el conductor deben poder cancelar el viaje, especificando un motivo para la cancelación.
+  - Si un viaje es cancelado por un conductor, el sistema debe intentar reasignar el viaje a otro conductor disponible.
+
+- **3.4. Pantallas Asociadas:**
+  - **Pantalla de Solicitud de Viaje:** Permite al usuario seleccionar el punto de partida y destino.
+  - **Pantalla de Confirmación de Asignación:** Muestra la información del conductor asignado y su ubicación en tiempo real.
+  - **Pantalla de Cancelación de Viaje:** Permite al usuario cancelar un viaje y seleccionar un motivo.
+  - **Pantalla de Finalización de Viaje:** Muestra el costo del viaje finalizado y las opciones de pago.
+
+### **4. Gestión de Información Personal**
+
+- **4.1. Modificación de Información:**
+  - Los usuarios y conductores deben poder modificar su información personal desde la aplicación.
+  - Los cambios críticos, como la modificación de datos de contacto o del vehículo, deben ser aprobados por un asistente antes de hacerse efectivos.
+
+- **4.2. Validación de Datos Duplicados:**
+  - El sistema debe validar que un usuario, conductor o asistente no se registre más de una vez con la misma información, evitando duplicados en la base de datos.
+
+- **4.3. Pantallas Asociadas:**
+  - **Perfil de Usuario:** Permite al usuario ver y editar su información personal.
+  - **Perfil de Conductor:** Muestra detalles adicionales del conductor, incluyendo información del vehículo.
+  - **Perfil de Asistente:** Similar al perfil de usuario, con detalles adicionales relevantes para el rol de asistente.
+
+### **5. Interacción y Calificación**
+
+- **5.1. Calificación y Comentarios:**
+  - Después de un viaje, el usuario debe poder calificar al conductor y dejar un comentario.
+  - El conductor también debe poder calificar al usuario después de completar un viaje.
+
+- **5.2. Visualización de Información:**
+  - Antes de aceptar un viaje, el conductor debe poder ver la información básica del usuario (nombre, calificación, comentarios).
+  - Los usuarios deben poder ver la información del conductor asignado, incluyendo su nombre, calificación y detalles del vehículo.
+
+- **5.3. Pantallas Asociadas:**
+  - **Pantalla de Calificación:** Permite a los usuarios y conductores calificar su experiencia después de un viaje y dejar comentarios.
+
+### **6. Gestión de Pagos**
+
+- **6.1. Métodos de Pago:**
+  - El usuario debe poder agregar, modificar o eliminar métodos de pago (tarjeta de crédito o efectivo).
+  - El sistema debe gestionar de manera segura la información de las tarjetas de crédito, cumpliendo con las normativas de seguridad.
+
+- **6.2. Pago del Viaje:**
+  - El sistema debe permitir al usuario pagar por el viaje al finalizarlo, utilizando el método de pago registrado o seleccionando pagar en efectivo.
+
+- **6.3. Pantallas Asociadas:**
+  - **Gestión de Métodos de Pago:** Permite al usuario administrar sus métodos de pago.
+  - **Pantalla de Pago con Tarjeta:** Permite seleccionar y confirmar el método de pago para un viaje o servicio.
+
+### **7. Reportes y Estadísticas (Administrador)**
+
+- **7.1. Generación de Reportes:**
+  - El sistema debe permitir al administrador generar reportes sobre diversos aspectos, como el uso de la plataforma, ganancias, calificaciones y estadísticas de registro.
+
+- **7.2. Visualización de Estadísticas:**
+  - El administrador debe poder visualizar estadísticas en gráficos que muestren la cantidad de usuarios, conductores y asistentes registrados, así como el número de viajes completados, cancelados y en espera.
+
+- **7.3. Pantallas Asociadas:**
+  - **Dashboard del Administrador:** Vista principal para administradores con gráficos y estadísticas clave sobre la plataforma.
+
+### **8. Administración (Solo para Administradores)**
+
+- **8.1. Gestión de Usuarios:**
+  - El administrador debe poder administrar usuarios, conductores y asistentes, con opciones para editar y eliminar cuentas.
+
+- **8.2. Aprobación de Modificaciones Críticas:**
+  - El administrador debe poder aprobar o rechazar cambios críticos solicitados por usuarios, conductores o asistentes.
+
+- **8.3. Gestión de Bloqueos y Desbloqueos:**
+  - El administrador debe poder gestionar cuentas bloqueadas, incluyendo opciones para desbloquearlas.
+
+- **8.4. Pantallas Asociadas:**
+  - **Gestión de Usuarios:** Permite al administrador editar y eliminar cuentas.
+  - **Aprobación de Modificaciones Críticas:** Permite al administrador aprobar o rechazar cambios críticos.
+  - **Gestión de Bloqueos y Desbloqueos:** Permite al administrador gestionar cuentas bloqueadas y desbloqueadas.
+
+### **9. Contratación y Baja de Conductores y Asistentes**
+
+- **9.1. Contratación de Conductores:**
+  - Los asistentes deben poder contratar nuevos conductores, incluyendo la carga de documentos necesarios.
+
+- **9.2. Baja de Conductores:**
+  - Los asistentes deben poder dar de baja a conductores, especificando los motivos para la baja.
+
+- **9.3. Contratación de Asistentes:**
+  - El administrador debe poder contratar nuevos asistentes, creando sus perfiles en el sistema.
+
+- **9.4. Baja de Asistentes:**
+  - El administrador debe poder dar de baja a asistentes, reasignando sus tareas a otros miembros del equipo.
+
+- **9.5. Pantallas Asociadas:**
+  - **Vista de Contratación de Conductores:** Permite a los asistentes contratar nuevos conductores.
+  - **Vista de Baja de Conductores:** Permite a los asistentes dar de baja a conductores.
+  - **Vista de Contratación de Asistentes:** Permite al administrador contratar nuevos asistentes.
+  - **Vista de Baja de Asistentes:** Permite al administrador dar de baja a asistentes.
+
+### **10. Visualización de CVs de Conductores**
+
+- **10.1. Visualización de CVs:**
+  - El sistema debe permitir a los administradores y asistentes revisar los CVs de los conductores registrados.
+
+- **10.2. Pantallas Asociadas:**
+  - **Vista de CVs de Conductores:** Permite a los administradores y asistentes revisar los CVs de los conductores.
+
+### **Requerimientos No Funcionales**
+
+#### **1. Rendimiento**
+- **1.1. Tiempo de Respuesta:**
+  - El sistema debe responder a cualquier solicitud del usuario (como registro, inicio de sesión, solicitud de viaje) en menos de 3 segundos bajo condiciones normales de carga.
+  - El tiempo de respuesta para la carga de informes y estadísticas más complejas no debe exceder los 5 segundos.
+
+- **1.2. Escalabilidad:**
+  - El sistema debe poder manejar un incremento en la cantidad de usuarios, conductores y asistentes sin una disminución notable en el rendimiento, pudiendo soportar hasta 10,000 usuarios concurrentes.
+
+#### **2. Seguridad**
+- **2.1. Encriptación de Datos:**
+  - Todos los datos sensibles, como contraseñas, información de tarjetas de crédito, y documentos personales, deben ser encriptados utilizando algoritmos de encriptación fuertes (mínimo AES-256).
+
+- **2.2. Autenticación de Usuarios:**
+  - El sistema debe implementar autenticación multifactor (MFA) para administradores y asistentes, incluyendo la verificación mediante un archivo .ayd.
+
+- **2.3. Protección Contra Ataques:**
+  - El sistema debe estar protegido contra ataques de fuerza bruta, con un límite de 5 intentos fallidos de inicio de sesión antes de que una cuenta sea bloqueada temporalmente.
+
+#### **3. Usabilidad**
+- **3.1. Interfaz Intuitiva:**
+  - Las interfaces de usuario deben ser intuitivas y fáciles de usar, con una curva de aprendizaje mínima, permitiendo que un usuario promedio pueda completar una tarea clave en menos de 5 minutos.
+
+- **3.2. Accesibilidad:**
+  - El sistema debe cumplir con las directrices de accesibilidad WCAG 2.1 Nivel AA, asegurando que personas con discapacidades puedan utilizar la aplicación sin problemas.
+
+- **3.3. Idiomas:**
+  - La aplicación debe estar disponible al menos en español e inglés, permitiendo a los usuarios cambiar de idioma fácilmente desde la configuración.
+
+#### **4. Mantenibilidad**
+- **4.1. Modularidad del Código:**
+  - El sistema debe estar diseñado de manera modular, facilitando la implementación de nuevas funcionalidades o modificaciones sin afectar significativamente otras partes del sistema.
+
+- **4.2. Documentación del Código:**
+  - Todo el código debe estar bien documentado, incluyendo comentarios que expliquen las funciones clave y un manual de desarrollo para facilitar la comprensión por parte de otros desarrolladores.
+
+- **4.3. Pruebas Unitarias y de Integración:**
+  - El sistema debe contar con un 80% de cobertura de pruebas unitarias y de integración, para garantizar que las actualizaciones no introduzcan nuevos errores.
+
+#### **5. Fiabilidad**
+- **5.1. Disponibilidad:**
+  - El sistema debe tener una disponibilidad del 99.9% durante todo el año, excluyendo tiempos de mantenimiento planificados.
+
+- **5.2. Recuperación ante Fallos:**
+  - En caso de fallo del sistema, este debe poder recuperarse y restaurar la última sesión válida en menos de 1 minuto, asegurando la integridad de los datos.
+
+#### **6. Compatibilidad**
+- **6.1. Compatibilidad entre Plataformas:**
+  - El sistema debe ser accesible desde dispositivos móviles y de escritorio, y ser compatible con los principales navegadores (Chrome, Firefox, Safari, Edge) en sus versiones actuales y dos versiones anteriores.
+
+- **6.2. Integración con Servicios Externos:**
+  - El sistema debe ser capaz de integrarse con servicios de terceros, como proveedores de pagos y servicios de mensajería, utilizando APIs estándar y seguras (RESTful APIs con OAuth 2.0).
+
+#### **7. Legal y Normativo**
+- **7.1. Cumplimiento con GDPR:**
+  - El sistema debe cumplir con el Reglamento General de Protección de Datos (GDPR), asegurando que los datos personales de los usuarios sean gestionados de manera legal y segura.
+
+- **7.2. Almacenamiento de Datos:**
+  - Los datos deben ser almacenados de acuerdo con las leyes locales, con servidores ubicados en regiones que permitan cumplir con los requisitos legales y de privacidad de los usuarios.
 
 ## 4. Diagrama de CDU expandidos
 ## Caso de Uso: Manejar Problemas de Seguridad
@@ -374,3 +632,156 @@ La arquitectura compuesta por React, Node.js, Axios y MySQL se ha convertido en 
 - *Escalabilidad*: Esta arquitectura se adapta fácilmente a proyectos de cualquier tamaño, desde pequeñas aplicaciones hasta grandes plataformas.
 
 La combinación de React, Node.js, Axios y MySQL ofrece una solución completa y robusta para el desarrollo de aplicaciones web modernas. Al elegir esta tecnología, estarás invirtiendo en un futuro a prueba del tiempo y en la creación de aplicaciones de alta calidad que satisfacen las necesidades de los usuarios.
+
+## 10. Prototipos de interfaces
+
+### **1. Registro y Autenticación**
+
+#### **1.1. Pantalla de bienvenida**
+- **Descripción:** Vista inicial con el logo, texto de bienvenida, y botones para registrarse o iniciar sesión.
+- **Imagen:** ![Pantalla de bienvenida](Imagenes/mockups/Qnave-inicio.png)
+
+#### **1.2. Registro de Usuarios**
+- **Descripción:** Formulario para que los usuarios se registren en la plataforma con datos personales y métodos de pago.
+- **Imagen:** ![Registro de usuarios](Imagenes/mockups/Qnave-Registro-de-usuarios.png)
+
+#### **1.3. Registro de Conductores**
+- **Descripción:** Formulario para el registro de conductores, incluyendo datos personales y del vehículo.
+- **Imagen:** ![Registro de conductores](Imagenes/mockups/Qnave-Registro-de-conductores.png)
+
+#### **1.4. Registro de Asistentes**
+- **Descripción:** Formulario de registro para asistentes, similar al de conductores pero sin datos del vehículo.
+- **Imagen:** ![Registro de asistentes](Imagenes/mockups/Qnave-Registro-de-asistentes.png)
+
+#### **1.5. Pantalla de Inicio de Sesión**
+- **Descripción:** Formulario para que los usuarios inicien sesión en la plataforma con su correo y contraseña.
+- **Imagen:** ![Inicio de sesión](Imagenes/mockups/Qnave-Inicio-de-sesion.png)
+
+#### **1.6. Recuperación de Contraseña**
+- **Descripción:** Formulario para que los usuarios puedan restablecer su contraseña si la han olvidado.
+- **Imagen:** ![Recuperación de contraseña](Imagenes/mockups/Qnave-Recuperacion-de-contrasena.png)
+
+#### **1.7. Confirmación de Correo Electrónico**
+- **Descripción:** Pantalla que solicita a los usuarios verificar su cuenta a través del correo electrónico.
+- **Imagen:** ![Cuenta no confirmada](Imagenes/mockups/Qnave-Cuenta-no-confirmada.png)
+
+#### **1.8. Pantalla de bloqueo de cuenta**
+- **Descripción:** Vista que aparece cuando una cuenta es bloqueada por múltiples intentos fallidos de inicio de sesión.
+- **Imagen:** ![Cuenta bloqueada](Imagenes/mockups/Qnave-Cuenta-bloqueada.png)
+
+### **2. Gestión de Viajes**
+
+#### **2.1. Solicitud de Viaje**
+- **Descripción:** Vista donde el usuario selecciona el punto de partida, destino y confirma la solicitud de viaje.
+- **Imagen:** ![Solicitud de viaje](Imagenes/mockups/Qnave-Solicitud-de-viaje.png)
+
+#### **2.2. Pantalla de Espera de Asignación**
+- **Descripción:** Vista que muestra el proceso de búsqueda de un conductor disponible.
+- **Imagen:** ![Buscando conductor](Imagenes/mockups/Qnave-Buscando-conductor.png)
+
+#### **2.3. Confirmación de Asignación**
+- **Descripción:** Muestra la información del conductor asignado y su ubicación en tiempo real.
+- **Imagen:** ![Confirmación de asignación](Imagenes/mockups/Qnave-Confirmacion-de-asignacion.png)
+
+
+#### **2.4. Cancelación de Viaje**
+- **Descripción:** Formulario para cancelar un viaje, incluyendo la selección de motivos.
+- **Imagen:** ![Cancelación de viaje](Imagenes/mockups/Qnave-Cancelacion-de-viaje.png)
+
+#### 2.5. Finalización de Viaje
+- **Descripción:** Pantalla que aparece cuando el viaje ha finalizado, mostrando el costo y opciones de pago.
+**Imagen:** ![Viaje finalizado](Imagenes/mockups/Qnave-Gestion-de-pagos.png)
+
+### **3. Gestión de Información Personal**
+
+#### **3.1. Perfil de Usuario**
+- **Descripción:** Vista que muestra y permite editar la información personal del usuario, como nombre, correo y teléfono.
+- **Imagen:** ![Perfil de usuario](Imagenes/mockups/Qnave-Perfil-de-usuario.png)
+
+#### **3.2. Perfil de Conductor**
+- **Descripción:** Vista con detalles adicionales del conductor, incluyendo información del vehículo.
+- **Imagen:** ![Perfil de conductor](Imagenes/mockups/Qnave-Perfil-de-conductor.png)
+
+#### **3.3. Perfil de Asistente**
+- **Descripción:** Vista similar al perfil de usuario, con detalles adicionales relevantes para el rol de asistente.
+- **Imagen:** ![Perfil asistente](Imagenes/mockups/Qnave-Perfil-asistente.png)
+
+### **4. Gestión de Pagos**
+
+#### **4.1. Gestión de Métodos de Pago**
+- **Descripción:** Vista para administrar los métodos de pago registrados, como tarjetas de crédito o efectivo.
+- **Imagen:** ![Gestión de pagos](Imagenes/mockups/Qnave-Gestion-de-pagos.png)
+
+#### **4.2. Pantalla de Pago con Tarjeta**
+- **Descripción:** Vista para seleccionar y confirmar el método de pago para un viaje o servicio.
+- **Imagen:** ![Pagon con tarjeta](Imagenes/mockups/Qnave-Datos-de-la-tarjeta.png)
+
+### **5. Interacción y Calificación**
+
+#### **5.1. Pantalla de Calificación**
+- **Descripción:** Interfaz para calificar un viaje o conductor y dejar comentarios adicionales.
+- **Imagen:** ![Calificación y comentarios](Imagenes/mockups/Qnave-Calificacion-comentarios.png)
+
+### **6. Reportes y Estadísticas (Administrador)**
+
+#### **6.1. Dashboard del Administrador**
+- **Descripción:** Vista principal para administradores con gráficos y estadísticas clave sobre la plataforma.
+- **Imagen:** ![Reportes y estadísticas](Imagenes/mockups/Qnave-Reportes-estadisticas.png)
+
+### **7. Administración (Solo para Administradores)**
+
+#### **7.1. Gestión de Usuarios**
+- **Descripción:** Vista para administrar usuarios, conductores y asistentes, con opciones para editar y eliminar cuentas.
+- **Imagen:** ![Gestión de usuarios](Imagenes/mockups/Qnave-Gestion-de-usuarios.png)
+
+#### **7.2. Aprobación de Modificaciones Críticas**
+- **Descripción:** Vista donde los administradores pueden aprobar o rechazar cambios críticos solicitados.
+- **Imagen:** ![Aprobación de modificaciones críticas](Imagenes/mockups/Qnave-Aprobacion-de-modificaciones-criticas.png)
+
+#### **7.3. Gestión de Bloqueos y Desbloqueos**
+- **Descripción:** Vista para administrar cuentas bloqueadas, incluyendo opciones para desbloquearlas.
+- **Imagen:** ![Gestión de bloqueos y desbloqueos](Imagenes/mockups/Qnave-Gestion-de-bloqueos-y-desbloqueos.png)
+
+### **8. Cambio de Contraseña en el Primer Inicio de Sesión**
+
+#### **8.1. Vista de Cambio de Contraseña Obligatorio**
+- **Descripción:** Vista que solicita a los conductores y asistentes cambiar su contraseña temporal al iniciar sesión por primera vez.
+- **Imagen:** ![Cambiar Contraseña](Imagenes/mockups/Qnave-Cambiar-Contraseña.png)
+
+### **9. Error de Confirmación de Cuenta**
+
+#### **9.1. Vista de Error de Confirmación de Cuenta**
+- **Descripción:** Vista que aparece cuando un usuario intenta iniciar sesión sin haber confirmado su cuenta.
+- **Imagen:** ![Cuenta no confirmada](Imagenes/mockups/Qnave-Cuenta-no-confirmada.png)
+
+### **10. Visualización de CVs de Conductores**
+
+#### **10.1. Vista de CVs de Conductores**
+- **Descripción:** Vista donde los administradores y asistentes pueden revisar los CVs de los conductores registrados.
+- **Imagen:** ![Visualización CV conductor](Imagenes/mockups/Qnave-Visualizacion-cv-conductor.png)
+
+### **11. Ingreso de Clave .ayd para Administradores**
+
+#### **11.1. Vista de Ingreso de Clave .ayd**
+- **Descripción:** Vista que solicita a los administradores ingresar una clave adicional para acceder a funciones avanzadas.
+- **Imagen:** ![Ingreso clave ayd](Imagenes/mockups/Qnave-Ingreso-clave-ayd.png)
+
+### **12. Contratación y Baja de Conductores por Asistentes**
+
+#### **12.1. Vista de Contratación de Conductores**
+- **Descripción:** Vista utilizada por los asistentes para contratar nuevos conductores, incluyendo la carga de documentos.
+- **Imagen:** ![Contratación de conductores](Imagenes/mockups/Qnave-Contratacion-de-conductores.png)
+
+#### **12.2. Vista de Baja de Conductores**
+- **Descripción:** Vista utilizada por los asistentes para dar de baja a conductores, incluyendo la selección de motivos.
+- **Imagen:** ![Baja de conductores](Imagenes/mockups/Qnave-Baja-de-conductores.png)
+
+### **13. Contratación y Baja de Asistentes por Administradores**
+
+#### **13.1. Vista de Contratación de Asistentes**
+- **Descripción:** Vista utilizada por los administradores para contratar nuevos asistentes, similar al registro de conductores.
+- **Imagen:** ![Contratación de asistentes](Imagenes/mockups/Qnave-Contratacion-de-asistente.png)
+
+#### **13.2. Vista de Baja de Asistentes**
+- **Descripción:** Vista utilizada por los administradores para dar de baja a asistentes, similar a la baja de conductores.
+- **Imagen:** ![Baja de asistentes](Imagenes/mockups/Qnave-Baja-de-asistente.png)
