@@ -2,6 +2,7 @@ const connect = require('express-myconnection')
 const usuario = require('./routes/usuario')
 const conductor = require('./routes/conductor')
 const asistente = require('./routes/asistente')
+const catalogos = require('./routes/catalogos')
 const admin = require('./routes/admin')
 const express = require('express')
 const mysql = require('mysql2')
@@ -33,6 +34,7 @@ app.use('/usuario', usuario)
 app.use('/conductor', conductor)
 app.use('/asistente', asistente)
 app.use('/admin', admin)
+app.use('/catalogos', catalogos)
 
 // ----------- SERVIDOR CORRIENDO -------------- 
 app.listen(app.get('port'), ()=>{
