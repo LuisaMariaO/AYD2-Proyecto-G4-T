@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Swal from 'sweetalert2';
-import fondo from '../Imgs/fondo.jpeg';
-import Service from "../Services/service";
+import fondo from '../../Imgs/fondo.jpeg';
+import Service from "../../Services/service";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 

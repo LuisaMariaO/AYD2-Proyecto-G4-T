@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import Index from "./Pages";
-import Login from "./Pages/login";
+import Login from "./Pages/admin/login";
 import Asistente from "./Pages/asistente/asistente";
 import Usuario from "./Pages/usuario/usuario";
 import Conductor from "./Pages/conductor/conductor";
