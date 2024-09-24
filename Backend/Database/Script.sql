@@ -140,3 +140,9 @@ CREATE TABLE calificacion_conductor (
 	PRIMARY KEY (calificacion_id),
 	FOREIGN KEY (viaje) REFERENCES viaje (viaje_id)
 );
+
+ALTER TABLE usuario
+ADD COLUMN fecha_nacimiento DATE;
+
+ALTER TABLE usuario
+ADD COLUMN username varchar(50) UNIQUE;
