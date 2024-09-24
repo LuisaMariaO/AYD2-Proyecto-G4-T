@@ -12,6 +12,7 @@ import Conductor from "./Pages/conductor/conductor";
 import RegistroUsuario from "./Pages/usuario/registro";
 import RegistroConductor from "./Pages/conductor/registro";
 import Administrador from "./Pages/admin/admin";
+import Auth from "./Pages/admin/auth";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/admin" element={<Administrador/>}></Route>
       <Route path="/register-user" element={<RegistroUsuario/>}></Route>
       <Route path="/register-driver" element={<RegistroConductor/>}></Route>
+      <Route path="/auth" element={<Auth/>}></Route>
       <Route path="*" element={<Navigate to="/" replace={true}></Navigate>} exact={true}></Route>
     </Routes>
   </BrowserRouter>

@@ -1,16 +1,31 @@
 import React, { useState } from "react";
 import Swal from 'sweetalert2';
 import fondo from '../Imgs/fondo.jpeg';
+import Service from "../Services/service";
+import CryptoJS from "crypto-js";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Usuario:", user, "Contraseña:", password);
-        Swal.fire('Iniciando sesión...');
-    };
+    const navigate = useNavigate();
+    const handleLogin = (event) => {
+        event.preventDefault();
+        Service.login(user, CryptoJS.MD5(password).toString())
+            .then(({ success, res }) => {
+                if (success && res.length > 0) {
+                    localStorage.setItem("usuario", res[0]['usuario_id']);
+                    navigate("/auth");
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Usuario o contraseña incorrectos',
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    })
+                }
+            });
+    }
 
     return (
         <div className="container-fluid d-flex justify-content-center align-items-center vh-100" style={{ position: 'relative', padding: 0 }}>
@@ -41,7 +56,7 @@ function Login() {
             <div className="col-12 bg-dark row justify-content-center py-5" style={{ position: 'relative', zIndex: 2, width: '600px', borderRadius: '20px' }}>
                 <div className="col-md-9 col-lg-9">
                     <h2 className="text-light text-center">Iniciar sesión</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleLogin}>
                         <div className="form-group m-1">
                             <label htmlFor="user">Usuario</label>
                             <input
