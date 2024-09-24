@@ -113,3 +113,30 @@ CREATE TABLE usuario_problema (
 	PRIMARY KEY (problema_id),
 	FOREIGN KEY (viaje) REFERENCES viaje (viaje_id)
 );
+
+ALTER TABLE usuario 
+ADD COLUMN correo VARCHAR(50) UNIQUE;
+
+ALTER TABLE usuario 
+DROP COLUMN dpi;
+
+ALTER TABLE usuario 
+ADD COLUMN dpi VARCHAR(13) UNIQUE;
+
+CREATE TABLE calificacion_usuario (
+	calificacion_id INT AUTO_INCREMENT NOT NULL,
+	puntaje INT NOT NULL,
+	comentario TEXT,
+	viaje INT,
+	PRIMARY KEY (calificacion_id),
+	FOREIGN KEY (viaje) REFERENCES viaje (viaje_id)
+);
+
+CREATE TABLE calificacion_conductor (
+	calificacion_id INT AUTO_INCREMENT NOT NULL,
+	puntaje INT NOT NULL,
+	comentario TEXT,
+	viaje INT,
+	PRIMARY KEY (calificacion_id),
+	FOREIGN KEY (viaje) REFERENCES viaje (viaje_id)
+);
