@@ -5,10 +5,10 @@ const asistente = require('./routes/asistente')
 const catalogos = require('./routes/catalogos')
 const admin = require('./routes/admin')
 const express = require('express')
-const mysql = require('mysql2')
 const cors = require('cors')
 const app = express()
 const logger = require("morgan")
+const dbProxy = require('./dbProxy');
 
 require('dotenv').config();
 
@@ -16,16 +16,9 @@ require('dotenv').config();
 app.set('port', process.env.PORT || 9000)
 
 // ----------- BASE DE DATOS -----------
-const DBconfig = {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
-}
+dbProxy;
 
 app.use(cors())
-app.use(connect(mysql, DBconfig, 'single'))
 app.use(express.json())
 app.use(logger("dev"))
 
