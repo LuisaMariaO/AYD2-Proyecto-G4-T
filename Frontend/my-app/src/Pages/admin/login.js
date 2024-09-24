@@ -5,7 +5,7 @@ import Service from "../../Services/service";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function LoginAdmin() {
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -91,4 +91,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default LoginAdmin;

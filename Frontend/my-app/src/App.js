@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import Index from "./Pages";
-import Login from "./Pages/admin/login";
+import LoginAdmin from "./Pages/admin/login";
 import Asistente from "./Pages/asistente/asistente";
 import Usuario from "./Pages/usuario/usuario";
 import Conductor from "./Pages/conductor/conductor";
@@ -19,7 +19,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Index/>}></Route>
-      <Route path="/login" element={<Login/>}></Route>
+      <Route path="/login-admin" element={<LoginAdmin/>}></Route>
       <Route path="/asistente" element={<Asistente/>}></Route>
       <Route path="/usuario" element={<Usuario/>}></Route>
       <Route path="/conductor" element={<Conductor/>}></Route>
