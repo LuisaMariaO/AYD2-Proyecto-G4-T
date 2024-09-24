@@ -6,6 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import Index from "./Pages";
 import LoginConductor from "./Pages/conductor/conductor-login";
+import LoginAdmin from "./Pages/admin/admin-login";
 import Asistente from "./Pages/asistente/asistente";
 import Usuario from "./Pages/usuario/usuario";
 import Conductor from "./Pages/conductor/conductor";
@@ -14,6 +15,7 @@ import RegistroConductor from "./Pages/conductor/registro";
 import Administrador from "./Pages/admin/admin";
 import GestionarViajes from './Pages/conductor/GestionarViajes';
 import ReportarProblema from './Pages/conductor/ReportarProblema';
+import Auth from "./Pages/admin/auth";
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Index/>}></Route>
       <Route path="/loginConductor" element={<LoginConductor/>}></Route>
+      <Route path="/login-admin" element={<LoginAdmin/>}></Route>
       <Route path="/asistente" element={<Asistente/>}></Route>
       <Route path="/usuario" element={<Usuario/>}></Route>
       <Route path="/conductor" element={<Conductor/>}></Route>
@@ -29,6 +32,7 @@ function App() {
       <Route path="/register-driver" element={<RegistroConductor/>}></Route>
       <Route path="/gestionar-viajes" element={<GestionarViajes/>}></Route>
       <Route path="/reportar-problema" element={<ReportarProblema/>}></Route>
+      <Route path="/auth" element={<Auth/>}></Route>
       <Route path="*" element={<Navigate to="/" replace={true}></Navigate>} exact={true}></Route>
     </Routes>
   </BrowserRouter>

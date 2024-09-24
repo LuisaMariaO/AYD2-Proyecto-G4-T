@@ -6,10 +6,10 @@ function Administrador() {
     return (
         <>
             <Navbar rol="Administrador"/>
-            <div class="container-fluid">
-                <div class="row flex-nowrap">
+            <div className="container-fluid">
+                <div className="row flex-nowrap">
                     <Sidebar></Sidebar>
-                    <div class="col py-3 px-3 pt-3">
+                    <div className="col py-3 px-3 pt-3">
                         <h1>¡Bienvenida/o Administrador!</h1>
                     </div>
                 </div>
