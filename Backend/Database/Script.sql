@@ -15,23 +15,32 @@ CREATE TABLE estado_civil (
 	PRIMARY KEY (estado_civil_id)
 );
 
-CREATE TABLE usuario(
-	usuario_id INT NOT NULL AUTO_INCREMENT,
-	nombre VARCHAR(100) NOT NULL,
-	genero CHAR(1) NOT NULL,
-	dpi VARCHAR(13) NOT NULL,
-	celular INT NOT NULL,
-	edad INT NOT NULL,
-	fotografia TEXT,
-	direccion TEXT,
-	password TEXT NOT NULL,
-	estado_cuenta CHAR(1) NOT NULL,
-	estado_civil INT NOT NULL,
-	rol INT NOT NULL,
-	PRIMARY KEY (usuario_id),
-	FOREIGN KEY (estado_civil) REFERENCES estado_civil (estado_civil_id),
-	FOREIGN KEY (rol) REFERENCES rol (rol_id)
+-- Nueva tabla estado_cuenta
+CREATE TABLE estado_cuenta (
+    estado_cuenta_id INT NOT NULL AUTO_INCREMENT,
+    estado_descripcion VARCHAR(25),
+    PRIMARY KEY (estado_cuenta_id)
 );
+
+CREATE TABLE usuario(
+    usuario_id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    genero CHAR(1) NOT NULL,
+    dpi VARCHAR(13) NOT NULL,
+    celular INT NOT NULL,
+    edad INT NOT NULL,
+    fotografia TEXT,
+    direccion TEXT,
+    password TEXT NOT NULL,
+    estado_cuenta INT NOT NULL, -- Relación con la nueva tabla estado_cuenta
+    estado_civil INT NOT NULL,
+    rol INT NOT NULL,
+    PRIMARY KEY (usuario_id),
+    FOREIGN KEY (estado_cuenta) REFERENCES estado_cuenta (estado_cuenta_id), -- Relación con estado_cuenta
+    FOREIGN KEY (estado_civil) REFERENCES estado_civil (estado_civil_id),
+    FOREIGN KEY (rol) REFERENCES rol (rol_id)
+);
+
 
 CREATE TABLE marca_vehiculo (
 	marca_id INT AUTO_INCREMENT NOT NULL,
