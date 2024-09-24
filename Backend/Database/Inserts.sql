@@ -135,3 +135,9 @@ VALUES
 (10, 11, 50),
 (10, 12, 50),
 (11, 12, 50);
+
+
+-- Insertar valores predefinidos para estado de cuenta
+INSERT INTO estado_cuenta (estado_descripcion) VALUES ('No activado');
+INSERT INTO estado_cuenta (estado_descripcion) VALUES ('Activado');
+INSERT INTO estado_cuenta (estado_descripcion) VALUES ('Suspendido')

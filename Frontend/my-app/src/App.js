@@ -12,6 +12,8 @@ import Conductor from "./Pages/conductor/conductor";
 import RegistroUsuario from "./Pages/usuario/registro";
 import RegistroConductor from "./Pages/conductor/registro";
 import Administrador from "./Pages/admin/admin";
+import GestionarViajes from './Pages/conductor/GestionarViajes';
+import ReportarProblema from './Pages/conductor/ReportarProblema';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
       <Route path="/admin" element={<Administrador/>}></Route>
       <Route path="/register-user" element={<RegistroUsuario/>}></Route>
       <Route path="/register-driver" element={<RegistroConductor/>}></Route>
+      <Route path="/gestionar-viajes" element={<GestionarViajes/>}></Route>
+      <Route path="/reportar-problema" element={<ReportarProblema/>}></Route>
       <Route path="*" element={<Navigate to="/" replace={true}></Navigate>} exact={true}></Route>
     </Routes>
   </BrowserRouter>
