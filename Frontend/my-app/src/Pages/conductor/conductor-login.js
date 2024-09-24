@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Swal from 'sweetalert2';
-import fondo from '../Imgs/fondo.jpeg';
+import fondo from '../../Imgs/fondo.jpeg';
 
-function Login() {
+function LoginConductor() {
     const [user, setUser] = useState('');         // Para correo o DPI
     const [password, setPassword] = useState(''); // Para contraseña
     const [codigoTrabajador, setCodigoTrabajador] = useState(''); // Nuevo input para el código de trabajador
@@ -217,4 +217,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default LoginConductor;
