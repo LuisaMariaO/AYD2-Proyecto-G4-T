@@ -1,25 +1,26 @@
+import { Link } from 'react-router-dom';
+
+
 function SidebarConductor() {
     return (
-        <div class="col-auto col-md-3 col-xl-2 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start ps-3 pt-4 text-white min-vh-100">
-                <a href="/conductor" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <h2 class="d-none d-sm-inline  font-weight-bold">Menú</h2>
-                </a>
-
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li>
-                        <a href="/conductor" class="nav-link align-middle px-0 text-white">
-                            <i class="bi bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span> </a>
+        <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <h4 className="my-4 text-white">Conductor</h4>
+                <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li className="nav-item">
+                        <Link to="/conductor" className="nav-link align-middle px-0">
+                            <i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline">Inicio</span>
+                        </Link>
                     </li>
-
                     <li>
-                        <a href="/conductor/viajes" class="nav-link align-middle px-0 text-white">
-                            <i class="bi bi-car-front-fill"></i> <span class="ms-1 d-none d-sm-inline">Viajes</span> </a>
+                        <Link to="/gestionar-viajes" className="nav-link px-0 align-middle">
+                            <i className="fs-4 bi-truck"></i> <span className="ms-1 d-none d-sm-inline">Gestionar Viajes</span>
+                        </Link>
                     </li>
-
                     <li>
-                        <a href="/conductor/problemas" class="nav-link align-middle px-0 text-white">
-                            <i class="bi bi-exclamation-octagon-fill"></i> <span class="ms-1 d-none d-sm-inline">Problemas</span> </a>
+                        <Link to="/reportar-problema" className="nav-link px-0 align-middle">
+                            <i className="fs-4 bi-exclamation-circle"></i> <span className="ms-1 d-none d-sm-inline">Reportar Problema</span>
+                        </Link>
                     </li>
                 </ul>
             </div>

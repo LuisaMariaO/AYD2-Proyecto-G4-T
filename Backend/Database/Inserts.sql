@@ -135,3 +135,26 @@ VALUES
 (10, 11, 50),
 (10, 12, 50),
 (11, 12, 50);
+
+
+-- Insertar valores predefinidos para estado de cuenta
+INSERT INTO estado_cuenta (estado_descripcion) VALUES ('No activado');
+INSERT INTO estado_cuenta (estado_descripcion) VALUES ('Activado');
+INSERT INTO estado_cuenta (estado_descripcion) VALUES ('Suspendido')
+
+-- Primer viaje
+INSERT INTO viaje (estado, fecha, tarifa, metodo_pago, usuario_solicitud, usuario_conductor)
+VALUES ('C', '2024-09-25', 1, 'T', 1, 2);
+
+-- Segundo viaje
+INSERT INTO viaje (estado, fecha, tarifa, metodo_pago, usuario_solicitud, usuario_conductor)
+VALUES ('F', '2024-09-26', 2, 'E', 3, 2);
+
+-- Insertar estados en la tabla estado_viaje
+INSERT INTO estado_viaje (estado_descripcion) VALUES 
+('Pendiente'),    -- Cuando el viaje ha sido solicitado pero no ha comenzado
+('En progreso'),  -- Cuando el viaje está siendo realizado
+('Completado'),   -- Cuando el viaje ha sido completado con éxito
+('Cancelado'),    -- Cuando el viaje ha sido cancelado
+('Rechazado');    -- Cuando el conductor o usuario rechaza el viaje
+

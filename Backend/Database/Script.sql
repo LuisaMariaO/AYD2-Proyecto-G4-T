@@ -15,23 +15,32 @@ CREATE TABLE estado_civil (
 	PRIMARY KEY (estado_civil_id)
 );
 
-CREATE TABLE usuario(
-	usuario_id INT NOT NULL AUTO_INCREMENT,
-	nombre VARCHAR(100) NOT NULL,
-	genero CHAR(1) NOT NULL,
-	dpi VARCHAR(13) NOT NULL,
-	celular INT NOT NULL,
-	edad INT NOT NULL,
-	fotografia TEXT,
-	direccion TEXT,
-	password TEXT NOT NULL,
-	estado_cuenta CHAR(1) NOT NULL,
-	estado_civil INT NOT NULL,
-	rol INT NOT NULL,
-	PRIMARY KEY (usuario_id),
-	FOREIGN KEY (estado_civil) REFERENCES estado_civil (estado_civil_id),
-	FOREIGN KEY (rol) REFERENCES rol (rol_id)
+-- Nueva tabla estado_cuenta
+CREATE TABLE estado_cuenta (
+    estado_cuenta_id INT NOT NULL AUTO_INCREMENT,
+    estado_descripcion VARCHAR(25),
+    PRIMARY KEY (estado_cuenta_id)
 );
+
+CREATE TABLE usuario(
+    usuario_id INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    genero CHAR(1) NOT NULL,
+    dpi VARCHAR(13) NOT NULL,
+    celular INT NOT NULL,
+    edad INT NOT NULL,
+    fotografia TEXT,
+    direccion TEXT,
+    password TEXT NOT NULL,
+    estado_cuenta INT NOT NULL, -- Relación con la nueva tabla estado_cuenta
+    estado_civil INT NOT NULL,
+    rol INT NOT NULL,
+    PRIMARY KEY (usuario_id),
+    FOREIGN KEY (estado_cuenta) REFERENCES estado_cuenta (estado_cuenta_id), -- Relación con estado_cuenta
+    FOREIGN KEY (estado_civil) REFERENCES estado_civil (estado_civil_id),
+    FOREIGN KEY (rol) REFERENCES rol (rol_id)
+);
+
 
 CREATE TABLE marca_vehiculo (
 	marca_id INT AUTO_INCREMENT NOT NULL,
@@ -75,18 +84,27 @@ CREATE TABLE tarifa (
 );
 
 CREATE TABLE viaje (
-	viaje_id INT AUTO_INCREMENT NOT NULL,
-	estado CHAR(1),
-	fecha date,
-	tarifa INT NOT NULL,
-	metodo_pago CHAR(1),
-	usuario_solicitud INT,
-	usuario_conductor INT,
-	PRIMARY KEY (viaje_id),
-	FOREIGN KEY (tarifa) REFERENCES tarifa (tarifa_id),
-	FOREIGN KEY (usuario_solicitud) REFERENCES usuario (usuario_id),
-	FOREIGN KEY (usuario_conductor) REFERENCES usuario (usuario_id)
+    viaje_id INT AUTO_INCREMENT NOT NULL,
+    estado INT NOT NULL, -- Esta será la llave foránea a la tabla estado_viaje
+    fecha DATE,
+    tarifa INT NOT NULL,
+    metodo_pago CHAR(1),
+    usuario_solicitud INT,
+    usuario_conductor INT,
+    PRIMARY KEY (viaje_id),
+    FOREIGN KEY (estado) REFERENCES estado_viaje (estado_id),
+    FOREIGN KEY (tarifa) REFERENCES tarifa (tarifa_id),
+    FOREIGN KEY (usuario_solicitud) REFERENCES usuario (usuario_id),
+    FOREIGN KEY (usuario_conductor) REFERENCES usuario (usuario_id)
 );
+
+
+CREATE TABLE estado_viaje (
+    estado_id INT AUTO_INCREMENT NOT NULL,
+    estado_descripcion VARCHAR(50) NOT NULL,
+    PRIMARY KEY (estado_id)
+);
+
 
 CREATE TABLE categoria_problema (
 	categoria_id INT AUTO_INCREMENT NOT NULL,
@@ -104,6 +122,10 @@ CREATE TABLE conductor_problema (
 	FOREIGN KEY (categoria) REFERENCES categoria_problema (categoria_id),
 	FOREIGN KEY (viaje) REFERENCES viaje (viaje_id)
 );
+
+ALTER TABLE conductor_problema
+ADD COLUMN descripcion TEXT;
+
 
 CREATE TABLE usuario_problema (
 	problema_id INT AUTO_INCREMENT NOT NULL,
@@ -140,3 +162,9 @@ CREATE TABLE calificacion_conductor (
 	PRIMARY KEY (calificacion_id),
 	FOREIGN KEY (viaje) REFERENCES viaje (viaje_id)
 );
+
+ALTER TABLE usuario
+ADD COLUMN fecha_nacimiento DATE;
+
+ALTER TABLE usuario
+ADD COLUMN username varchar(50) UNIQUE;
