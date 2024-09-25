@@ -84,18 +84,27 @@ CREATE TABLE tarifa (
 );
 
 CREATE TABLE viaje (
-	viaje_id INT AUTO_INCREMENT NOT NULL,
-	estado CHAR(1),
-	fecha date,
-	tarifa INT NOT NULL,
-	metodo_pago CHAR(1),
-	usuario_solicitud INT,
-	usuario_conductor INT,
-	PRIMARY KEY (viaje_id),
-	FOREIGN KEY (tarifa) REFERENCES tarifa (tarifa_id),
-	FOREIGN KEY (usuario_solicitud) REFERENCES usuario (usuario_id),
-	FOREIGN KEY (usuario_conductor) REFERENCES usuario (usuario_id)
+    viaje_id INT AUTO_INCREMENT NOT NULL,
+    estado INT NOT NULL, -- Esta será la llave foránea a la tabla estado_viaje
+    fecha DATE,
+    tarifa INT NOT NULL,
+    metodo_pago CHAR(1),
+    usuario_solicitud INT,
+    usuario_conductor INT,
+    PRIMARY KEY (viaje_id),
+    FOREIGN KEY (estado) REFERENCES estado_viaje (estado_id),
+    FOREIGN KEY (tarifa) REFERENCES tarifa (tarifa_id),
+    FOREIGN KEY (usuario_solicitud) REFERENCES usuario (usuario_id),
+    FOREIGN KEY (usuario_conductor) REFERENCES usuario (usuario_id)
 );
+
+
+CREATE TABLE estado_viaje (
+    estado_id INT AUTO_INCREMENT NOT NULL,
+    estado_descripcion VARCHAR(50) NOT NULL,
+    PRIMARY KEY (estado_id)
+);
+
 
 CREATE TABLE categoria_problema (
 	categoria_id INT AUTO_INCREMENT NOT NULL,
@@ -113,6 +122,10 @@ CREATE TABLE conductor_problema (
 	FOREIGN KEY (categoria) REFERENCES categoria_problema (categoria_id),
 	FOREIGN KEY (viaje) REFERENCES viaje (viaje_id)
 );
+
+ALTER TABLE conductor_problema
+ADD COLUMN descripcion TEXT;
+
 
 CREATE TABLE usuario_problema (
 	problema_id INT AUTO_INCREMENT NOT NULL,

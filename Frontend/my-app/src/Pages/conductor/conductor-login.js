@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Swal from 'sweetalert2';
 import fondo from '../../Imgs/fondo.jpeg';
+import { Link } from 'react-router-dom';
 
 function LoginConductor() {
     const [user, setUser] = useState('');         // Para correo o DPI
@@ -12,26 +13,28 @@ function LoginConductor() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         const loginData = {
             identifier: user,  // Para correo o DPI
             password
         };
-
+    
         try {
             const response = await fetch('http://localhost:9000/conductor/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(loginData)
             });
-
+    
             const result = await response.json();
-
+    
             if (result.status === 'no_verificado') {
                 Swal.fire('Usuario no verificado', 'Por favor, actualiza tu contraseña.', 'warning');
                 setUserId(result.usuario_id);
                 setShowModal(true);  // Mostrar modal para cambiar contraseña
             } else if (result.status === 'success') {
+                // Guardar el usuario_id (conductor_id) en localStorage
+                localStorage.setItem('conductorId', result.usuario_id);
                 window.location.href = '/conductor';  // Redirigir si está verificado
             } else {
                 Swal.fire('Error en el inicio de sesión', result.message, 'error');
@@ -41,29 +44,31 @@ function LoginConductor() {
             Swal.fire('Error', 'Ocurrió un error durante el inicio de sesión', 'error');
         }
     };
-
+    
     const handleCodigoSubmit = async (e) => {
         e.preventDefault();
-
+    
         // Enviar solo el código de trabajador (usuario_id)
         const codigoData = {
             codigoTrabajador
         };
-
+    
         try {
             const response = await fetch('http://localhost:9000/conductor/loginCodigo', { // Nuevo endpoint
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(codigoData)
             });
-
+    
             const result = await response.json();
-
+    
             if (result.status === 'no_verificado') {
                 Swal.fire('Usuario no verificado', 'Por favor, actualiza tu contraseña.', 'warning');
                 setUserId(result.usuario_id);
                 setShowModal(true);  // Mostrar modal para cambiar contraseña
             } else if (result.status === 'success') {
+                // Guardar el usuario_id (conductor_id) en localStorage
+                localStorage.setItem('conductorId', result.usuario_id);
                 window.location.href = '/conductor';  // Redirigir si está verificado
             } else {
                 Swal.fire('Error en el inicio de sesión', result.message, 'error');
@@ -73,6 +78,7 @@ function LoginConductor() {
             Swal.fire('Error', 'Ocurrió un error durante el inicio de sesión', 'error');
         }
     };
+    
 
     const handlePasswordChange = async () => {
         const updatePasswordData = { userId, newPassword };
@@ -137,7 +143,7 @@ function LoginConductor() {
                                 type="text"
                                 className="form-control"
                                 id="user"
-                                placeholder="Correo o DPI"
+                                placeholder="Correo electronico"
                                 value={user}
                                 onChange={(e) => setUser(e.target.value)}
                             />
@@ -177,6 +183,9 @@ function LoginConductor() {
                             <button type="submit" className="btn btn-primary btn-block mx-1 mt-3">
                                 Iniciar con Código de Trabajador
                             </button>
+                            <Link to="/" className="btn btn-secondary btn-block mx-1 mt-3">
+        Regresar a la página principal
+    </Link>
                         </div>
                     </form>
                 </div>

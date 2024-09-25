@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Swal from 'sweetalert2';
-import fondo from '../Imgs/fondo.jpeg';
+import fondo from '../../Imgs/fondo.jpeg';
 
 function Login() {
     const [user, setUser] = useState('');
