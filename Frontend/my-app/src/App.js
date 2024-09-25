@@ -16,6 +16,7 @@ import Administrador from "./Pages/admin/admin";
 import GestionarViajes from './Pages/conductor/GestionarViajes';
 import ReportarProblema from './Pages/conductor/ReportarProblema';
 import Auth from "./Pages/admin/auth";
+import LoginUsuario from "./Pages/usuario/login";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
       <Route path="/gestionar-viajes" element={<GestionarViajes/>}></Route>
       <Route path="/reportar-problema" element={<ReportarProblema/>}></Route>
       <Route path="/auth" element={<Auth/>}></Route>
+      <Route path="/login-user" element={<LoginUsuario/>}></Route>
       <Route path="*" element={<Navigate to="/" replace={true}></Navigate>} exact={true}></Route>
     </Routes>
   </BrowserRouter>

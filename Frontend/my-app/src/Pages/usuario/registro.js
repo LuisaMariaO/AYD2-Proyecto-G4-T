@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import Swal from 'sweetalert2';
 import fondo from '../../Imgs/fondo.jpeg';
+import Service from "../../Services/service";
+import { useNavigate } from "react-router-dom";
+import CryptoJS from 'crypto-js';
 
 function RegistroUsuario() {
+    const navigate = useNavigate();
     const [nombreCompleto, setNombreCompleto] = useState('');
     const [fechaNacimiento, setFechaNacimiento] = useState('');
     const [genero, setGenero] = useState('');
@@ -10,10 +14,43 @@ function RegistroUsuario() {
     const [numeroCelular, setNumeroCelular] = useState('');
     const [contrasena, setContrasena] = useState('');
     const [confirmarContrasena, setConfirmarContrasena] = useState('');
+    const [mostrarContrasena, setMostrarContrasena] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        Swal.fire('Registrando...');
+        if(contrasena==confirmarContrasena){
+        Service.registroUsuario(nombreCompleto, fechaNacimiento, genero, correo, numeroCelular,  CryptoJS.MD5(contrasena).toString())
+            .then(({ message, username }) => {
+
+                Swal.fire({
+                    title: "¡Usuario registrado!",
+                    text: "Nombre de usuario: " + username,
+                    icon: "success"
+                  }).then(() => {
+                    navigate('/');
+                  });
+                
+
+            })
+            .catch((error) => {
+                Swal.fire({
+                    title: "Error",
+                    text: "Ocurrió un error en el registro, por favor intente más tarde",
+                    icon: "error"
+                  });
+            })
+        }
+        else{
+            Swal.fire({
+                title: "Error",
+                text: "Las contraseñas no coinciden",
+                icon: "error"
+              });
+        }
+
+    };
+    const toggleMostrarContrasena = () => {
+        setMostrarContrasena(!mostrarContrasena);
     };
 
     return (
@@ -47,33 +84,39 @@ function RegistroUsuario() {
                     <h2 className="text-light text-center">Registro</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group m-1">
-                            <label htmlFor="nombre">Nombre Completo</label>
+                            <label htmlFor="nombre" className="form-label text-light" >Nombre Completo</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 id="nombre"
                                 placeholder="Nombre Completo"
+                                name="nombre"
                                 value={nombreCompleto}
                                 onChange={(e) => setNombreCompleto(e.target.value)}
+                                required
                             />
                         </div>
                         <div className="form-group m-1">
-                            <label htmlFor="fechaNacimiento">Fecha de Nacimiento</label>
+                            <label htmlFor="fechaNacimiento" className="form-label text-light">Fecha de Nacimiento</label>
                             <input
                                 type="date"
                                 className="form-control"
                                 id="fechaNacimiento"
+                                name="fecha_nacimiento"
                                 value={fechaNacimiento}
                                 onChange={(e) => setFechaNacimiento(e.target.value)}
+                                required
                             />
                         </div>
                         <div className="form-group m-1">
-                            <label htmlFor="genero">Género</label>
+                            <label htmlFor="genero" className="form-label text-light">Género</label>
                             <select
                                 className="form-control"
                                 id="genero"
                                 value={genero}
+                                name="genero"
                                 onChange={(e) => setGenero(e.target.value)}
+                                required
                             >
                                 <option value="">Seleccione...</option>
                                 <option value="M">Masculino</option>
@@ -81,40 +124,55 @@ function RegistroUsuario() {
                             </select>
                         </div>
                         <div className="form-group m-1">
-                            <label htmlFor="correo">Correo</label>
+                            <label htmlFor="correo" className="form-label text-light">Correo</label>
                             <input
                                 type="email"
                                 className="form-control"
                                 id="correo"
                                 placeholder="Correo"
                                 value={correo}
+                                name="correo"
                                 onChange={(e) => setCorreo(e.target.value)}
+                                required
                             />
                         </div>
                         <div className="form-group m-1">
-                            <label htmlFor="numeroCelular">Número de Celular</label>
+                            <label htmlFor="numeroCelular" className="form-label text-light">Número de Celular</label>
                             <input
                                 type="tel"
                                 className="form-control"
                                 id="numeroCelular"
                                 placeholder="Número de Celular"
                                 value={numeroCelular}
+                                name="celular"
                                 onChange={(e) => setNumeroCelular(e.target.value)}
+                                required
                             />
                         </div>
                         <div className="form-group m-1">
-                            <label htmlFor="contrasena">Contraseña</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="contrasena"
-                                placeholder="Contraseña"
-                                value={contrasena}
-                                onChange={(e) => setContrasena(e.target.value)}
-                            />
+                            <label htmlFor="contrasena" className="form-label text-light">Contraseña</label>
+                            <div className="input-group">
+                                <input
+                                    type={mostrarContrasena ? "text" : "password"}
+                                    className="form-control"
+                                    id="contrasena"
+                                    placeholder="Contraseña"
+                                    name="password"
+                                    value={contrasena}
+                                    onChange={(e) => setContrasena(e.target.value)}
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    onClick={toggleMostrarContrasena}
+                                >
+                                    {mostrarContrasena ? <i class="bi bi-eye-slash-fill"></i> :  <i class="bi bi-eye-fill"></i>}
+                                </button>
+                            </div>
                         </div>
                         <div className="form-group m-1">
-                            <label htmlFor="confirmarContrasena">Confirmar Contraseña</label>
+                            <label htmlFor="confirmarContrasena" className="form-label text-light">Confirmar contraseña</label>
                             <input
                                 type="password"
                                 className="form-control"
@@ -122,6 +180,7 @@ function RegistroUsuario() {
                                 placeholder="Confirmar Contraseña"
                                 value={confirmarContrasena}
                                 onChange={(e) => setConfirmarContrasena(e.target.value)}
+                                required
                             />
                         </div>
                         <div className="d-grid gap-2">

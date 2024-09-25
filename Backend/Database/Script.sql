@@ -168,3 +168,9 @@ ADD COLUMN fecha_nacimiento DATE;
 
 ALTER TABLE usuario
 ADD COLUMN username varchar(50) UNIQUE;
+
+ALTER TABLE usuario MODIFY COLUMN edad int DEFAULT 0 NOT NULL;
+ALTER TABLE usuario MODIFY COLUMN estado_cuenta int DEFAULT 1 NOT NULL;
+ALTER TABLE usuario MODIFY COLUMN estado_civil int DEFAULT 1 NOT NULL;
+
+ALTER TABLE usuario ADD verificado BOOL DEFAULT false NOT NULL;
