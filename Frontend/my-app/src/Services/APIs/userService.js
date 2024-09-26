@@ -25,3 +25,8 @@ export const cambiarContrasenaUsuario = async (username, password) =>{
     const { data } = await instance.post("/usuario/cambiarContrasena", {username: username, password: password})
     return data
 }
+
+export const loginUsuario = async(user, password) =>{
+    const { data } = await instance.post("/usuario/login", { user: user, password: password})
+    return data
+}

@@ -102,7 +102,32 @@ routes.post('/cambiarContrasena', (req, res) => {
 
 });
 
+routes.post('/login', (req, res) => {
+    const { user, password } = req.body;
+    
+    dbProxy.query('SELECT * FROM usuario WHERE (username = ? OR correo = ?);', [user, user], (err, results) => {
+        if (err) {
+            return res.status(200).json({ message: 'Error en el servidor, por favor intente más tarde.' });
+        }
 
+  
+        if (results.length === 0) {
+            return res.status(200).json({ message: 'Usuario no encontrado', status:0 }); // Usuario no existe
+        } else if(results[0].estado_cuenta ===1){
+            return res.status(200).json({ message: 'Cuenta no verificada', status: 0}); // Usuario no verificado
+        }
+
+        const user = results[0]; // Obtenemos el primer usuario
+
+        if (user.password !== password) {
+            return res.status(200).json({ message: 'Contraseña incorrecta', status:0 }); 
+        }
+
+        // Si todo es correcto, responde con un mensaje de éxito
+        res.status(200).json({ message: '¡Inicio de sesión exitoso!', user: { username: user.username }, status: 1 });
+    });
+
+});
 
 
 
