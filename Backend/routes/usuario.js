@@ -87,6 +87,22 @@ routes.post('/verificar', (req, res) => {
 
 });
 
+routes.post('/cambiarContrasena', (req, res) => {
+    const { username, password } = req.body;
+    dbProxy.query('UPDATE usuario SET password = ? WHERE username=?;', [password,username], (err, results) => {
+        if (err) {
+            console.error('Error al verificar cuenta:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+    
+            res.status(200).json({ message: '¡Contraseña cambiada!'});
+        
+        
+    });
+
+});
+
+
 
 
 

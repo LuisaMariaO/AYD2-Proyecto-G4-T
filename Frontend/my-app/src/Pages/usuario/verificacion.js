@@ -60,7 +60,7 @@ function VerificarUsuario() {
                 zIndex: 2
             }}></div>
             <div className="col-12 bg-dark row justify-content-center py-5" style={{ position: 'relative', zIndex: 2, width: '600px', borderRadius: '20px' }}>
-                <div className="col-md-9 col-lg-9 text-center"> {/* Agrega text-center aquí */}
+                <div className="col-md-9 col-lg-9 text-center">
                     <h2 className="text-light text-center">¡Cuenta verificada!</h2>
                     <button className="btn btn-success" onClick={()=>navigate("/login-user")}>Ir al inicio de sesión</button>
                 </div>

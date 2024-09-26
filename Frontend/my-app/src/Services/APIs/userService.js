@@ -20,3 +20,8 @@ export const verificarCuenta = async(username) =>{
     const { data } = await instance.post("/usuario/verificar", {username: username})
     return data
 }
+
+export const cambiarContrasenaUsuario = async (username, password) =>{
+    const { data } = await instance.post("/usuario/cambiarContrasena", {username: username, password: password})
+    return data
+}

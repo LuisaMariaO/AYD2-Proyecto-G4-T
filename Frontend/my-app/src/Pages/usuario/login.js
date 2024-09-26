@@ -105,6 +105,11 @@ function LoginUsuario() {
         }
     };
     const handlePasswordOlvidada= async (e) => {
+        Swal.fire({
+            title: "Correo enviado",
+            text: "Te hemos enviado un enlace al correo electrónico registrado para que puedas restablecer tu contraseña",
+            icon: "info"
+          });
 
     }
 
@@ -168,7 +173,7 @@ function LoginUsuario() {
                                 Iniciar Sesión
                             </button>
                             <div className="d-flex justify-content-center">
-                                <a className="text-decoration-none text-light" onClick={handlePasswordOlvidada} href="">Olvidé mi contraseña</a>
+                                <a className="text-decoration-none text-light" onClick={handlePasswordOlvidada} type="button">Olvidé mi contraseña</a>
                            </div>     
 
                         </div>
