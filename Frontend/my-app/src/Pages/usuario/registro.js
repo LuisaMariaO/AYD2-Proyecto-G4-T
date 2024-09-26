@@ -20,11 +20,11 @@ function RegistroUsuario() {
         e.preventDefault();
         if(contrasena==confirmarContrasena){
         Service.registroUsuario(nombreCompleto, fechaNacimiento, genero, correo, numeroCelular,  CryptoJS.MD5(contrasena).toString())
-            .then(({ message, username }) => {
+            .then(({ message}) => {
 
                 Swal.fire({
                     title: "¡Usuario registrado!",
-                    text: "Nombre de usuario: " + username,
+                    text: "Verifica tu correo electrónico para continuar",
                     icon: "success"
                   }).then(() => {
                     navigate('/');

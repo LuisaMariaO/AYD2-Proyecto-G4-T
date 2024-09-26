@@ -3,6 +3,11 @@ const express = require('express')
 const routes = express.Router()
 const subirImagenBase64 = require('../bucket');
 const dbProxy = require('../dbProxy');
+const transporter = require('../command/transporter');
+const EmailInvoker = require('../command/emailInvoker');
+const VerificacionEmailCommand = require('../command/verificacionCommand');
+
+const emailInvoker = new EmailInvoker();
 
 routes.get('/check', (req, res) => {
     return res.status(200).json({
@@ -28,7 +33,17 @@ routes.post('/registro', (req, res) => {
             console.error('Error al registrar usuario:', err);
             return res.status(500).json({ message: 'Error en el servidor' });
         }
-        res.status(200).json({ message: '¡Usuario registrado!', username: username });
+    
+        //Construcción del correo electrónico
+        const verificacionEmailCommand = new VerificacionEmailCommand(transporter, nombre, correo, username);
+        //Envío del correo
+        emailInvoker.setCommand(verificacionEmailCommand);
+        emailInvoker.sendEmail().then((info) => {
+            res.status(200).json({ message: '¡Usuario registrado y correo de verificación enviado!'});
+        }).catch((err) => {
+        console.error("Error al enviar el correo electrónico:", err);
+        });
+        
     });
 });
 
@@ -56,6 +71,21 @@ function generarNombreUsuario(nombre) {
 
     return nombreUsuario;
 }
+
+routes.post('/verificar', (req, res) => {
+    const { username } = req.body;
+    dbProxy.query('UPDATE usuario SET estado_cuenta = 2 WHERE username=?;', [username], (err, results) => {
+        if (err) {
+            console.error('Error al verificar cuenta:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+    
+            res.status(200).json({ message: '¡Cuenta verificada!'});
+        
+        
+    });
+
+});
 
 
 

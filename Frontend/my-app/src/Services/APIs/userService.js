@@ -15,3 +15,8 @@ export const registroUsuario = async(nombre, fecha_nacimiento, genero, correo, c
     const { data } = await instance.post("/usuario/registro", {nombre: nombre, fecha_nacimiento: fecha_nacimiento, genero: genero, correo: correo, celular: celular, password: password})
     return data
 }
+
+export const verificarCuenta = async(username) =>{
+    const { data } = await instance.post("/usuario/verificar", {username: username})
+    return data
+}
