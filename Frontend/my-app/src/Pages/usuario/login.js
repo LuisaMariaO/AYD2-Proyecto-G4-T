@@ -13,8 +13,11 @@ function LoginUsuario() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         Service.loginUsuario(user,CryptoJS.MD5(password).toString() )
-        .then(({ status, message}) => {
+        .then(({ status, message, username, name, id}) => {
             if(status === 1){
+                localStorage.setItem('username', username);
+                localStorage.setItem('name', name);
+                localStorage.setItem('user_id', id)
                 navigate('/usuario');
             }else{
                 Swal.fire({

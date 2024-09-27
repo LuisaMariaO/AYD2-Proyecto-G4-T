@@ -19,6 +19,8 @@ import Auth from "./Pages/admin/auth";
 import LoginUsuario from "./Pages/usuario/login";
 import VerificarUsuario from "./Pages/usuario/verificacion";
 import CambiarContrasena from "./Pages/usuario/cambiarContrasena";
+import ReportarProblemaUsuario from "./Pages/usuario/reportarProblema";
+import PedirViaje from "./Pages/usuario/pedirViaje";
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
       <Route path="/login-user" element={<LoginUsuario/>}></Route>
       <Route path="/verificar-user/:username" element={<VerificarUsuario/>}></Route>
       <Route path="/cambiar-password/:username" element={<CambiarContrasena/>}></Route>
+      <Route path="/usuario/problemas" element={<ReportarProblemaUsuario/>}></Route>
+      <Route path="/usuario/solicitarViaje" element={<PedirViaje/>}></Route>
       <Route path="*" element={<Navigate to="/" replace={true}></Navigate>} exact={true}></Route>
     </Routes>
   </BrowserRouter>

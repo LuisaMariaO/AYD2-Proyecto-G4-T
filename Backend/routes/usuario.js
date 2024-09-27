@@ -124,11 +124,52 @@ routes.post('/login', (req, res) => {
         }
 
         // Si todo es correcto, responde con un mensaje de éxito
-        res.status(200).json({ message: '¡Inicio de sesión exitoso!', user: { username: user.username }, status: 1 });
+        res.status(200).json({ message: '¡Inicio de sesión exitoso!', username: user.username, name:user.nombre, id:user.usuario_id, status: 1 });
     });
 
 });
 
+routes.post('/reportarProblema', (req, res) => {
+    const { username, descripcion, fecha, nombre_conductor, placa } = req.body;
+    dbProxy.query('INSERT INTO usuario_problema (descripcion, fecha, nombre_conductor, placa, username) VALUES (?,?,?,?,?)', [descripcion, fecha, nombre_conductor, placa, username], (err, results) => {
+        if (err) {
+            console.error('Error al reportar problema:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+    
+        res.status(200).json({ message: '¡Problema reportado!'});
+    });
+});
+
+routes.post('/solicitarViaje', (req, res) => {
+    const { usuario_id, inicio, fin} = req.body;
+    dbProxy.query('SELECT tarifa_id FROM tarifa WHERE inicio = ? AND fin = ?', [inicio, fin], (err, results) => {
+        if (err) {
+            console.error('Error al buscar la tarifa:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+    
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'Tarifa no encontrada para el inicio y fin proporcionados' });
+        }
+    
+        const tarifa_id = results[0].tarifa_id;
+        console.log(tarifa_id)
+    
+        dbProxy.query(
+            'INSERT INTO viaje (estado, fecha, tarifa, metodo_pago, usuario_solicitud) VALUES (1,now(),?,?,?)',
+            [tarifa_id, 'T', usuario_id],
+            (err, results) => {
+                if (err) {
+                    console.error('Error al insertar el viajeviaje:', err);
+                    return res.status(500).json({ message: 'Error en el servidor' });
+                }
+    
+                res.status(200).json({ message: '¡Viaje solicitado!' });
+            }
+        );
+    });
+});
 
 
 module.exports = routes

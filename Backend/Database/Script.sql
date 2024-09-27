@@ -173,3 +173,8 @@ ALTER TABLE usuario MODIFY COLUMN edad int DEFAULT 0 NOT NULL;
 ALTER TABLE usuario MODIFY COLUMN estado_cuenta int DEFAULT 1 NOT NULL;
 ALTER TABLE usuario MODIFY COLUMN estado_civil int DEFAULT 1 NOT NULL;
 
+ALTER TABLE usuario_problema MODIFY COLUMN viaje int NULL;
+
+ALTER TABLE Qnave.usuario_problema ADD nombre_conductor varchar(100) NULL;
+ALTER TABLE Qnave.usuario_problema ADD placa varchar(25) NULL;
+

@@ -30,3 +30,14 @@ export const loginUsuario = async(user, password) =>{
     const { data } = await instance.post("/usuario/login", { user: user, password: password})
     return data
 }
+
+export const reportarProblemaUsuario = async(descripcion, fecha, nombre_conductor, placa, username) =>{
+    const { data } = await instance.post("/usuario/reportarProblema", {username: username, descripcion: descripcion, fecha: fecha, nombre_conductor: nombre_conductor, placa: placa})
+    return data
+}
+
+export const solicitarViaje = async(usuario_id, inicio, fin) =>{
+    const { data } = await instance.post("/usuario/solicitarViaje", {usuario_id: usuario_id, inicio: inicio, fin: fin})
+    return data
+}
+
