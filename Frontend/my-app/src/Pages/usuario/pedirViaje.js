@@ -3,6 +3,7 @@ import Navbar from "../../Components/Navbar";
 import Sidebar from "../../Components/SidebarUsuario";
 import Service from "../../Services/service";
 import Swal from 'sweetalert2';
+import io from 'socket.io-client';
 
 
 function PedirViaje() {
@@ -14,12 +15,18 @@ function PedirViaje() {
     const [zonas, setZonas] = useState([]);
     const [partida, setPartida] = useState(0);
     const [destino, setDestino] = useState(0);
-    const [formData, setFormData] = useState({
-        partida: 0,
-        destino: 0,
-    });
+    const [viajeActivo, setViajeActivo] = useState([]);
 
     useEffect(() => {
+        const socket = io('http://localhost:9001');
+        socket.on('connect', () => {
+            console.log('Conectado al servidor');
+        });
+        // En caso de que ocurra un error de conexión
+        socket.on('connect_error', (error) => {
+            console.error('Error de conexión:', error);
+        });
+
         Service.obtenerZonas()
             .then(({ data }) => {
                 setZonas(data)
@@ -37,21 +44,32 @@ function PedirViaje() {
             .catch((error) => {
                 throw error
             })
-        return () => {
 
+
+
+        socket.on('actualizacionViajesUsusario', (viajes) => {
+        // Filtrar los viajes pendientes del usuario actual
+            const viajesUsuario = viajes.filter(viaje => viaje.usuario_solicitud === user_id && viaje.estado === 1);
+            setViajeActivo(viajesUsuario);
+            console.log(viajes)
+        });
+
+        // Limpiar el socket cuando el componente se desmonte
+        return () => {
+            socket.off('actualizacionViajesUsusario');
         };
     }, []);
 
     const handleChangePartida = (e) => {
         setPartida(e.target.value);
-       
+
 
         setTarifa(obtenerPrecio(e.target.value, destino))
     };
 
     const handleChangeDestino = (e) => {
         setDestino(e.target.value);
-       
+
 
         setTarifa(obtenerPrecio(partida, e.target.value))
     };
@@ -60,7 +78,7 @@ function PedirViaje() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-       
+
         Service.solicitarViaje(user_id, partida, destino, tarifa)
             .then(({ message }) => {
 
