@@ -41,3 +41,8 @@ export const solicitarViaje = async(usuario_id, inicio, fin) =>{
     return data
 }
 
+export const obtenerViajesPendientes = async(usuario_id) =>{
+    const { data } = await instance.post("/usuario/getViajesPendientes", {usuario_id: usuario_id})
+    return data
+}
+

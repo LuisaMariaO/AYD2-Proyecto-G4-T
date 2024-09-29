@@ -166,12 +166,12 @@ routes.post('/solicitarViaje', (req, res) => {
                     return res.status(500).json({ message: 'Error en el servidor' });
                 }
 
-                dbProxy.query('SELECT * FROM viaje WHERE estado = 1 AND usuario_solicitud = ?', [usuario_id], (err, viajes) => {
+                dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id WHERE (estado = 1 OR estado = 2)  AND usuario_solicitud = ?', [usuario_id], (err, viajes) => {
                     if (err) {
                         console.error('Error al consultar viajes:', err);
                         return res.status(500).json({ message: 'Error en el servidor' });
                     }
-
+                
                     // Emite la actualización al cliente con el estado de los viajes
                     emitirViajeUsusario(viajes);
 
@@ -183,6 +183,18 @@ routes.post('/solicitarViaje', (req, res) => {
             });
     });
 });
+
+routes.post('/getViajesPendientes', (req, res) => {
+    const { usuario_id } = req.body;
+    dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id WHERE (estado = 1 OR estado = 2)  AND usuario_solicitud = ?', [usuario_id], (err, results) => {
+        if (err) {
+            console.error('Error al obtener los viajes:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.json({ message: 'Registros obtenidos', viajes: results });
+    });
+});
+
 
 
 module.exports = routes

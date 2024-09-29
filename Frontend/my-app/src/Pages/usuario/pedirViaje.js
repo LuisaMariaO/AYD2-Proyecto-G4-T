@@ -4,6 +4,7 @@ import Sidebar from "../../Components/SidebarUsuario";
 import Service from "../../Services/service";
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
+import ViajesPendientes from "./viajesPendientes";
 
 
 function PedirViaje() {
@@ -16,6 +17,7 @@ function PedirViaje() {
     const [partida, setPartida] = useState(0);
     const [destino, setDestino] = useState(0);
     const [viajeActivo, setViajeActivo] = useState([]);
+    const [viajesPendientes, setViajesPendientes] = useState([])
 
     useEffect(() => {
         const socket = io('http://localhost:9001');
@@ -45,13 +47,20 @@ function PedirViaje() {
                 throw error
             })
 
+        Service.obtenerViajesPendientes(user_id)
+            .then(({ viajes }) => {
+                setViajesPendientes(viajes)
+
+            })
+            .catch((error) => {
+                throw error
+            })
+
 
 
         socket.on('actualizacionViajesUsusario', (viajes) => {
-        // Filtrar los viajes pendientes del usuario actual
-            const viajesUsuario = viajes.filter(viaje => viaje.usuario_solicitud === user_id && viaje.estado === 1);
-            setViajeActivo(viajesUsuario);
-            console.log(viajes)
+            // Filtrar los viajes pendientes del usuario actual
+            setViajesPendientes(viajes);
         });
 
         // Limpiar el socket cuando el componente se desmonte
@@ -117,56 +126,65 @@ function PedirViaje() {
                 <div className="row">
                     <Sidebar />
                     <div className="col">
-                        <div className="py-3 px-3 pt-3 text-center">
-                            <h2>Solicitar viaje</h2>
-                        </div>
-                        <div className="container mt-4">
-                            <form onSubmit={handleSubmit}>
-                                <div className="mb-3">
-                                    <label htmlFor="tipo" className="form-label">Punto de partida</label>
-                                    <select
-                                        className="form-select"
-                                        id="partida"
-                                        name="partida"
-                                        onChange={handleChangePartida}
-                                        value={partida}
-                                    >
-                                        <option value="">Seleccione el punto de partida</option> {/* Opción por defecto */}
-                                        {zonas.map((partida) => (
-                                            <option key={partida.zona} value={partida.zona}>
-                                                Zona {partida.zona}
-                                            </option>
-                                        ))}
+                        <div className="py-3 px-3 pt-3">
+                            {viajesPendientes.length === 0 ? (
+                                <>
+                                    <h2 className="text-center">Solicitar viaje</h2>
+                                    <div className="container mt-4">
+                                        <form onSubmit={handleSubmit}>
+                                            <div className="mb-3">
+                                                <label htmlFor="tipo" className="form-label">Punto de partida</label>
+                                                <select
+                                                    className="form-select"
+                                                    id="partida"
+                                                    name="partida"
+                                                    onChange={handleChangePartida}
+                                                    value={partida}
+                                                >
+                                                    <option value="">Seleccione el punto de partida</option>
+                                                    {zonas.map((partida) => (
+                                                        <option key={partida.zona} value={partida.zona}>
+                                                            Zona {partida.zona}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
 
-                                    </select>
+                                            <div className="mb-3">
+                                                <label htmlFor="tipo" className="form-label">Destino</label>
+                                                <select
+                                                    className="form-select"
+                                                    id="destino"
+                                                    name="destino"
+                                                    onChange={handleChangeDestino}
+                                                    value={destino}
+                                                >
+                                                    <option value="">Seleccione el destino</option>
+                                                    {zonas.map((destino) => (
+                                                        <option key={destino.zona} value={destino.zona}>
+                                                            Zona {destino.zona}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+
+                                            <p>Tarifa: {tarifa > 0 ? `Q${tarifa}` : "No disponible"}</p>
+
+                                            <button type="submit" className="btn btn-success">Pedir viaje</button>
+                                        </form>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                
+                                <div className="alert alert-warning">
+                                    <h2>Viajes pendientes</h2>
                                 </div>
-
-                                <div className="mb-3">
-                                    <label htmlFor="tipo" className="form-label">Destino</label>
-                                    <select
-                                        className="form-select"
-                                        id="destino"
-                                        name="destino"
-                                        onChange={handleChangeDestino}
-                                        value={destino}
-                                    >
-                                        <option value="">Seleccione el destino</option> {/* Opción por defecto */}
-                                        {zonas.map((destino) => (
-                                            <option key={destino.zona} value={destino.zona}>
-                                                Zona {destino.zona}
-                                            </option>
-                                        ))}
-
-                                    </select>
-                                </div>
+                                <ViajesPendientes viajesPendientes={viajesPendientes} />
+                                </>
+                            )}
 
 
-                                <p>Tarifa: {tarifa > 0 ? `Q${tarifa}` : "No disponible"}</p>
-
-
-
-                                <button type="submit" className="btn btn-success">Pedir viaje</button>
-                            </form>
                         </div>
                     </div>
                 </div>
