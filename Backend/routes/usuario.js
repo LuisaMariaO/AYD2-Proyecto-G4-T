@@ -166,7 +166,7 @@ routes.post('/solicitarViaje', (req, res) => {
                     return res.status(500).json({ message: 'Error en el servidor' });
                 }
 
-                dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio, v.usuario_conductor, u.nombre, vh.placa, vh.fotografia, ma.marca_nombre FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id LEFT JOIN usuario u ON u.usuario_id = usuario_conductor LEFT JOIN empleado em ON em.usuario_id=usuario_conductor LEFT JOIN vehiculo vh ON vh.vehiculo_id=em.vehiculo LEFT JOIN marca_vehiculo ma ON ma.marca_id=vh.marca WHERE (estado = 1 OR estado = 2)  AND usuario_solicitud = ??', [usuario_id], (err, viajes) => {
+                dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio, v.usuario_conductor, v.usuario_solicitud,u.nombre, vh.placa, vh.fotografia, ma.marca_nombre FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id LEFT JOIN usuario u ON u.usuario_id = usuario_conductor LEFT JOIN empleado em ON em.usuario_id=usuario_conductor LEFT JOIN vehiculo vh ON vh.vehiculo_id=em.vehiculo LEFT JOIN marca_vehiculo ma ON ma.marca_id=vh.marca WHERE (estado = 1 OR estado = 2)  AND usuario_solicitud = ?', [usuario_id], (err, viajes) => {
                     if (err) {
                         console.error('Error al consultar viajes:', err);
                         return res.status(500).json({ message: 'Error en el servidor' });
@@ -186,7 +186,7 @@ routes.post('/solicitarViaje', (req, res) => {
 
 routes.post('/getViajesPendientes', (req, res) => {
     const { usuario_id } = req.body;
-    dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio, v.usuario_conductor, u.nombre, vh.placa, vh.fotografia, ma.marca_nombre FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id LEFT JOIN usuario u ON u.usuario_id = usuario_conductor LEFT JOIN empleado em ON em.usuario_id=usuario_conductor LEFT JOIN vehiculo vh ON vh.vehiculo_id=em.vehiculo LEFT JOIN marca_vehiculo ma ON ma.marca_id=vh.marca WHERE (estado = 1 OR estado = 2)  AND usuario_solicitud = ?', [usuario_id], (err, results) => {
+    dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio, v.usuario_conductor,v.usuario_solicitud, u.nombre, vh.placa, vh.fotografia, ma.marca_nombre FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id LEFT JOIN usuario u ON u.usuario_id = usuario_conductor LEFT JOIN empleado em ON em.usuario_id=usuario_conductor LEFT JOIN vehiculo vh ON vh.vehiculo_id=em.vehiculo LEFT JOIN marca_vehiculo ma ON ma.marca_id=vh.marca WHERE (estado = 1 OR estado = 2)  AND usuario_solicitud = ?', [usuario_id], (err, results) => {
         if (err) {
             console.error('Error al obtener los viajes:', err);
             return res.status(500).json({ message: 'Error en el servidor' });
@@ -209,7 +209,7 @@ routes.post('/cancelarViaje', (req, res) => {
                 return res.status(500).json({ message: 'Error en el servidor' });
             }
 
-                dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio, v.usuario_conductor, u.nombre, vh.placa, vh.fotografia, ma.marca_nombre FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id LEFT JOIN usuario u ON u.usuario_id = usuario_conductor LEFT JOIN empleado em ON em.usuario_id=usuario_conductor LEFT JOIN vehiculo vh ON vh.vehiculo_id=em.vehiculo LEFT JOIN marca_vehiculo ma ON ma.marca_id=vh.marca WHERE (estado = 1 OR estado = 2)  AND usuario_solicitud = ??', [usuario_id], (err, viajes) => {
+                dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio, v.usuario_conductor,v.usuario_solicitud, u.nombre, vh.placa, vh.fotografia, ma.marca_nombre FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id LEFT JOIN usuario u ON u.usuario_id = usuario_conductor LEFT JOIN empleado em ON em.usuario_id=usuario_conductor LEFT JOIN vehiculo vh ON vh.vehiculo_id=em.vehiculo LEFT JOIN marca_vehiculo ma ON ma.marca_id=vh.marca WHERE (estado = 1 OR estado = 2)  AND usuario_solicitud = ?', [usuario_id], (err, viajes) => {
                     if (err) {
                         console.error('Error al consultar viajes:', err);
                         return res.status(500).json({ message: 'Error en el servidor' });

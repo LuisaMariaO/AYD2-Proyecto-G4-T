@@ -49,8 +49,8 @@ function PedirViaje() {
 
         Service.obtenerViajesPendientes(user_id)
             .then(({ viajes }) => {
-                console.log(viajes)
-                setViajesPendientes(viajes)
+                const viajesFiltrados = viajes.filter(viaje => viaje.usuario_solicitud == user_id);
+                setViajesPendientes(viajesFiltrados);
 
             })
             .catch((error) => {
