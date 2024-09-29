@@ -23,6 +23,7 @@ function ViajesPendientes({ viajesPendientes }) {
     const [comentario, setComentario] = useState('');
     const [motivo, setMotivo] = useState('1');
     const [viaje_id, setViajeId] = useState(0);
+    const [viaje, setViaje] = useState([]);
 
     const handleChangeMotivo = (e) => {
         setMotivo(e.target.value);
@@ -111,8 +112,8 @@ function ViajesPendientes({ viajesPendientes }) {
                                         &nbsp;
                                         <div className='col-md-12 text-center'>
                                             <p className='card-footer text-center'>
-                                                {(viaje.estado === 1) && (
-                                                    <button className="btn btn-primary btn-sm float-start">Ver información del conductor</button>
+                                                {(viaje.estado === 2) && (
+                                                    <button className="btn btn-primary btn-sm float-start" data-bs-toggle="modal" data-bs-target="#infoConductorModal" onClick={() => setViaje(viaje)}>Ver información del conductor</button>
                                                 )}
 
                                                 <button className="btn btn-danger btn-sm float-end" data-bs-toggle="modal" data-bs-target="#reportarProblemaModal" onClick={() => setViajeId(viaje.viaje_id)}>Cancelar</button>
@@ -125,7 +126,7 @@ function ViajesPendientes({ viajesPendientes }) {
                     ))}
                 </div>
             </div>
-
+            {/* Modal para cancelar viaje un problema */}
             <div className="modal fade" id="reportarProblemaModal" tabIndex="-1" aria-labelledby="reportarProblemaLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -156,6 +157,34 @@ function ViajesPendientes({ viajesPendientes }) {
                     </div>
                 </div>
             </div>
+
+            {/* Modal para ver información del conductor */}
+            <div className="modal fade" id="infoConductorModal" tabIndex="-1" aria-labelledby="infoConductorLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="infoConductorLabel">Información del Conductor</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            {viaje ? (
+                                <>
+                                    <p><strong>Nombre del Conductor:</strong> {viaje.nombre}</p>
+                                    <p><strong>Placa del Vehículo:</strong> {viaje.placa}</p>
+                                    <p><strong>Marca del Vehículo:</strong> {viaje.marca_nombre}</p>
+                                    <img src={viaje.fotografia} alt="Fotografía del vehículo" className="img-fluid" />
+                                </>
+                            ) : (
+                                <p>No hay información del conductor disponible.</p>
+                            )}
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
         </>

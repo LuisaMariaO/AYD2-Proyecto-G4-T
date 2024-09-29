@@ -49,6 +49,7 @@ function PedirViaje() {
 
         Service.obtenerViajesPendientes(user_id)
             .then(({ viajes }) => {
+                console.log(viajes)
                 setViajesPendientes(viajes)
 
             })
