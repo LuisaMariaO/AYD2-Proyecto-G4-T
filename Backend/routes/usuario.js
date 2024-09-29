@@ -195,6 +195,39 @@ routes.post('/getViajesPendientes', (req, res) => {
     });
 });
 
+routes.post('/cancelarViaje', (req, res) => {
+    const { viaje_id,  tiempo_espera, no_conductor, otro, comentario, usuario_id } = req.body;
+    dbProxy.query('UPDATE viaje SET estado=4 WHERE viaje_id = ?', [viaje_id], (err, results) => {
+        if (err) {
+            console.error('Error al actualizar el estado del viaje:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+
+        dbProxy.query('INSERT INTO motivo_cancelacion (viaje_id, tiempo_espera, no_conductor, otro, comentario) VALUES(?,?,?,?,?)', [viaje_id, tiempo_espera, no_conductor, otro, comentario], (err, results) => {
+            if (err) {
+                console.error('Error al registrar el motivo de cancelación del viaje:', err);
+                return res.status(500).json({ message: 'Error en el servidor' });
+            }
+
+                dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id WHERE (estado = 1 OR estado = 2)  AND usuario_solicitud = ?', [usuario_id], (err, viajes) => {
+                    if (err) {
+                        console.error('Error al consultar viajes:', err);
+                        return res.status(500).json({ message: 'Error en el servidor' });
+                    }
+                
+                    // Emite la actualización al cliente con el estado de los viajes
+                    emitirViajeUsusario(viajes);
+
+                    res.status(200).json({ message: '¡Viaje cancelado!' });
+
+
+                }
+                );
+            });
+
+    
+    });
+});
 
 
 module.exports = routes

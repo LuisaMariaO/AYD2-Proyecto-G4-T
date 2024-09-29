@@ -46,3 +46,7 @@ export const obtenerViajesPendientes = async(usuario_id) =>{
     return data
 }
 
+export const cancelarViaje = async(viaje_id, tiempo_espera, no_conductor, otro, comentario, usuario_id) =>{
+    const { data } = await instance.post("/usuario/cancelarViaje", {viaje_id: viaje_id, tiempo_espera: tiempo_espera, no_conductor: no_conductor, otro: otro, comentario: comentario, usuario_id: usuario_id})
+    return data
+}

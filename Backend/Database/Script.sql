@@ -178,3 +178,14 @@ ALTER TABLE usuario_problema MODIFY COLUMN viaje int NULL;
 ALTER TABLE Qnave.usuario_problema ADD nombre_conductor varchar(100) NULL;
 ALTER TABLE Qnave.usuario_problema ADD placa varchar(25) NULL;
 
+CREATE TABLE motivo_cancelacion (
+	motivo_cancelacion_id INT AUTO_INCREMENT NOT NULL,
+	viaje_id INT NOT NULL,
+	tiempo_espera bool,
+	no_conductor bool, 
+	otro bool, 
+	comentario text,
+	PRIMARY KEY (motivo_cancelacion_id),
+	FOREIGN KEY (viaje_id) REFERENCES viaje (viaje_id)
+);
+
