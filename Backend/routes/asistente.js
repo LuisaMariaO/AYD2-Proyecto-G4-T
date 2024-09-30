@@ -119,22 +119,11 @@ routes.get('/conductores', (req, res) => {
     });
 });
 
-routes.post('/dar-baja-usuario', (req, res) => {
-    const { usuario_id } = req.body;
-    dbProxy.query('UPDATE usuario SET estado_cuenta = 4 WHERE rol = 3 AND usuario_id = ?;', [usuario_id], (err, results) => {
+routes.post('/baja-activar-cuenta', (req, res) => {
+    const { usuario_id, nuevoEstado } = req.body;
+    dbProxy.query('UPDATE usuario SET estado_cuenta = ? WHERE usuario_id = ?;', [nuevoEstado, usuario_id], (err, results) => {
         if (err) {
-            console.error('Error al dar de baja al usuario', err);
-            return res.status(500).json({ message: 'Error en el servidor' });
-        }
-        res.status(200).json({ message: '¡Contraseña cambiada!' });
-    });
-});
-
-routes.post('/dar-baja-conductor', (req, res) => {
-    const { usuario_id } = req.body;
-    dbProxy.query('UPDATE usuario SET estado_cuenta = 4 WHERE rol = 4 AND usuario_id = ?;', [usuario_id], (err, results) => {
-        if (err) {
-            console.error('Error al dar de baja al conductor', err);
+            console.error('Error al dar de baja o activar al conductor', err);
             return res.status(500).json({ message: 'Error en el servidor' });
         }
         res.status(200).json({ message: '¡Contraseña cambiada!' });
