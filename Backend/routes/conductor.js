@@ -403,6 +403,8 @@ routes.post('/aceptarViaje/:viajeId', async (req, res) => {
                 return res.status(200).json({ status: 'success', message: 'Viaje aceptado correctamente.' });
                 });
             });
+
+
         });
     } catch (error) {
         console.error('Error en el servidor:', error);
