@@ -36,6 +36,8 @@ routes.post('/registro', async (req, res) => {
         direccionDomicilio
     } = req.body;
 
+
+
     try {
         // Subir la imagen del conductor, la imagen del vehículo y el CV a S3 en paralelo
         const [urlFotoConductor, urlFotoVehiculo, urlCV] = await Promise.all([
