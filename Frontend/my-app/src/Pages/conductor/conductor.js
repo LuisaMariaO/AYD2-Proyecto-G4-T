@@ -12,8 +12,6 @@ function Conductor() {
     const conductorId = localStorage.getItem('conductorId');
 
     useEffect(() => {
-
-
         // Obtener el número de cancelaciones del localStorage
         const cancelacionesGuardadas = localStorage.getItem(`cancelaciones_${conductorId}`);
         const cancelacionesCount = cancelacionesGuardadas ? parseInt(cancelacionesGuardadas, 10) : 0;

@@ -55,15 +55,28 @@ function ReportarProblema() {
         fetchViajes();
     }, [conductorId]);
 
+        // Convertir archivo PDF a Base64
+        const convertToBase64 = (file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        };
+    
+
     // Convert PDF to Base64
-    const handleEvidenciaChange = (e) => {
+    const handleEvidenciaChange = async (e) => {
         const file = e.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.readAsDataURL(file); // Read file as Base64
-            reader.onloadend = () => {
-                setEvidencia(reader.result); // Save the Base64 string
-            };
+            try {
+                const evidenciaBase64 = await convertToBase64(file);
+                const evidenciaNoheader = evidenciaBase64.split(',')[1]; // Eliminar el encabezado "data:application/pdf;base64,"
+                setEvidencia(evidenciaNoheader); // Guardar el string Base64 sin encabezado
+            } catch (error) {
+                console.error('Error al convertir archivo:', error);
+            }
         }
     };
 
