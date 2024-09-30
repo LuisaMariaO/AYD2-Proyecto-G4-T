@@ -7,17 +7,21 @@ const TablaSolicitudesEmpleos = ({ drivers, viewCV }) => {
             <table className="table table-bordered">
                 <thead>
                     <tr>
+                        <th>Usuario</th>
                         <th>Nombre</th>
-                        <th>Foto</th>
-                        <th>Estado</th>
+                        <th>Marca vehiculo</th>
+                        <th>Placa</th>
+                        <th>Estado CV</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {drivers.map((driver, index) => (
                         <tr key={index}>
+                            <td>User 1</td>
                             <td>{driver.nombre}</td>
-                            <td><img src={driver.foto} alt={`Foto de ${driver.nombre}`} width="50" /></td>
+                            <td>Tipo de carro</td>
+                            <td>Placa 1</td>
                             <td>{driver.estado}</td>
                             <td>
                                 <div className="d-flex gap-2">
