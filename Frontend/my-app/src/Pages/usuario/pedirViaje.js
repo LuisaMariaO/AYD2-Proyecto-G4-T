@@ -62,6 +62,7 @@ function PedirViaje() {
         socket.on('actualizacionViajesUsusario', (viajes) => {
             // Filtrar los viajes pendientes del usuario actual
             setViajesPendientes(viajes);
+            console.log(viajes)
         });
 
         // Limpiar el socket cuando el componente se desmonte
