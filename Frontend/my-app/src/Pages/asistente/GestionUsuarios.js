@@ -58,9 +58,7 @@ const GestionUsuarios = () => {
 
                     {/* Pasar los usuarios filtrados a la tabla */}
                     <TablaUsuarios
-                        users={filteredUsers} // Pasar los usuarios filtrados a la tabla
-                        setUsers={setUsers} // Pasar el setUsers para actualizar la lista cuando sea necesario
-                    />
+                        users={filteredUsers} tipoUsuario="Usuario"/>
 
                     {/* <button className="btn btn-dark w-100 mt-4">
                         Agregar Nuevo Usuario
