@@ -61,8 +61,8 @@ function PedirViaje() {
 
         socket.on('actualizacionViajesUsusario', (viajes) => {
             // Filtrar los viajes pendientes del usuario actual
-            setViajesPendientes(viajes);
-            console.log(viajes)
+            const viajesFiltrados = viajes.filter(viaje => viaje.usuario_solicitud == user_id);
+            setViajesPendientes(viajesFiltrados);
         });
 
         // Limpiar el socket cuando el componente se desmonte
@@ -178,11 +178,11 @@ function PedirViaje() {
                                 </>
                             ) : (
                                 <>
-                                
-                                <div className="alert alert-warning">
-                                    <h2>Viajes pendientes</h2>
-                                </div>
-                                <ViajesPendientes viajesPendientes={viajesPendientes} />
+
+                                    <div className="alert alert-warning">
+                                        <h2>Viajes pendientes</h2>
+                                    </div>
+                                    <ViajesPendientes viajesPendientes={viajesPendientes} />
                                 </>
                             )}
 
