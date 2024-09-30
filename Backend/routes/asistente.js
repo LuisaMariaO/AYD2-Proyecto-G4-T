@@ -37,6 +37,28 @@ routes.get('/solicitudes-empleo', (req, res) => {
     });
 });
 
+routes.post('/aprobar-solicitud-empleo', (req, res) => {
+    const { usuario_id } = req.body;
+    dbProxy.query('UPDATE empleado SET estado_cv = 1 WHERE usuario_id = ?;', [usuario_id], (err, results) => {
+        if (err) {
+            console.error('Error al aprobar solicitud de empleo', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.status(200).json({ message: '¡Contraseña cambiada!' });
+    });
+});
+
+routes.post('/rechazar-solicitud-empleo', (req, res) => {
+    const { usuario_id } = req.body;
+    dbProxy.query('UPDATE empleado SET estado_cv = 0 WHERE usuario_id = ?;', [usuario_id], (err, results) => {
+        if (err) {
+            console.error('Error al rechazar solicitud de empleo', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.status(200).json({ message: '¡Contraseña cambiada!' });
+    });
+});
+
 routes.get('/usuarios', (req, res) => {
     dbProxy.query(`
             SELECT 
@@ -99,7 +121,7 @@ routes.get('/conductores', (req, res) => {
 
 routes.post('/dar-baja-usuario', (req, res) => {
     const { usuario_id } = req.body;
-    dbProxy.query('UUPDATE usuario SET estado_cuenta = 4 WHERE rol = 3 AND usuario_id = ?;', [usuario_id], (err, results) => {
+    dbProxy.query('UPDATE usuario SET estado_cuenta = 4 WHERE rol = 3 AND usuario_id = ?;', [usuario_id], (err, results) => {
         if (err) {
             console.error('Error al dar de baja al usuario', err);
             return res.status(500).json({ message: 'Error en el servidor' });
@@ -110,7 +132,7 @@ routes.post('/dar-baja-usuario', (req, res) => {
 
 routes.post('/dar-baja-conductor', (req, res) => {
     const { usuario_id } = req.body;
-    dbProxy.query('UUPDATE usuario SET estado_cuenta = 4 WHERE rol = 4 AND usuario_id = ?;', [usuario_id], (err, results) => {
+    dbProxy.query('UPDATE usuario SET estado_cuenta = 4 WHERE rol = 4 AND usuario_id = ?;', [usuario_id], (err, results) => {
         if (err) {
             console.error('Error al dar de baja al conductor', err);
             return res.status(500).json({ message: 'Error en el servidor' });
@@ -118,4 +140,5 @@ routes.post('/dar-baja-conductor', (req, res) => {
         res.status(200).json({ message: '¡Contraseña cambiada!' });
     });
 });
+
 module.exports = routes
