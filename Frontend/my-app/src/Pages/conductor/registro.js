@@ -39,6 +39,10 @@ function RegistroConductor() {
             const fotografiaBase64 = fotografia ? await convertToBase64(fotografia) : null;
             const fotoVehiculoBase64 = fotoVehiculo ? await convertToBase64(fotoVehiculo) : null;
 
+            const cvNoheader = cvBase64.split(',')[1];
+            const fotografiaNoheader = fotografiaBase64.split(',')[1];
+            const fotoVehiculoNoheader = fotoVehiculoBase64.split(',')[1];
+
             // Crear el objeto que se enviará
             const conductorData = {
                 nombreCompleto,
@@ -46,9 +50,9 @@ function RegistroConductor() {
                 edad,
                 numeroDpi,
                 correo,
-                cv: cvBase64, // Archivo en base64
-                fotografia: fotografiaBase64, // Archivo en base64
-                fotoVehiculo: fotoVehiculoBase64, // Archivo en base64
+                cv: cvNoheader, // Archivo en base64
+                fotografia: fotografiaNoheader, // Archivo en base64
+                fotoVehiculo: fotoVehiculoNoheader, // Archivo en base64
                 numeroPlaca,
                 marcaVehiculo, // ID de la marca seleccionada
                 anioVehiculo,
@@ -56,6 +60,8 @@ function RegistroConductor() {
                 estadoCivil, // ID del estado civil seleccionado
                 direccionDomicilio
             };
+
+            console.log(cvBase64);
 
             // Enviar el objeto como un JSON al servidor en localhost:9000
             const response = await fetch('http://localhost:9000/conductor/registro', {
