@@ -7,7 +7,10 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Index from "./Pages";
 import LoginConductor from "./Pages/conductor/conductor-login";
 import LoginAdmin from "./Pages/admin/admin-login";
-import Asistente from "./Pages/asistente/asistente";
+import Asistente from "./Pages/asistente/Asistente";
+import SolicitudesEmpleos from "./Pages/asistente/SolicitudesEmpleos";
+import GestionUsuarios from "./Pages/asistente/GestionUsuarios";
+import GestionConductores from "./Pages/asistente/GestionConductores";
 import Usuario from "./Pages/usuario/usuario";
 import Conductor from "./Pages/conductor/conductor";
 import RegistroUsuario from "./Pages/usuario/registro";
@@ -30,6 +33,9 @@ function App() {
       <Route path="/loginConductor" element={<LoginConductor/>}></Route>
       <Route path="/login-admin" element={<LoginAdmin/>}></Route>
       <Route path="/asistente" element={<Asistente/>}></Route>
+      <Route path="/solicitudes-empleos" element={<SolicitudesEmpleos/>}/>
+      <Route path="/gestion-usuarios" element={<GestionUsuarios/>}/>
+      <Route path="/gestion-conductores" element={<GestionConductores/>}/>
       <Route path="/usuario" element={<Usuario/>}></Route>
       <Route path="/conductor" element={<Conductor/>}></Route>
       <Route path="/admin" element={<Administrador/>}></Route>
