@@ -189,3 +189,5 @@ CREATE TABLE motivo_cancelacion (
 	FOREIGN KEY (viaje_id) REFERENCES viaje (viaje_id)
 );
 
+ALTER TABLE empleado
+ADD COLUMN estado_cv TINYINT(1) NULL;
