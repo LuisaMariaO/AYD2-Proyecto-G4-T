@@ -5,6 +5,14 @@ import logo from '../Imgs/carro.png'
 function Navbar(prop) {
 
     const navigate = useNavigate();
+    const username = localStorage.getItem('username');
+    const name = localStorage.getItem('name');
+
+    const handeleCerrarSesion = async (e) => {
+        localStorage.removeItem('username');
+        localStorage.removeItem('name');
+        navigate('/')
+    }
 
     return (
         <>
@@ -26,11 +34,11 @@ function Navbar(prop) {
                             <div class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <div class="nav-item dropdown">
                                     <a class="nav-link text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontSize: "20px" }}>
-                                        {prop.rol}  &nbsp;
+                                        {username!=undefined ? name : prop.rol}  &nbsp;
                                         <i class="bi bi-person-circle" style={{ fontSize: "30px" }}> </i>
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" onClick={() => navigate("/")}>Cerrar sesión</a></li>
+                                    <ul class="dropdown-menu"> 
+                                        <li><a class="dropdown-item" onClick={handeleCerrarSesion} href="">Cerrar sesión</a></li>
                                     </ul>
                                 </div>
                             </div>

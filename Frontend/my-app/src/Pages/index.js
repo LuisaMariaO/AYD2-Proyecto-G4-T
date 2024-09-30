@@ -17,7 +17,7 @@ function Index() {
                     <div className="col-lg-6 col-md-6">
                         <img src={logo} alt='Qnave'></img>
                         <div className="row m-3">
-                            <button className="btn btn-danger w-100" onClick={() => navigate('/login')}>Iniciar Sesión</button>
+                            <button className="btn btn-danger w-100" onClick={() => navigate('/login-user')}>Iniciar Sesión</button>
                         </div>
                         <div className="row m-3">
                             <button className="btn btn-danger w-100" onClick={() => navigate('/loginConductor')}>Iniciar Sesión Conductor</button>
