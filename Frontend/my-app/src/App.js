@@ -13,6 +13,7 @@ import GestionUsuarios from "./Pages/asistente/GestionUsuarios";
 import GestionConductores from "./Pages/asistente/GestionConductores";
 import Usuario from "./Pages/usuario/usuario";
 import Conductor from "./Pages/conductor/conductor";
+import InicioSesionAsistente from "./Pages/asistente/InicioSesionAsistente";
 import RegistroUsuario from "./Pages/usuario/registro";
 import RegistroConductor from "./Pages/conductor/registro";
 import Administrador from "./Pages/admin/admin";
@@ -38,6 +39,7 @@ function App() {
       <Route path="/gestion-conductores" element={<GestionConductores/>}/>
       <Route path="/usuario" element={<Usuario/>}></Route>
       <Route path="/conductor" element={<Conductor/>}></Route>
+      <Route path="/inicio-sesion-asistente" element={<InicioSesionAsistente/>}/>
       <Route path="/admin" element={<Administrador/>}></Route>
       <Route path="/register-user" element={<RegistroUsuario/>}></Route>
       <Route path="/register-driver" element={<RegistroConductor/>}></Route>

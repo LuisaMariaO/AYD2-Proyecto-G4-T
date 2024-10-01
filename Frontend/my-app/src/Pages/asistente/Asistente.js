@@ -7,8 +7,8 @@ import PerfilUsuario from "../../Components/asistente/PerfilUsuario";
 function Asistente() {
 
     const usuario = {
-        username: "Asistente",
-        email: "asistente@correo.com",
+        autor: "Quien sabra...",
+        frase: " \"Con la mujer no se razona, se disciplina.\" ",
         url_foto: "https://img.freepik.com/vector-premium/logotipo-chat-bot-asistente-virtual-logotipo-icono-bot-cabeza-robot-auriculares_843540-99.jpg",
     };
 

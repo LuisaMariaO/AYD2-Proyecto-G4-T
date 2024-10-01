@@ -18,10 +18,10 @@ const PerfilUsuario = ({ usuario }) => {
                 <div>
 
                     <Card className="w-100">
-                        <Card.Header>Información del Usuario</Card.Header>
+                        <Card.Header>Frase motivacional</Card.Header>
                         <Card.Body>
-                            <h3>Usuario: {usuario.username}</h3>
-                            <p className="text-muted">Correo: {usuario.email}</p>
+                            <h3>{usuario.frase}</h3>
+                            <p className="text-muted">{usuario.autor}</p>
                         </Card.Body>
                     </Card>
                 </div>
