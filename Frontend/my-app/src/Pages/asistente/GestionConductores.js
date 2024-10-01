@@ -57,7 +57,7 @@ const GestionConductores = () => {
                     </div>
 
                     {/* Pasar los usuarios filtrados a la tabla */}
-                    <TablaUsuarios  users={filteredUsers} tipoUsuario="Conductor"/>
+                    <TablaUsuarios  users={filteredUsers} tipoUsuario="conductor"/>
                     {/* 
                     <button className="btn btn-dark w-100 mt-4">
                         Agregar Nuevo Conductor

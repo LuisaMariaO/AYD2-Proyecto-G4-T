@@ -72,7 +72,7 @@ routes.post('/aprobar-solicitud-empleo', (req, res) => {
             console.error('Error al aprobar solicitud de empleo', err);
             return res.status(500).json({ message: 'Error en el servidor' });
         }
-        res.status(200).json({ message: '¡Contraseña cambiada!' });
+        res.status(200).json({ message: 'Todo bien' });
     });
 });
 
@@ -83,7 +83,7 @@ routes.post('/rechazar-solicitud-empleo', (req, res) => {
             console.error('Error al rechazar solicitud de empleo', err);
             return res.status(500).json({ message: 'Error en el servidor' });
         }
-        res.status(200).json({ message: '¡Contraseña cambiada!' });
+        res.status(200).json({ message: 'Todo bien' });
     });
 });
 
@@ -154,7 +154,52 @@ routes.post('/baja-activar-cuenta', (req, res) => {
             console.error('Error al dar de baja o activar al conductor', err);
             return res.status(500).json({ message: 'Error en el servidor' });
         }
-        res.status(200).json({ message: '¡Contraseña cambiada!' });
+        res.status(200).json({ message: 'Todo bien' });
+    });
+});
+
+routes.post('/comentarios-puntuacion-usuario', (req, res) => {
+    const { usuario_id } = req.body;
+    dbProxy.query('SELECT * FROM calificacion_usuario WHERE usuario_id = ?;', [usuario_id], (err, results) => {
+        if (err) {
+            console.error('Error al obtener la información del conductor', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.status(200).json({ message: 'Todo bien' });
+    });
+});
+
+routes.post('/comentarios-puntuacion-conductor', (req, res) => {
+    const { usuario_id } = req.body;
+    console.log(usuario_id);
+    dbProxy.query(`
+            SELECT 
+                u.username AS nombre_usuario,
+                u.nombre AS nombre_completo,
+                u.estado_cuenta AS estado_cuenta_id,
+                ec.estado_descripcion AS estado_cuenta,
+                v.viaje_id,
+                v.fecha AS fecha_viaje,
+                cc.puntaje AS calificacion,
+                cc.comentario AS comentario_usuario
+            FROM 
+                usuario u
+            JOIN 
+                empleado e ON u.usuario_id = e.usuario_id
+            JOIN 
+                viaje v ON v.usuario_conductor = u.usuario_id
+            LEFT JOIN 
+                calificacion_conductor cc ON v.viaje_id = cc.viaje
+            LEFT JOIN 
+                estado_cuenta ec ON u.estado_cuenta = ec.estado_cuenta_id
+            WHERE 
+                u.usuario_id = ?;
+        `, [usuario_id], (err, results) => {
+        if (err) {
+            console.error('Error al obtener la información del conductor', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.status(200).json({ message: 'Todo bien' });
     });
 });
 
