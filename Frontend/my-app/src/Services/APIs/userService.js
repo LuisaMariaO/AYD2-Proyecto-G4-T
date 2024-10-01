@@ -21,6 +21,11 @@ export const verificarCuenta = async(username) =>{
     return data
 }
 
+export const recuperarContrasenaUsuario = async(username) =>{
+    const { data } = await instance.post("/usuario/solicitudCambiarContrasena", {username: username})
+    return data
+}
+
 export const cambiarContrasenaUsuario = async (username, password) =>{
     const { data } = await instance.post("/usuario/cambiarContrasena", {username: username, password: password})
     return data
