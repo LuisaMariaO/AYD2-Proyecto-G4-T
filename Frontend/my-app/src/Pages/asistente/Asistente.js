@@ -32,6 +32,9 @@ function Asistente() {
                             <div className="col-md-6">
                                 <Funcionalidad icon="Users" texto="Usuarios" link="/gestion-usuarios" />
                             </div>
+                            <div className="col-md-6">
+                                <Funcionalidad icon="CirclePercent" texto="Ofertas" link="/gestion-ofertas" />
+                            </div>
                             {/* <div className="col-md-6">
                                 <Funcionalidad icon="SquareArrowDown" texto="Baja de conductores" link="" />
                             </div>

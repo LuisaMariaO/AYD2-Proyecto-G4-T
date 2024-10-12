@@ -191,3 +191,41 @@ CREATE TABLE motivo_cancelacion (
 
 ALTER TABLE empleado
 ADD COLUMN estado_cv TINYINT(1) NULL;
+
+ALTER TABLE empleado
+ADD COLUMN pdf_actualizacion TEXT, -- Para guardar la ruta del PDF
+ADD COLUMN fecha_cambios DATE,     -- Para registrar la fecha de los cambios
+ADD COLUMN estado_pdf TEXT; -- Estado del PDF
+
+CREATE TABLE motivos_bajas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE motivos_despido (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    asistente_id INT NOT NULL,
+    motivo_id INT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (motivo_id) REFERENCES motivos_bajas(id),
+    FOREIGN KEY (asistente_id) REFERENCES usuario(usuario_id)
+);
+
+<<<<<<< HEAD
+CREATE TABLE ofertas (
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- ID único para cada oferta
+    descripcion VARCHAR(255) NOT NULL,  -- Descripción de la oferta
+    descuento DECIMAL(5,2) NOT NULL,    -- Porcentaje de descuento (por ejemplo, 8.00 para 8%)
+    fecha_inicio DATE NOT NULL,         -- Fecha de inicio de la oferta
+    fecha_fin DATE NOT NULL,            -- Fecha de fin de la oferta
+    estado ENUM('ACTIVA', 'EXPIRADA', 'USADA') DEFAULT 'ACTIVA',  -- Estado de la oferta
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Fecha de creación
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  -- Fecha de última actualización
+);
+=======
+CREATE TABLE destino (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	nombre VARCHAR(255) NOT NULL,
+	zona INT NOT NULL,
+);
+>>>>>>> feature202003381

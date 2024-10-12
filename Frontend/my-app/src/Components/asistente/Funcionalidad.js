@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { Settings, SquareUser, SquareArrowDown, Users, Edit } from 'lucide-react';
+import { Settings, SquareUser, SquareArrowDown, Users, Edit, CirclePercent } from 'lucide-react';
 
 const iconos = {
     settings: <Settings className="me-2" />,
@@ -8,6 +8,7 @@ const iconos = {
     edit: <Edit className="me-2" />,
     SquareArrowDown: <SquareArrowDown className="me-2" />,
     Users: <Users className="me-2" />,
+    CirclePercent: <CirclePercent className="me-2" />
 };
 
 const Funcionalidad = ({ icon, texto, link, action, onClick }) => {

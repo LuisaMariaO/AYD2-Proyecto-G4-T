@@ -158,3 +158,25 @@ INSERT INTO estado_viaje (estado_descripcion) VALUES
 ('Cancelado'),    -- Cuando el viaje ha sido cancelado
 ('Rechazado');    -- Cuando el conductor o usuario rechaza el viaje
 
+INSERT INTO motivos_bajas (descripcion) VALUES
+('Reajuste de personal'),
+('No cumplió con las políticas de la empresa'),
+('Falta de puntualidad'),
+('Malas evaluaciones de los clientes'),
+('Infracciones graves'),
+('Desempeño inadecuado'),
+('Quejas reiteradas');
+
+INSERT INTO destino (nombre, zona) VALUES
+('Zona 1', 1),
+('Zona 2', 2),
+('Zona 3', 3),
+('Zona 4', 4),
+('Zona 5', 5),
+('Zona 6', 6),
+('Zona 7', 7),
+('Zona 8', 8),
+('Zona 9', 9),
+('Zona 10', 10),
+('Zona 11', 11),
+('Zona 12', 12);

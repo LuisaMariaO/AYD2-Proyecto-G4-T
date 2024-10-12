@@ -55,3 +55,29 @@ export const cancelarViaje = async(viaje_id, tiempo_espera, no_conductor, otro, 
     const { data } = await instance.post("/usuario/cancelarViaje", {viaje_id: viaje_id, tiempo_espera: tiempo_espera, no_conductor: no_conductor, otro: otro, comentario: comentario, usuario_id: usuario_id})
     return data
 }
+
+export const obtenerInformacionUsuario = async(userId) =>{
+    const { data } = await instance.get("/usuario/getUsuario/"+userId)
+    return data
+}
+
+export const actualizarUsuario = async(userId, nombre, fecha_nacimiento, genero, celular, correo, password) => {
+    const { data } = await instance.post("/usuario/updateUsuario", {userId: userId, nombre: nombre, fecha_nacimiento, fecha_nacimiento, genero: genero, celular:celular, correo:correo, password:password})
+    return data
+}
+
+export const obtenerCalificacionConductor = async(conductor_id) =>{
+    const { data } = await instance.get("/usuario/getCalificacionConductor/"+conductor_id)
+    console.log(data)
+    return data
+}
+
+export const calificarViaje = async(viaje_id, calificacion, comentario) =>{
+    const { data } = await instance.post("/usuario/calificarViaje", {viaje_id: viaje_id, calificacion: calificacion, comentario: comentario})
+    return data
+}
+
+export const guardarUbicacion = async (user_id, nombre, zona) =>{
+    const { data } = await instance.post("/usuario/guardarUbicacion",{usuario_id:user_id, nombre:nombre, zona:zona })
+    return data
+}

@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 const TablaUsuarios = ({ users, tipoUsuario }) => {
     const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
+    const [showEditModal, setShowEditModal] = useState(false); // Estado para controlar la visibilidad del modal de edición
     const [selectedUser, setSelectedUser] = useState(null); // Estado para almacenar la información del usuario seleccionado
+    const [editUser, setEditUser] = useState(null); // Estado para almacenar la información a editar
 
     // Función para traducir el estado de cuenta numérico a una descripción legible
     const getEstadoCuenta = (estado) => {
@@ -31,10 +33,8 @@ const TablaUsuarios = ({ users, tipoUsuario }) => {
         })
             .then(response => {
                 if (response.ok) {
-                    console.log('Estado de cuenta actualizado exitosamente.');
                     alert('Estado de cuenta actualizado exitosamente.');
                 } else {
-                    console.error('Error al actualizar el estado de la cuenta.');
                     alert('Error al cambiar el estado de la cuenta.');
                 }
             })
@@ -43,16 +43,53 @@ const TablaUsuarios = ({ users, tipoUsuario }) => {
             });
     };
 
-    // Función para mostrar la información del usuario en el modal
+    // Función para mostrar la información del usuario en el modal de ver
     const handleVerUsuario = (user) => {
         setSelectedUser(user); // Guardar el usuario seleccionado
-        setShowModal(true); // Mostrar el modal
+        setShowModal(true); // Mostrar el modal de visualización
     };
 
-    // Función para cerrar el modal
+    // Función para mostrar el modal de edición
+    const handleEditarUsuario = (user) => {
+        setEditUser({ ...user }); // Clonar la información del usuario para editar
+        setShowEditModal(true); // Mostrar el modal de edición
+    };
+
+    // Función para cerrar el modal de ver información
     const closeModal = () => {
         setShowModal(false);
         setSelectedUser(null);
+    };
+
+    // Función para cerrar el modal de edición
+    const closeEditModal = () => {
+        setShowEditModal(false);
+        setEditUser(null);
+    };
+
+    // Función para manejar el cambio en los campos de edición
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEditUser({ ...editUser, [name]: value });
+    };
+
+    // Función para guardar los cambios del usuario
+    const handleGuardarCambios = () => {
+        fetch(`http://localhost:9000/asistente/editar-conductor/${editUser.usuario_id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(editUser)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Información del conductor actualizada exitosamente.");
+            setShowEditModal(false); // Cerrar el modal
+        })
+        .catch(error => {
+            console.error("Error al actualizar la información del conductor", error);
+        });
     };
 
     return (
@@ -86,6 +123,9 @@ const TablaUsuarios = ({ users, tipoUsuario }) => {
                                         <button className="btn btn-primary" onClick={() => handleVerUsuario(user)}>
                                             Ver
                                         </button>
+                                        <button className="btn btn-secondary" onClick={() => handleEditarUsuario(user)}>
+                                            Editar
+                                        </button>
                                         <button
                                             className="btn btn-warning"
                                             disabled={user.estado_cuenta === 3} // Deshabilitar si el estado es Suspendido
@@ -114,60 +154,64 @@ const TablaUsuarios = ({ users, tipoUsuario }) => {
                 <div className="overlay">
                     <div className="overlay-content">
                         <button className="close-button" onClick={closeModal}>
-                            Cerrar
+                            X
                         </button>
-
-                        {/* Contenedor para la información y la imagen */}
                         <div className="d-flex">
-                            {/* Contenedor para la información del usuario */}
                             <div className="w-75 overflow-auto">
                                 <h2>Información del {tipoUsuario}</h2>
-
                                 <p><strong>Usuario:</strong> {selectedUser.username}</p>
                                 <p><strong>Nombre:</strong> {selectedUser.nombre}</p>
                                 <p><strong>Correo Electrónico:</strong> {selectedUser.correo}</p>
                                 <p><strong>Celular:</strong> {selectedUser.celular}</p>
                                 <p><strong>Dirección:</strong> {selectedUser.direccion}</p>
                                 <p><strong>Edad:</strong> {selectedUser.edad}</p>
-                                <p><strong>Estado de Cuenta:</strong> {getEstadoCuenta(selectedUser.estado_cuenta)}</p>
-
-                                {/* Información adicional como historial de viajes, calificaciones, etc. */}
-                                <h3>Historial de Viajes</h3>
-                                <ul>
-                                    <li>Viaje 1</li>
-                                    <li>Viaje 2</li>
-                                </ul>
-
-                                <h3>Calificaciones</h3>
-                                <ul>
-                                    <li>5 estrellas</li>
-                                    <li>4 estrellas</li>
-                                </ul>
-
-                                <h3>Comentarios de Usuarios</h3>
-                                <ul>
-                                    <li>Excelente conductor, muy puntual.</li>
-                                    <li>Buena experiencia, pero puede mejorar en la puntualidad.</li>
-                                </ul>
-                            </div>
-
-                            {/* Contenedor para la foto */}
-                            <div className="w-25 d-flex justify-content-center align-items-center">
-                                {selectedUser.fotografia && (
-                                    <img
-                                        src={selectedUser.fotografia}
-                                        alt="Foto del usuario"
-                                        className="img-fluid rounded-circle"
-                                        style={{ width: '150px', height: '150px', objectFit: 'cover' }}
-                                    />
-                                )}
                             </div>
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* Estilos para el modal y la imagen circular */}
+            {/* Modal para editar la información del conductor */}
+            {showEditModal && editUser && (
+                <div className="overlay">
+                    <div className="overlay-content">
+                        <button className="close-button" onClick={closeEditModal}>
+                            X
+                        </button>
+                        <h2>Editar Información del {tipoUsuario}</h2>
+                        <div className="form-group">
+                            <label>Nombre:</label>
+                            <input type="text" className="form-control" name="nombre" value={editUser.nombre} onChange={handleInputChange} />
+                        </div>
+                        <div className="form-group">
+                            <label>Correo Electrónico:</label>
+                            <input type="email" className="form-control" name="correo" value={editUser.correo} onChange={handleInputChange} />
+                        </div>
+                        <div className="form-group">
+                            <label>Celular:</label>
+                            <input type="text" className="form-control" name="celular" value={editUser.celular} onChange={handleInputChange} />
+                        </div>
+                        <div className="form-group">
+                            <label>Dirección:</label>
+                            <input type="text" className="form-control" name="direccion" value={editUser.direccion} onChange={handleInputChange} />
+                        </div>
+                        <div className="form-group">
+                            <label>Edad:</label>
+                            <input type="number" className="form-control" name="edad" value={editUser.edad} onChange={handleInputChange} />
+                        </div>
+                        <div className="d-flex justify-content-between mt-3">
+                            <button className="btn btn-danger" onClick={closeEditModal}>
+                                Cancelar
+                            </button>
+                            <button className="btn btn-success" onClick={handleGuardarCambios}>
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Estilos para los modales */}
             <style jsx>{`
                 .overlay {
                     position: fixed;
@@ -186,9 +230,9 @@ const TablaUsuarios = ({ users, tipoUsuario }) => {
                     padding: 20px;
                     border-radius: 10px;
                     width: 80%;
-                    max-width: 900px;
-                    max-height: 80vh; /* Limitar la altura del modal */
-                    overflow-y: auto; /* Habilitar scroll en el modal */
+                    max-width: 600px;
+                    max-height: 80vh;
+                    overflow-y: auto;
                     position: relative;
                 }
                 .close-button {
@@ -202,15 +246,9 @@ const TablaUsuarios = ({ users, tipoUsuario }) => {
                     cursor: pointer;
                     border-radius: 5px;
                 }
-                .img-fluid {
-                    border-radius: 50%;
-                }
-                .w-75 {
-                    max-height: 100%; /* Asegurarse de que la columna de texto no desborde */
-                }
             `}</style>
         </>
     );
-}
+};
 
 export default TablaUsuarios;

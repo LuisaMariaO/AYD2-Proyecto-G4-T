@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import Service from '../../Services/service';
 import Swal from 'sweetalert2';
+import Rating from '@mui/material/Rating';
 
 
 
@@ -24,6 +25,7 @@ function ViajesPendientes({ viajesPendientes }) {
     const [motivo, setMotivo] = useState('1');
     const [viaje_id, setViajeId] = useState(0);
     const [viaje, setViaje] = useState([]);
+    const [calificacion_conductor, setCalificacionConductor] = useState(0);
 
     const handleChangeMotivo = (e) => {
         setMotivo(e.target.value);
@@ -48,6 +50,7 @@ function ViajesPendientes({ viajesPendientes }) {
         setComentario(e.target.value);
     }
 
+
     const handleCancelarViaje = (viaje_id) => {
         console.log(tiempo_espera, no_conductor, otro, comentario);
         Service.cancelarViaje(viaje_id, tiempo_espera, no_conductor, otro, comentario, user_id)
@@ -71,6 +74,24 @@ function ViajesPendientes({ viajesPendientes }) {
 
 
     }
+
+    const handleGetCalificacionConductor = (conductor_id) => {
+        Service.obtenerCalificacionConductor(conductor_id)
+            .then(({ data }) => {
+                console.log(data.calificacion);
+                if (data.calificacion) {
+                    setCalificacionConductor(parseFloat(data.calificacion));
+                } else {
+                    setCalificacionConductor(0)
+                }
+
+            })
+            .catch((error) => {
+                throw error
+            })
+    }
+
+
     return (
         <>
             <div className="container">
@@ -113,7 +134,13 @@ function ViajesPendientes({ viajesPendientes }) {
                                         <div className='col-md-12 text-center'>
                                             <p className='card-footer text-center'>
                                                 {(viaje.estado === 2) && (
-                                                    <button className="btn btn-primary btn-sm float-start" data-bs-toggle="modal" data-bs-target="#infoConductorModal" onClick={() => setViaje(viaje)}>Ver información del conductor</button>
+                                                    <button className="btn btn-primary btn-sm float-start" data-bs-toggle="modal" data-bs-target="#infoConductorModal" onClick={() => {
+                                                        handleGetCalificacionConductor(viaje.usuario_conductor);
+                                                        setViaje(viaje);
+                                                    }}>
+                                                        Ver información del conductor
+
+                                                    </button>
                                                 )}
 
                                                 <button className="btn btn-danger btn-sm float-end" data-bs-toggle="modal" data-bs-target="#reportarProblemaModal" onClick={() => setViajeId(viaje.viaje_id)}>Cancelar</button>
@@ -173,6 +200,17 @@ function ViajesPendientes({ viajesPendientes }) {
                                     <p><strong>Placa del Vehículo:</strong> {viaje.placa}</p>
                                     <p><strong>Marca del Vehículo:</strong> {viaje.marca_nombre}</p>
                                     <img src={viaje.fotografia} alt="Fotografía del vehículo" className="img-fluid" />
+                                    <p>
+                                        <strong>Calificación:</strong>
+                                        <Rating
+                                            name="read-only"
+                                            value={calificacion_conductor}
+                                            precision={0.5}
+                                            readOnly
+                                            style={{ verticalAlign: 'middle' }}
+                                        />
+                                        ({calificacion_conductor})
+                                    </p>
                                 </>
                             ) : (
                                 <p>No hay información del conductor disponible.</p>

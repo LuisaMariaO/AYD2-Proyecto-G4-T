@@ -20,3 +20,18 @@ export const obtenerTarifas = async() =>{
     const { data } = await instance.get("/catalogos/tarifas")
     return data
 }
+
+export const obtenerEstadosCiviles = async() =>{
+    const { data } = await instance.get("/catalogos/estado_civil")
+    return data
+}
+
+export const obtenerMotivosBajas = async() =>{
+    const { data } = await instance.get("/catalogos/motivos-bajas")
+    return data
+}
+
+export const obtenerDestinos = async() =>{
+    const { data } = await instance.get("/catalogos/destinos")
+    return data
+}
