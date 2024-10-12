@@ -31,7 +31,7 @@ routes.get('/problemas', (req, res) => {
 routes.get('/zonas', (req, res) => {
     dbProxy.query('SELECT * FROM zonas;', [], (err, results) => {
         if (err) {
-            console.error('Error al obtener usuarios:', err);
+            console.error('Error al obtener zonas:', err);
             return res.status(500).json({ message: 'Error en el servidor' });
         }
         res.json({ message: 'Registros obtenidos', data: results });
@@ -81,6 +81,17 @@ routes.get('/motivos-bajas', (req, res) => {
             return res.status(200).json({"motivos":rows});
         }
     })
+})
+
+routes.get('/destinos', (req, res) => {
+    dbProxy.query('SELECT * FROM destino;', [], (err, results) => {
+        if (err) {
+            console.error('Error al obtener destinos:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.json({ message: 'Registros obtenidos', data: results });
+    });
+   
 })
 
 module.exports = routes

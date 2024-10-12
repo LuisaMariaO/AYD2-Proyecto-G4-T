@@ -14,6 +14,10 @@ function Navbar(prop) {
         navigate('/')
     }
 
+    const handleVerPerfil = async (e) => {
+        navigate('/usuario/verPerfil')
+    }
+
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-danger navbar-danger text-light">
@@ -37,8 +41,9 @@ function Navbar(prop) {
                                         {username!=undefined ? name : prop.rol}  &nbsp;
                                         <i className="bi bi-person-circle" style={{ fontSize: "30px" }}> </i>
                                     </a>
-                                    <ul className="dropdown-menu"> 
-                                        <li><a className="dropdown-item" onClick={handeleCerrarSesion} href="">Cerrar sesión</a></li>
+                                    <ul class="dropdown-menu"> 
+                                        <li><a class="dropdown-item" onClick={handleVerPerfil} href="">Ver perfil</a></li>
+                                        <li><a class="dropdown-item" onClick={handeleCerrarSesion} href="">Cerrar sesión</a></li>
                                     </ul>
                                 </div>
                             </div>
