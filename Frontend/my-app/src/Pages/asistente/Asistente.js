@@ -7,8 +7,8 @@ import PerfilUsuario from "../../Components/asistente/PerfilUsuario";
 function Asistente() {
 
     const usuario = {
-        username: "Asistente",
-        email: "asistente@correo.com",
+        autor: "Quien sabra...",
+        frase: " \"Con la mujer no se razona, se disciplina.\" ",
         url_foto: "https://img.freepik.com/vector-premium/logotipo-chat-bot-asistente-virtual-logotipo-icono-bot-cabeza-robot-auriculares_843540-99.jpg",
     };
 
@@ -21,16 +21,16 @@ function Asistente() {
                         <PerfilUsuario usuario={usuario} />
                         <div className="row mt-4">
                             <div className="col-md-6">
-                                <Funcionalidad icon="settings" texto="Configuración de la cuenta" link="" />
+                                <Funcionalidad icon="settings" texto="Configuración de la cuenta" link="/asistente" />
                             </div>
                             <div className="col-md-6">
-                                <Funcionalidad icon="edit" texto="Solicitudes de empleo" link="" />
+                                <Funcionalidad icon="edit" texto="Solicitudes de empleo" link="/solicitudes-empleos" />
                             </div>
                             <div className="col-md-6">
-                                <Funcionalidad icon="SquareUser" texto="Conductores" link="" />
+                                <Funcionalidad icon="SquareUser" texto="Conductores" link="/gestion-conductores" />
                             </div>
                             <div className="col-md-6">
-                                <Funcionalidad icon="Users" texto="Usuarios" link="" />
+                                <Funcionalidad icon="Users" texto="Usuarios" link="/gestion-usuarios" />
                             </div>
                             {/* <div className="col-md-6">
                                 <Funcionalidad icon="SquareArrowDown" texto="Baja de conductores" link="" />

@@ -1,31 +1,46 @@
 import React, { useState } from "react";
-import Swal from 'sweetalert2';
-import Service from "../../Services/service";
-import CryptoJS from "crypto-js";
 import fondo from '../../Imgs/fondo.jpeg';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-function LoginAdmin() {
-    const [user, setUser] = useState('');
+const InicioSesionAsistente = () => {
+    const navigate = useNavigate()
+    const [user, setUser] = useState('');         // usuario o correo electrónico
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
-    const handleLogin = (event) => {
-        event.preventDefault();
-        Service.login(user, CryptoJS.MD5(password).toString())
-            .then(({ success, res }) => {
-                if (success && res.length > 0) {
-                    localStorage.setItem("usuario", res[0]['usuario_id']);
-                    navigate("/auth");
-                } else {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Usuario o contraseña incorrectos',
-                        icon: 'error',
-                        confirmButtonText: 'Ok'
-                    })
-                }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Cuerpo de la solicitud
+        const body = {
+            user: user,
+            password: password
+        };
+
+        try {
+            // Realizamos la solicitud con fetch
+            const response = await fetch('http://localhost:9000/asistente/sesion-asistente', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
             });
-    }
+
+            // Validamos la respuesta
+            const data = await response.json();
+            if (data.status === 1) {
+                // Redirigir a la página principal
+                navigate('/asistente');  
+            } else {
+                // Si hay un error, mostramos el mensaje que venga del backend
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error en la conexión con el servidor');
+        }
+    };
+
 
     return (
         <div className="container-fluid d-flex justify-content-center align-items-center vh-100" style={{ position: 'relative', padding: 0 }}>
@@ -55,21 +70,23 @@ function LoginAdmin() {
             }}></div>
             <div className="col-12 bg-dark row justify-content-center py-5" style={{ position: 'relative', zIndex: 2, width: '600px', borderRadius: '20px' }}>
                 <div className="col-md-9 col-lg-9">
-                    <h2 className="text-light text-center">Inicio Sesión Administrador</h2>
-                    <form onSubmit={handleLogin}>
+                    <h2 className="text-light text-center">Iniciar sesión</h2>
+
+                    {/* Formulario para el login con correo/DPI */}
+                    <form onSubmit={handleSubmit}>
                         <div className="form-group m-1">
-                            <label htmlFor="user">Usuario</label>
+                            <label htmlFor="user" className="form-label text-light">Correo o nombre de usuario</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 id="user"
-                                placeholder="Usuario"
+                                placeholder="Correo/username"
                                 value={user}
                                 onChange={(e) => setUser(e.target.value)}
                             />
                         </div>
                         <div className="form-group m-1">
-                            <label htmlFor="password">Contraseña</label>
+                            <label htmlFor="password" className="form-label text-light">Contraseña</label>
                             <input
                                 type="password"
                                 className="form-control"
@@ -85,10 +102,11 @@ function LoginAdmin() {
                             </button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
     );
-}
+};
 
-export default LoginAdmin;
+export default InicioSesionAsistente;

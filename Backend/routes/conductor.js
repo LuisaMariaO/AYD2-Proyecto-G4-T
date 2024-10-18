@@ -7,6 +7,8 @@ require('dotenv').config(); // Cargar variables de entorno
 const bcrypt = require('bcrypt'); // 
 const dbProxy = require('../dbProxy');
 const { emitirViajeUsusario } = require('../socket');  // Función de WebSocket
+const util = require('util');
+const query = util.promisify(dbProxy.query).bind(dbProxy);
 
 
 // Configuración del transporte para enviar correos electrónicos usando variables de entorno
@@ -253,7 +255,7 @@ routes.post('/loginCodigo', (req, res) => {
 });
 
 
-routes.get('/categoriasProblema' , (req, res) => {
+routes.get('/categoriasProblema', (req, res) => {
     dbProxy.query('SELECT * FROM categoria_problema', [], (err, results) => {
         if (err) {
             console.error('Error al obtener categorías de problema:', err);
@@ -373,42 +375,46 @@ routes.post('/aceptarViaje/:viajeId', async (req, res) => {
             WHERE viaje_id = ? AND estado = 1
         `;
 
-        dbProxy.query(checkQuery, [viajeId], (err, result) => {
-            if (err || result.length === 0) {
-                return res.status(400).json({ status: 'error', message: 'El viaje ya ha sido aceptado por otro conductor.' });
-            }
+        const viajePendiente = await query(checkQuery, [viajeId]);
 
-            // Si está pendiente, actualiza el estado a "En progreso" y asigna el conductor
-            const updateQuery = `
-                UPDATE viaje
-                SET estado = 2, usuario_conductor = ?
-                WHERE viaje_id = ?
-            `;
+        if (viajePendiente.length === 0) {
+            return res.status(400).json({ status: 'error', message: 'El viaje ya ha sido aceptado por otro conductor.' });
+        }
 
-            dbProxy.query(updateQuery, [conductorId, viajeId], (err) => {
-                if (err) {
-                    console.error('Error al aceptar el viaje:', err);
-                    return res.status(500).json({ status: 'error', message: 'Error al aceptar el viaje.' });
-                }
+        // Si está pendiente, actualiza el estado a "En progreso" y asigna el conductor
+        const updateQuery = `
+            UPDATE viaje
+            SET estado = 2, usuario_conductor = ?
+            WHERE viaje_id = ?
+        `;
 
-                dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio, v.usuario_conductor, v.usuario_solicitud, u.nombre, vh.placa, vh.fotografia, ma.marca_nombre FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id LEFT JOIN usuario u ON u.usuario_id = usuario_conductor LEFT JOIN empleado em ON em.usuario_id=usuario_conductor LEFT JOIN vehiculo vh ON vh.vehiculo_id=em.vehiculo LEFT JOIN marca_vehiculo ma ON ma.marca_id=vh.marca WHERE (estado = 1 OR estado = 2) ', [], (err, viajes) => {
-                    if (err) {
-                        console.error('Error al consultar viajes:', err);
-                        return res.status(500).json({ message: 'Error en el servidor' });
-                    }
-                
-                    // Emite la actualización al cliente con el estado de los viajes
-                    emitirViajeUsusario(viajes);
+        await query(updateQuery, [conductorId, viajeId]);
 
-                return res.status(200).json({ status: 'success', message: 'Viaje aceptado correctamente.' });
-                });
-            });
+        // Selecciona los viajes actualizados
+        const selectViajesQuery = `
+            SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, 
+                   t.inicio, t.fin, t.precio, v.usuario_conductor, v.usuario_solicitud, 
+                   u.nombre, vh.placa, vh.fotografia, ma.marca_nombre 
+            FROM viaje v 
+            LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa 
+            LEFT JOIN estado_viaje e ON v.estado = e.estado_id 
+            LEFT JOIN usuario u ON u.usuario_id = usuario_conductor 
+            LEFT JOIN empleado em ON em.usuario_id = usuario_conductor 
+            LEFT JOIN vehiculo vh ON vh.vehiculo_id = em.vehiculo 
+            LEFT JOIN marca_vehiculo ma ON ma.marca_id = vh.marca 
+            WHERE (v.estado = 1 OR v.estado = 2)
+        `;
 
+        const viajes = await query(selectViajesQuery, []);
 
-        });
+        // Emite la actualización al cliente con el estado de los viajes
+        emitirViajeUsusario(viajes);
+
+        return res.status(200).json({ status: 'success', message: 'Viaje aceptado correctamente.' });
+
     } catch (error) {
         console.error('Error en el servidor:', error);
-        res.status(500).json({ status: 'error', message: 'Error interno del servidor' });
+        return res.status(500).json({ status: 'error', message: 'Error interno del servidor.' });
     }
 });
 
@@ -426,35 +432,47 @@ routes.post('/finalizarViaje/:viajeId', async (req, res) => {
             WHERE viaje_id = ? AND usuario_conductor = ?
         `;
 
-        dbProxy.query(updateQuery, [viajeId, conductorId], (err, result) => {
-            if (err) {
-                console.error('Error en la actualización del viaje:', err);
-                return res.status(500).json({ status: 'error', message: 'Error al finalizar el viaje.' });
-            }
+        const updateResult = await query(updateQuery, [viajeId, conductorId]);
 
-            // Verificar si se afectó alguna fila
-            if (result.affectedRows === 0) {
-                return res.status(404).json({ status: 'error', message: 'No se encontró el viaje o el conductor no coincide.' });
-            }
+        // Verificar si se afectó alguna fila
+        if (updateResult.affectedRows === 0) {
+            return res.status(404).json({ status: 'error', message: 'No se encontró el viaje o el conductor no coincide.' });
+        }
 
-            // Determinar el puntaje y comentario en función del pago
-            const puntaje = pagoRecibido ? calificacion : 1; // Si no pagó, la calificación es 1
-            const comentario = pagoRecibido ? comentarioManual || 'Sin comentario' : 'No realiza sus pagos';
+        // Determinar el puntaje y comentario en función del pago
+        const puntaje = pagoRecibido ? calificacion : 1; // Si no pagó, la calificación es 1
+        const comentario = pagoRecibido ? comentarioManual || 'Sin comentario' : 'No realiza sus pagos';
 
-            // Guardar la calificación del usuario por su ID
-            const calificacionQuery = `
-                INSERT INTO calificacion_usuario (puntaje, comentario, usuario_id)
-                VALUES (?, ?, ?)
-            `;
-            dbProxy.query(calificacionQuery, [puntaje, comentario, usuarioId], (err) => {
-                if (err) {
-                    console.error('Error al guardar la calificación:', err);
-                    return res.status(500).json({ status: 'error', message: 'Error al guardar la calificación.' });
-                }
+        // Guardar la calificación del usuario por su ID
+        const calificacionQuery = `
+            INSERT INTO calificacion_usuario (puntaje, comentario, usuario_id)
+            VALUES (?, ?, ?)
+        `;
 
-                return res.status(200).json({ status: 'success', message: 'Viaje finalizado y calificación registrada.' });
-            });
-        });
+        await query(calificacionQuery, [puntaje, comentario, usuarioId]);
+
+        // Consultar los viajes en estado 1 o 2
+        const selectViajesQuery = `
+            SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, 
+                   t.inicio, t.fin, t.precio, v.usuario_conductor, v.usuario_solicitud, 
+                   u.nombre, vh.placa, vh.fotografia, ma.marca_nombre 
+            FROM viaje v 
+            LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa 
+            LEFT JOIN estado_viaje e ON v.estado = e.estado_id 
+            LEFT JOIN usuario u ON u.usuario_id = usuario_conductor 
+            LEFT JOIN empleado em ON em.usuario_id = usuario_conductor 
+            LEFT JOIN vehiculo vh ON vh.vehiculo_id = em.vehiculo 
+            LEFT JOIN marca_vehiculo ma ON ma.marca_id = vh.marca 
+            WHERE (v.estado = 1 OR v.estado = 2)
+        `;
+
+        const viajes = await query(selectViajesQuery, []);
+
+        // Emite la actualización al cliente con el estado de los viajes
+        emitirViajeUsusario(viajes);
+
+        return res.status(200).json({ status: 'success', message: 'Viaje finalizado y calificación registrada.' });
+
     } catch (error) {
         console.error('Error al finalizar el viaje:', error);
         return res.status(500).json({ status: 'error', message: 'Error interno del servidor.' });
@@ -582,13 +600,35 @@ routes.post('/cancelarViaje/:viajeId', async (req, res) => {
             WHERE viaje_id = ? AND usuario_conductor = ?
         `;
 
-        dbProxy.query(updateQuery, [viajeId, conductorId], (err, result) => {
-            if (err) {
-                return res.status(500).json({ status: 'error', message: 'Error al cancelar el viaje.' });
-            }
+        // Primero se hace el update
+        const updateResult = await query(updateQuery, [viajeId, conductorId]);
 
-            return res.status(200).json({ status: 'success', message: 'Viaje cancelado correctamente.' });
-        });
+        if (updateResult.affectedRows === 0) {
+            return res.status(400).json({ status: 'error', message: 'El viaje no existe o ya fue cancelado por otro conductor.' });
+        }
+
+        // Después de cancelar el viaje, consulta los viajes en estado 1 o 2
+        const selectViajesQuery = `
+            SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, 
+                   t.inicio, t.fin, t.precio, v.usuario_conductor, v.usuario_solicitud, 
+                   u.nombre, vh.placa, vh.fotografia, ma.marca_nombre 
+            FROM viaje v 
+            LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa 
+            LEFT JOIN estado_viaje e ON v.estado = e.estado_id 
+            LEFT JOIN usuario u ON u.usuario_id = usuario_conductor 
+            LEFT JOIN empleado em ON em.usuario_id = usuario_conductor 
+            LEFT JOIN vehiculo vh ON vh.vehiculo_id = em.vehiculo 
+            LEFT JOIN marca_vehiculo ma ON ma.marca_id = vh.marca 
+            WHERE (v.estado = 1 OR v.estado = 2)
+        `;
+
+        const viajes = await query(selectViajesQuery, []);
+
+        // Emite la actualización al cliente con el estado de los viajes
+        emitirViajeUsusario(viajes);
+
+        return res.status(200).json({ status: 'success', message: 'Viaje cancelado correctamente.' });
+
     } catch (error) {
         console.error('Error al cancelar el viaje:', error);
         return res.status(500).json({ status: 'error', message: 'Error interno del servidor.' });

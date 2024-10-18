@@ -6,7 +6,9 @@ const dbProxy = require('../dbProxy');
 const transporter = require('../command/transporter');
 const EmailInvoker = require('../command/emailInvoker');
 const VerificacionEmailCommand = require('../command/verificacionCommand');
+const RecuperarContrasenaUsuaruiCommand = require('../command/recuperarContrasenaUsuarioCommand');
 const { emitirViajeUsusario } = require('../socket');  // Función de WebSocket
+const { stat } = require('fs');
 
 const emailInvoker = new EmailInvoker();
 
@@ -98,6 +100,28 @@ routes.post('/cambiarContrasena', (req, res) => {
 
         res.status(200).json({ message: '¡Contraseña cambiada!' });
 
+
+    });
+
+});
+
+routes.post('/solicitudCambiarContrasena', (req, res) => {
+    const { username} = req.body;
+    dbProxy.query('SELECT nombre, correo, username FROM usuario WHERE username=? OR correo=?;', [username, username], (err, results) => {
+        if (err) {
+            console.error('No se encontró el usuario:', err);
+            return res.status(200).json({ message: 'No se encontró la cuenta', status: 0 });
+        }
+
+        const recuperarContrasenaUsuarioCommand = new RecuperarContrasenaUsuaruiCommand(transporter, results[0].nombre, results[0].correo, results[0].username);
+        //Envío del correo
+        emailInvoker.setCommand(recuperarContrasenaUsuarioCommand);
+        emailInvoker.sendEmail().then((info) => {
+            res.status(200).json({ message: '¡Correo enviado!', status: 1 });
+        }).catch((err) => {
+            res.status(500).json({ message: 'Error en el servidor', status: 0 });
+            console.error("Error al enviar el correo electrónico:", err);
+        });
 
     });
 
