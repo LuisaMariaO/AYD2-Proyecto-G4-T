@@ -22,6 +22,12 @@ function Index() {
                         <div className="row m-3">
                             <button className="btn btn-danger w-100" onClick={() => navigate('/loginConductor')}>Iniciar Sesión Conductor</button>
                         </div>
+                        <div className="row m-3">
+                            <button className="btn btn-danger w-100" onClick={() => navigate('/inicio-sesion-asistente')}>Iniciar Sesión Asistente</button>
+                        </div>
+                        <div className="row m-3">
+                            <button className="btn btn-danger w-100" onClick={() => navigate('/login-admin')}>Iniciar Sesión Administrador</button>
+                        </div>
                         <div className="row mx-1">
                             <div className="col-md-6 col-lg-6">
                                 <button className="btn btn-dark w-100" onClick={() => navigate('/register-user')}>Registro Usuario</button>
