@@ -35,14 +35,14 @@ app.use('/asistente', asistente);
 app.use('/admin', admin);
 app.use('/catalogos', catalogos);
 
-// ----------- INICIAR SERVIDOR DE API --------------
-app.listen(app.get('port'), () => {
-    console.log('Servidor API corriendo en el puerto: ', app.get('port'));
-});
+// ----------- INICIAR SERVIDOR DE API Y SOCKET.IO --------------
 
-// ----------- SERVIDOR SOCKET.IO -------------- 
+// Crear un servidor HTTP para la aplicación Express (necesario para Socket.IO)
+const httpServer = http.createServer(app);
+
+// ----------- SERVIDOR SOCKET.IO --------------
 const socketApp = express();  // Un servidor Express separado para WebSocket
-socketApp.use(cors())
+socketApp.use(cors());
 const socketServer = http.createServer(socketApp);
 
 // Inicializar el WebSocket en un puerto diferente (ej. 9001)
@@ -51,3 +51,13 @@ socketServer.listen(9001, () => {
 });
 
 socketIO.initSocket(socketServer);
+
+// Iniciar el servidor HTTP solo si no estamos en el entorno de pruebas
+if (process.env.NODE_ENV !== 'test') {
+    httpServer.listen(app.get('port'), () => {
+        console.log('Servidor API corriendo en el puerto: ', app.get('port'));
+    });
+}
+
+// Exportar la aplicación y el servidor HTTP para poder cerrarlos en las pruebas
+module.exports = { app, httpServer, socketServer };
