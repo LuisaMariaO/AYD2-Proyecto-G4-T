@@ -13,6 +13,11 @@ function SidebarConductor() {
                         </Link>
                     </li>
                     <li>
+                        <Link to="/perfil-conductor" className="nav-link px-0 align-middle">
+                            <i className="fs-4 bi-person"></i> <span className="ms-1 d-none d-sm-inline">Perfil</span>
+                        </Link>
+                    </li>
+                    <li>
                         <Link to="/gestionar-viajes" className="nav-link px-0 align-middle">
                             <i className="fs-4 bi-truck"></i> <span className="ms-1 d-none d-sm-inline">Gestionar Viajes</span>
                         </Link>
@@ -20,6 +25,11 @@ function SidebarConductor() {
                     <li>
                         <Link to="/reportar-problema" className="nav-link px-0 align-middle">
                             <i className="fs-4 bi-exclamation-circle"></i> <span className="ms-1 d-none d-sm-inline">Reportar Problema</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/ganancias" className="nav-link px-0 align-middle">
+                        <i className="fs-4 bi-currency-dollar"></i> <span className="ms-1 d-none d-sm-inline">Ganancias</span>
                         </Link>
                     </li>
                 </ul>

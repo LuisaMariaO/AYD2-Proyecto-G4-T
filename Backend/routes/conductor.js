@@ -635,6 +635,225 @@ routes.post('/cancelarViaje/:viajeId', async (req, res) => {
     }
 });
 
+// Endpoint para obtener las ganancias de un conductor
+routes.post('/ganancias', (req, res) => {
+    const { conductorId } = req.body;
 
+    if (!conductorId) {
+        return res.status(400).json({ status: 'error', message: 'El ID del conductor es requerido.' });
+    }
+
+    // Consulta para obtener los viajes completados (estado 3 = Completado)
+    const query = `
+        SELECT v.viaje_id, v.fecha, t.precio, v.metodo_pago 
+        FROM viaje v
+        INNER JOIN tarifa t ON v.tarifa = t.tarifa_id
+        WHERE v.usuario_conductor = ? AND v.estado = 3`; // Estado 3 = Viaje completado
+
+    dbProxy.query(query, [conductorId], (err, results) => {
+        if (err) {
+            console.error('Error al obtener las ganancias:', err);
+            return res.status(500).json({ status: 'error', message: 'Error en el servidor' });
+        }
+
+        const hoy = new Date();
+        
+        // Establecer horas a 00:00:00 para la comparación de fechas
+        const inicioHoy = new Date(hoy.setHours(0, 0, 0, 0));
+
+        // Calcular el inicio de la semana (desde el domingo anterior o actual)
+        const inicioSemana = new Date(inicioHoy);
+        inicioSemana.setDate(inicioSemana.getDate() - inicioSemana.getDay());
+
+        // Calcular el inicio del mes (primer día del mes actual)
+        const inicioMes = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+
+        let gananciasDiarias = 0;
+        let gananciasSemanales = 0;
+        let gananciasMensuales = 0;
+
+        results.forEach(viaje => {
+            const fechaViaje = new Date(viaje.fecha);
+            const fechaViajeCeroHoras = new Date(fechaViaje.setHours(0, 0, 0, 0)); // Para comparar solo fechas
+
+            // Ganancias diarias (viajes realizados hoy)
+            if (fechaViajeCeroHoras.getTime() === inicioHoy.getTime()) {
+                gananciasDiarias += viaje.precio * 0.9;
+            }
+            // Ganancias semanales (viajes desde el inicio de la semana)
+            if (fechaViajeCeroHoras >= inicioSemana) {
+                gananciasSemanales += viaje.precio * 0.9;
+            }
+            // Ganancias mensuales (viajes desde el inicio del mes)
+            if (fechaViajeCeroHoras >= inicioMes) {
+                gananciasMensuales += viaje.precio * 0.9;
+            }
+        });
+
+        res.json({
+            status: 'success',
+            gananciasDiarias: gananciasDiarias.toFixed(2),
+            gananciasSemanales: gananciasSemanales.toFixed(2),
+            gananciasMensuales: gananciasMensuales.toFixed(2),
+            viajes: results
+        });
+    });
+});
+
+routes.post('/perfil', (req, res) => {
+    const { conductorId } = req.body; // El conductorId se envía en el cuerpo de la solicitud
+
+    if (!conductorId) {
+        return res.status(400).json({ status: 'error', message: 'El ID del conductor es requerido.' });
+    }
+
+    const query = `
+        SELECT u.nombre, u.direccion, u.celular, u.correo, v.placa, v.anio, mv.marca_nombre AS marca
+        FROM usuario u
+        INNER JOIN empleado e ON u.usuario_id = e.usuario_id
+        INNER JOIN vehiculo v ON e.vehiculo = v.vehiculo_id
+        INNER JOIN marca_vehiculo mv ON v.marca = mv.marca_id
+        WHERE u.usuario_id = ?`;
+
+    dbProxy.query(query, [conductorId], (err, results) => {
+        if (err) {
+            console.error('Error al obtener la información del conductor:', err);
+            return res.status(500).json({ status: 'error', message: 'Error en el servidor' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ status: 'error', message: 'Conductor no encontrado.' });
+        }
+        res.json({ status: 'success', conductor: results[0] });
+    });
+});
+
+
+// Endpoint para obtener las marcas de vehículos
+routes.get('/marcas', (req, res) => {
+    const query = `SELECT marca_id, marca_nombre FROM marca_vehiculo`;
+
+    dbProxy.query(query, (err, results) => {
+        if (err) {
+            console.error('Error al obtener las marcas de vehículos:', err);
+            return res.status(500).json({ status: 'error', message: 'Error en el servidor' });
+        }
+        res.json({ status: 'success', marcas: results });
+    });
+});
+
+// Ruta para actualizar el perfil del conductor y la información del vehículo
+routes.post('/perfil/update', (req, res) => {
+    const { conductorId, data } = req.body;
+    const { nombre, direccion, celular, correo, placa, marca, anio, pdfActualizacion } = data;
+
+    // Iniciar la transacción
+    dbProxy.beginTransaction((err) => {
+        if (err) {
+            console.error('Error iniciando la transacción:', err);
+            return res.status(500).json({ status: 'error', message: 'Error iniciando la transacción.' });
+        }
+
+        // Actualizar la información del usuario (conductor)
+        const updateUsuarioQuery = `
+            UPDATE usuario 
+            SET nombre = ?, direccion = ?, celular = ?, correo = ? 
+            WHERE usuario_id = ?
+        `;
+        dbProxy.query(updateUsuarioQuery, [nombre, direccion, celular, correo, conductorId], (err) => {
+            if (err) {
+                console.error('Error al actualizar usuario:', err);
+                return dbProxy.rollback(() => {
+                    res.status(500).json({ status: 'error', message: 'Error al actualizar usuario' });
+                });
+            }
+
+            // Obtener el ID del vehículo relacionado al conductor
+            const vehiculoQuery = `
+                SELECT vehiculo FROM empleado WHERE usuario_id = ?
+            `;
+            dbProxy.query(vehiculoQuery, [conductorId], (err, results) => {
+                if (err || results.length === 0) {
+                    console.error('Error al obtener vehículo:', err);
+                    return dbProxy.rollback(() => {
+                        res.status(500).json({ status: 'error', message: 'Vehículo no encontrado' });
+                    });
+                }
+
+                const vehiculoId = results[0].vehiculo;
+
+                // Actualizar los datos del vehículo
+                const updateVehiculoQuery = `
+                    UPDATE vehiculo 
+                    SET placa = ?, marca = ?, anio = ? 
+                    WHERE vehiculo_id = ?
+                `;
+                dbProxy.query(updateVehiculoQuery, [placa, marca, anio, vehiculoId], (err) => {
+                    if (err) {
+                        console.error('Error al actualizar vehículo:', err);
+                        return dbProxy.rollback(() => {
+                            res.status(500).json({ status: 'error', message: 'Error al actualizar vehículo' });
+                        });
+                    }
+
+                    // Si se proporciona un PDF, subirlo y actualizar la tabla empleado
+                    if (pdfActualizacion) {
+                        const pdfFileName = `actualizacion_conductor_${conductorId}_${Date.now()}.pdf`;
+
+                        // Simulación de la subida del PDF a S3 (lógica real va aquí)
+                        const pdfUploadPromise = new Promise((resolve, reject) => {
+                            const urlPDF = `https://s3.bucket/${pdfFileName}`; // Simulación de la URL después de la subida
+                            resolve(urlPDF);
+                        });
+
+                        pdfUploadPromise.then((urlPDF) => {
+                            const updateEmpleadoQuery = `
+                                UPDATE empleado 
+                                SET pdf_actualizacion = ?, estado_pdf = NULL 
+                                WHERE usuario_id = ?
+                            `;
+                            dbProxy.query(updateEmpleadoQuery, [urlPDF, conductorId], (err) => {
+                                if (err) {
+                                    console.error('Error al actualizar empleado con PDF:', err);
+                                    return dbProxy.rollback(() => {
+                                        res.status(500).json({ status: 'error', message: 'Error al actualizar empleado con PDF' });
+                                    });
+                                }
+
+                                // Confirmar la transacción
+                                dbProxy.commit((err) => {
+                                    if (err) {
+                                        console.error('Error al confirmar la transacción:', err);
+                                        return dbProxy.rollback(() => {
+                                            res.status(500).json({ status: 'error', message: 'Error al confirmar la transacción' });
+                                        });
+                                    }
+
+                                    res.status(200).json({ status: 'success', message: 'Información actualizada correctamente' });
+                                });
+                            });
+                        }).catch((uploadErr) => {
+                            console.error('Error subiendo el PDF:', uploadErr);
+                            dbProxy.rollback(() => {
+                                res.status(500).json({ status: 'error', message: 'Error subiendo el PDF' });
+                            });
+                        });
+                    } else {
+                        // Si no hay PDF, solo confirmar la transacción
+                        dbProxy.commit((err) => {
+                            if (err) {
+                                console.error('Error al confirmar la transacción:', err);
+                                return dbProxy.rollback(() => {
+                                    res.status(500).json({ status: 'error', message: 'Error al confirmar la transacción' });
+                                });
+                            }
+
+                            res.status(200).json({ status: 'success', message: 'Información actualizada correctamente' });
+                        });
+                    }
+                });
+            });
+        });
+    });
+});
 
 module.exports = routes;

@@ -191,3 +191,8 @@ CREATE TABLE motivo_cancelacion (
 
 ALTER TABLE empleado
 ADD COLUMN estado_cv TINYINT(1) NULL;
+
+ALTER TABLE empleado
+ADD COLUMN pdf_actualizacion TEXT, -- Para guardar la ruta del PDF
+ADD COLUMN fecha_cambios DATE,     -- Para registrar la fecha de los cambios
+ADD COLUMN estado_pdf TEXT; -- Estado del PDF
