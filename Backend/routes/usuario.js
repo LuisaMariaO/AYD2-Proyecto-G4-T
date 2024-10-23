@@ -253,5 +253,37 @@ routes.post('/cancelarViaje', (req, res) => {
     });
 });
 
+routes.get('/getUsuario/:usuarioId', (req, res) => {
+    const { usuarioId } = req.params;
+    dbProxy.query('SELECT * FROM usuario WHERE usuario_id = ?', [usuarioId], (err, results) => {
+        if (err) {
+            console.error('Error al obtener usuarios:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.json({ message: 'Usuario obtenido', data: results });
+    });
+});
+
+routes.post("/updateUsuario", (req, res) => {
+    const { userId, nombre, fecha_nacimiento, genero, celular, correo, password } = req.body;
+    console.log(req.body)
+    dbProxy.query(`
+        UPDATE usuario
+        SET nombre = COALESCE(?, nombre),
+            fecha_nacimiento = COALESCE(?, fecha_nacimiento),
+            genero = COALESCE(?, genero),
+            celular = COALESCE(?, celular),
+            correo = COALESCE(?, correo),
+            password = COALESCE(?, password)
+        WHERE usuario_id = ?;       
+        `,[nombre, fecha_nacimiento, genero, celular, correo, password, userId], (err, results) => {
+            if (err) {
+                console.error('Error al actualizar usuario:', err);
+                return res.status(500).json({ message: 'Error en el servidor' });
+            }
+            res.json({ message: 'Usuario actualizado', data: results });
+        })
+});
+
 
 module.exports = routes

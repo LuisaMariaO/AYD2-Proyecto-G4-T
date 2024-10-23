@@ -25,6 +25,7 @@ import VerificarUsuario from "./Pages/usuario/verificacion";
 import CambiarContrasena from "./Pages/usuario/cambiarContrasena";
 import ReportarProblemaUsuario from "./Pages/usuario/reportarProblema";
 import PedirViaje from "./Pages/usuario/pedirViaje";
+import VerPerfil from "./Pages/usuario/verPerfil";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
       <Route path="/cambiar-password/:username" element={<CambiarContrasena/>}></Route>
       <Route path="/usuario/problemas" element={<ReportarProblemaUsuario/>}></Route>
       <Route path="/usuario/solicitarViaje" element={<PedirViaje/>}></Route>
+      <Route path="/usuario/verPerfil" element={<VerPerfil/>}></Route>
       <Route path="*" element={<Navigate to="/" replace={true}></Navigate>} exact={true}></Route>
     </Routes>
   </BrowserRouter>
