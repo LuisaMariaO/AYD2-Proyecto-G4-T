@@ -160,7 +160,7 @@ function LoginConductor() {
                             />
                         </div>
                         <div className="d-grid gap-2">
-                            <button type="submit" className="btn btn-danger btn-block mx-1 mt-3">
+                            <button id="login-button" type="submit" className="btn btn-danger btn-block mx-1 mt-3">
                                 Iniciar Sesión
                             </button>
                         </div>
@@ -180,12 +180,12 @@ function LoginConductor() {
                             />
                         </div>
                         <div className="d-grid gap-2">
-                            <button type="submit" className="btn btn-primary btn-block mx-1 mt-3">
+                            <button id="codigo-trabajador-button" type="submit" className="btn btn-primary btn-block mx-1 mt-3">
                                 Iniciar con Código de Trabajador
                             </button>
-                            <Link to="/" className="btn btn-secondary btn-block mx-1 mt-3">
-        Regresar a la página principal
-    </Link>
+                            <Link to="/" className="btn btn-secondary btn-block mx-1 mt-3" id="regresar-button">
+                                Regresar a la página principal
+                            </Link>
                         </div>
                     </form>
                 </div>

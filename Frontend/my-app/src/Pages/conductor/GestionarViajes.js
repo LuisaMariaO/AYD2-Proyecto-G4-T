@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import Navbar from "../../Components/Navbar";
 import Sidebar from "../../Components/SidebarConductor";
-import StarRatingComponent from 'react-star-rating-component';
+import ReactStars from 'react-rating-stars-component';
 
 function GestionarViajes() {
     const [viajes, setViajes] = useState([]);
@@ -194,11 +194,12 @@ function GestionarViajes() {
                                         <div className="form-group mt-3">
                                             <label htmlFor="calificacion">Calificación del Usuario:</label>
                                             {/* Componente de calificación por estrellas */}
-                                            <StarRatingComponent 
-                                                name="rateUser" 
-                                                starCount={5}
+                                            <ReactStars
+                                                count={5}
                                                 value={calificacion}
-                                                onStarClick={onStarClick}
+                                                onChange={onStarClick}
+                                                size={24}
+                                                activeColor="#ffd700"
                                             />
                                         </div>
                                     )}
@@ -228,111 +229,107 @@ function GestionarViajes() {
                                             value={motivoCancelacion}
                                             onChange={(e) => setMotivoCancelacion(e.target                                            .value)}
                                             placeholder="Describe el motivo de cancelación..."
-                                        />
-                                    </div>
-
-                                    <button className="btn btn-danger mt-3" onClick={cancelarViaje}>
-                                        Cancelar Viaje
-                                    </button>
-                                </>
-                            ) : (
-                                <>
-                                    <h2>Viajes disponibles</h2>
-                                    {viajes.length === 0 && <p>No hay viajes disponibles en este momento.</p>}
-                                    {viajes.length > 0 && (
-                                        <ul className="list-group">
-                                            {viajes.map((viaje) => (
-                                                <li key={viaje.viaje_id} className="list-group-item d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <strong>Fecha:</strong> {viaje.fecha}<br />
-                                                        <strong>Pago:</strong> {viaje.metodo_pago === 'T' ? 'Tarjeta' : 'Efectivo'}<br />
-                                                        <strong>Lugar de inicio:</strong> Zona {viaje.inicio}<br />
-                                                        <strong>Lugar de finalización:</strong> Zona {viaje.fin}<br />
-                                                        <strong>Precio:</strong> Q{viaje.precio}<br />
-                                                    </div>
-                                                    <div>
-                                                        <button className="btn btn-info mx-1" onClick={() => mostrarInformacionUsuario(viaje.usuario_solicitud)}>
-                                                            Mostrar Información del Usuario
-                                                        </button>
-                                                        <button className="btn btn-primary" onClick={() => aceptarViaje(viaje.viaje_id, viaje.usuario_solicitud)}>
-                                                            Aceptar
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                            ))}
-                                        </ul>
+                                            />
+                                            </div>
+        
+                                            <button className="btn btn-danger mt-3" onClick={cancelarViaje}>
+                                                Cancelar Viaje
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <h2>Viajes disponibles</h2>
+                                            {viajes.length === 0 && <p>No hay viajes disponibles en este momento.</p>}
+                                            {viajes.length > 0 && (
+                                                <ul className="list-group">
+                                                    {viajes.map((viaje) => (
+                                                        <li key={viaje.viaje_id} className="list-group-item d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <strong>Fecha:</strong> {viaje.fecha}<br />
+                                                                <strong>Pago:</strong> {viaje.metodo_pago === 'T' ? 'Tarjeta' : 'Efectivo'}<br />
+                                                                <strong>Lugar de inicio:</strong> Zona {viaje.inicio}<br />
+                                                                <strong>Lugar de finalización:</strong> Zona {viaje.fin}<br />
+                                                                <strong>Precio:</strong> Q{viaje.precio}<br />
+                                                            </div>
+                                                            <div>
+                                                                <button className="btn btn-info mx-1" onClick={() => mostrarInformacionUsuario(viaje.usuario_solicitud)}>
+                                                                    Mostrar Información del Usuario
+                                                                </button>
+                                                                <button className="btn btn-primary" onClick={() => aceptarViaje(viaje.viaje_id, viaje.usuario_solicitud)}>
+                                                                    Aceptar
+                                                                </button>
+                                                            </div>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </>
                                     )}
-                                </>
-                            )}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            {/* Modal para mostrar la información del usuario */}
-
-            import StarRatingComponent from 'react-star-rating-component';
-
-// Dentro de tu modal:
-{showModal && usuarioInfo && (
-    <div className="modal d-block" tabIndex="-1">
-        <div className="modal-dialog">
-            <div className="modal-content">
-                <div className="modal-header">
-                    <h5 className="modal-title">Información del Usuario</h5>
-                    <button type="button" className="close" onClick={() => setShowModal(false)}>
-                        <span>&times;</span>
-                    </button>
-                </div>
-                <div className="modal-body">
-                    <div className="form-group">
-                        <strong>Nombre:</strong> {usuarioInfo.nombre || 'Desconocido'}<br />
-                        <strong>Celular:</strong> {usuarioInfo.celular || 'No disponible'}<br />
-                        
-                        <strong>Calificación General:</strong>
-                        {usuarioInfo.calificacion_general && !isNaN(usuarioInfo.calificacion_general) ? (
-                            <div>
-                                <StarRatingComponent
-                                    name="userRating" // Nombre único para el componente
-                                    starCount={5} // Número máximo de estrellas
-                                    value={parseFloat(usuarioInfo.calificacion_general)} // Valor de calificación
-                                    editing={false} // Solo visualización
-                                />
+        
+                    {/* Modal para mostrar la información del usuario */}
+                    {showModal && usuarioInfo && (
+                        <div className="modal d-block" tabIndex="-1">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title">Información del Usuario</h5>
+                                        <button type="button" className="close" onClick={() => setShowModal(false)}>
+                                            <span>&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <div className="form-group">
+                                            <strong>Nombre:</strong> {usuarioInfo.nombre || 'Desconocido'}<br />
+                                            <strong>Celular:</strong> {usuarioInfo.celular || 'No disponible'}<br />
+                                            
+                                            <strong>Calificación General:</strong>
+                                            {usuarioInfo.calificacion_general && !isNaN(usuarioInfo.calificacion_general) ? (
+                                                <div>
+                                                    <ReactStars
+                                                        count={5}
+                                                        value={parseFloat(usuarioInfo.calificacion_general)}
+                                                        edit={false}
+                                                        size={24}
+                                                        activeColor="#ffd700"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                'No disponible'
+                                            )}
+                                            <br />
+        
+                                            <strong>Viajes Completados:</strong> {usuarioInfo.viajes_completados || 0}<br />
+                                            <strong>Comentarios:</strong>
+                                            <ul>
+                                                {usuarioInfo.comentarios.length > 0 ? (
+                                                    usuarioInfo.comentarios.map((comentario, index) => (
+                                                        <li key={index}>
+                                                            {comentario.comentario || 'Sin comentario'}
+                                                        </li>
+                                                    ))
+                                                ) : (
+                                                    <li>No hay comentarios.</li>
+                                                )}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>
+                                            Cerrar
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        ) : (
-                            'No disponible'
-                        )}
-                        <br />
-
-                        <strong>Viajes Completados:</strong> {usuarioInfo.viajes_completados || 0}<br />
-                        <strong>Comentarios:</strong>
-                        <ul>
-                            {usuarioInfo.comentarios.length > 0 ? (
-                                usuarioInfo.comentarios.map((comentario, index) => (
-                                    <li key={index}>
-                                        {comentario.comentario || 'Sin comentario'}
-                                    </li>
-                                ))
-                            ) : (
-                                <li>No hay comentarios.</li>
-                            )}
-                        </ul>
-                    </div>
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>
-                        Cerrar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-)}
-
- 
-        </>
-    );
-}
-
-export default GestionarViajes;
-
+                        </div>
+                    )}
+                </>
+            );
+        }
+        
+        export default GestionarViajes;
+        
+                                       
