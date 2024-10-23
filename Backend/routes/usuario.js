@@ -106,7 +106,7 @@ routes.post('/cambiarContrasena', (req, res) => {
 });
 
 routes.post('/solicitudCambiarContrasena', (req, res) => {
-    const { username} = req.body;
+    const { username } = req.body;
     dbProxy.query('SELECT nombre, correo, username FROM usuario WHERE username=? OR correo=?;', [username, username], (err, results) => {
         if (err) {
             console.error('No se encontró el usuario:', err);
@@ -179,7 +179,6 @@ routes.post('/solicitarViaje', (req, res) => {
         }
 
         const tarifa_id = results[0].tarifa_id;
-        console.log(tarifa_id)
 
         dbProxy.query(
             'INSERT INTO viaje (estado, fecha, tarifa, metodo_pago, usuario_solicitud) VALUES (1,now(),?,?,?)',
@@ -195,7 +194,7 @@ routes.post('/solicitarViaje', (req, res) => {
                         console.error('Error al consultar viajes:', err);
                         return res.status(500).json({ message: 'Error en el servidor' });
                     }
-                
+
                     // Emite la actualización al cliente con el estado de los viajes
                     emitirViajeUsusario(viajes);
 
@@ -220,7 +219,7 @@ routes.post('/getViajesPendientes', (req, res) => {
 });
 
 routes.post('/cancelarViaje', (req, res) => {
-    const { viaje_id,  tiempo_espera, no_conductor, otro, comentario, usuario_id } = req.body;
+    const { viaje_id, tiempo_espera, no_conductor, otro, comentario, usuario_id } = req.body;
     dbProxy.query('UPDATE viaje SET estado=4 WHERE viaje_id = ?', [viaje_id], (err, results) => {
         if (err) {
             console.error('Error al actualizar el estado del viaje:', err);
@@ -233,23 +232,23 @@ routes.post('/cancelarViaje', (req, res) => {
                 return res.status(500).json({ message: 'Error en el servidor' });
             }
 
-                dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio, v.usuario_conductor,v.usuario_solicitud, u.nombre, vh.placa, vh.fotografia, ma.marca_nombre FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id LEFT JOIN usuario u ON u.usuario_id = usuario_conductor LEFT JOIN empleado em ON em.usuario_id=usuario_conductor LEFT JOIN vehiculo vh ON vh.vehiculo_id=em.vehiculo LEFT JOIN marca_vehiculo ma ON ma.marca_id=vh.marca WHERE (estado = 1 OR estado = 2)  AND usuario_solicitud = ?', [usuario_id], (err, viajes) => {
-                    if (err) {
-                        console.error('Error al consultar viajes:', err);
-                        return res.status(500).json({ message: 'Error en el servidor' });
-                    }
-                
-                    // Emite la actualización al cliente con el estado de los viajes
-                    emitirViajeUsusario(viajes);
-
-                    res.status(200).json({ message: '¡Viaje cancelado!' });
-
-
+            dbProxy.query('SELECT v.viaje_id, v.fecha, v.estado, e.estado_descripcion, t.inicio, t.fin, t.precio, v.usuario_conductor,v.usuario_solicitud, u.nombre, vh.placa, vh.fotografia, ma.marca_nombre FROM viaje v LEFT JOIN tarifa t ON t.tarifa_id = v.tarifa LEFT JOIN estado_viaje e ON v.estado=e.estado_id LEFT JOIN usuario u ON u.usuario_id = usuario_conductor LEFT JOIN empleado em ON em.usuario_id=usuario_conductor LEFT JOIN vehiculo vh ON vh.vehiculo_id=em.vehiculo LEFT JOIN marca_vehiculo ma ON ma.marca_id=vh.marca WHERE (estado = 1 OR estado = 2)  AND usuario_solicitud = ?', [usuario_id], (err, viajes) => {
+                if (err) {
+                    console.error('Error al consultar viajes:', err);
+                    return res.status(500).json({ message: 'Error en el servidor' });
                 }
-                );
-            });
 
-    
+                // Emite la actualización al cliente con el estado de los viajes
+                emitirViajeUsusario(viajes);
+
+                res.status(200).json({ message: '¡Viaje cancelado!' });
+
+
+            }
+            );
+        });
+
+
     });
 });
 
@@ -266,7 +265,7 @@ routes.get('/getUsuario/:usuarioId', (req, res) => {
 
 routes.post("/updateUsuario", (req, res) => {
     const { userId, nombre, fecha_nacimiento, genero, celular, correo, password } = req.body;
-    console.log(req.body)
+
     dbProxy.query(`
         UPDATE usuario
         SET nombre = COALESCE(?, nombre),
@@ -276,13 +275,29 @@ routes.post("/updateUsuario", (req, res) => {
             correo = COALESCE(?, correo),
             password = COALESCE(?, password)
         WHERE usuario_id = ?;       
-        `,[nombre, fecha_nacimiento, genero, celular, correo, password, userId], (err, results) => {
-            if (err) {
-                console.error('Error al actualizar usuario:', err);
-                return res.status(500).json({ message: 'Error en el servidor' });
-            }
-            res.json({ message: 'Usuario actualizado', data: results });
-        })
+        `, [nombre, fecha_nacimiento, genero, celular, correo, password, userId], (err, results) => {
+        if (err) {
+            console.error('Error al actualizar usuario:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.json({ message: 'Usuario actualizado', data: results });
+    })
+});
+
+routes.get('/getCalificacionConductor/:usuarioId', (req, res) => {
+    const { usuarioId } = req.params;
+    dbProxy.query(`
+        SELECT AVG(cc.puntaje) AS calificacion
+        FROM calificacion_conductor cc
+        LEFT JOIN viaje v ON v.viaje_id = cc.viaje 
+        WHERE v.usuario_conductor  = ?;
+        `, [usuarioId], (err, results) => {
+        if (err) {
+            console.error('Error al obtener usuarios:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.json({ message: 'Calificacion', data: results[0] });
+    });
 });
 
 

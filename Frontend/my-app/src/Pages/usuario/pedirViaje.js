@@ -63,6 +63,7 @@ function PedirViaje() {
             // Filtrar los viajes pendientes del usuario actual
             const viajesFiltrados = viajes.filter(viaje => viaje.usuario_solicitud == user_id);
             setViajesPendientes(viajesFiltrados);
+            
         });
 
         // Limpiar el socket cuando el componente se desmonte

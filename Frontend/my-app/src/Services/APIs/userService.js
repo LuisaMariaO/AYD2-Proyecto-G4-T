@@ -65,3 +65,8 @@ export const actualizarUsuario = async(userId, nombre, fecha_nacimiento, genero,
     const { data } = await instance.post("/usuario/updateUsuario", {userId: userId, nombre: nombre, fecha_nacimiento, fecha_nacimiento, genero: genero, celular:celular, correo:correo, password:password})
     return data
 }
+
+export const obtenerCalificacionConductor = async(conductor_id) =>{
+    const { data } = await instance.get("/usuario/getCalificacionConductor/"+conductor_id)
+    return data
+}

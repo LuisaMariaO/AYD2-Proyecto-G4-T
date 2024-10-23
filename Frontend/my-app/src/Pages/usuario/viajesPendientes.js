@@ -24,6 +24,7 @@ function ViajesPendientes({ viajesPendientes }) {
     const [motivo, setMotivo] = useState('1');
     const [viaje_id, setViajeId] = useState(0);
     const [viaje, setViaje] = useState([]);
+    const [calificacion_conductor, setCalificacionConductor] = useState(0);
 
     const handleChangeMotivo = (e) => {
         setMotivo(e.target.value);
@@ -48,6 +49,7 @@ function ViajesPendientes({ viajesPendientes }) {
         setComentario(e.target.value);
     }
 
+
     const handleCancelarViaje = (viaje_id) => {
         console.log(tiempo_espera, no_conductor, otro, comentario);
         Service.cancelarViaje(viaje_id, tiempo_espera, no_conductor, otro, comentario, user_id)
@@ -71,6 +73,37 @@ function ViajesPendientes({ viajesPendientes }) {
 
 
     }
+
+    const handleGetCalificacionConductor = (conductor_id) => {
+        Service.obtenerCalificacionConductor(conductor_id)
+            .then(({ calificacion_conductor }) => {
+                if(calificacion_conductor){
+                    setCalificacionConductor(calificacion_conductor);
+                }else{
+                    setCalificacionConductor(0)
+                }
+                
+            })
+            .catch((error) => {
+                throw error
+            })
+    }
+
+    const getEstrellas = (calificacion) => {
+        const estrellas = [];
+        calificacion = Math.round(calificacion); // Redondear la calificación a un número entero    s
+        // Añadir estrellas llenas
+        for (let i = 0; i < calificacion; i++) {
+          estrellas.push(<i key={i} className="bi bi-star-fill text-warning"></i>);
+        }
+      
+        // Añadir estrellas vacías (si no son las 5 llenas)
+        for (let i = calificacion; i < 5; i++) {
+          estrellas.push(<i key={i + 5} className="bi bi-star text-warning"></i>);
+        }
+      
+        return estrellas;
+    };
     return (
         <>
             <div className="container">
@@ -113,7 +146,13 @@ function ViajesPendientes({ viajesPendientes }) {
                                         <div className='col-md-12 text-center'>
                                             <p className='card-footer text-center'>
                                                 {(viaje.estado === 2) && (
-                                                    <button className="btn btn-primary btn-sm float-start" data-bs-toggle="modal" data-bs-target="#infoConductorModal" onClick={() => setViaje(viaje)}>Ver información del conductor</button>
+                                                    <button className="btn btn-primary btn-sm float-start" data-bs-toggle="modal" data-bs-target="#infoConductorModal" onClick={() => { 
+                                                        handleGetCalificacionConductor(viaje.usuario_conductor); 
+                                                        setViaje(viaje); 
+                                                      }}>
+                                                        Ver información del conductor
+                                                        
+                                                    </button>
                                                 )}
 
                                                 <button className="btn btn-danger btn-sm float-end" data-bs-toggle="modal" data-bs-target="#reportarProblemaModal" onClick={() => setViajeId(viaje.viaje_id)}>Cancelar</button>
@@ -173,6 +212,7 @@ function ViajesPendientes({ viajesPendientes }) {
                                     <p><strong>Placa del Vehículo:</strong> {viaje.placa}</p>
                                     <p><strong>Marca del Vehículo:</strong> {viaje.marca_nombre}</p>
                                     <img src={viaje.fotografia} alt="Fotografía del vehículo" className="img-fluid" />
+                                    <p><strong>Calificación:</strong>  {getEstrellas(calificacion_conductor)} ({calificacion_conductor})</p>
                                 </>
                             ) : (
                                 <p>No hay información del conductor disponible.</p>
