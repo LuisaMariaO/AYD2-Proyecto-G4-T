@@ -11,6 +11,10 @@ function SidebarAdmin() {
                         <a href="/admin" class="nav-link align-middle px-0 text-white">
                             <i class="bi bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span> </a>
                     </li>
+                    <li>
+                        <a href="/contratar-asistente" class="nav-link align-middle px-0 text-white">
+                            <i class="bi bi-calendar-check"></i> <span class="ms-1 d-none d-sm-inline">Contratar Asistentes</span> </a>
+                    </li>
                 </ul>
             </div>
         </div>
