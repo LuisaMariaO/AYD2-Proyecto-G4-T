@@ -184,4 +184,19 @@ routes.post('/baja-asistente', (req, res) => {
     });
 });
 
+routes.get('/lista-bajas', (req, res) => {
+
+    let query = `select md.id , u.nombre, mb.descripcion, md.fecha from motivos_despido md
+                    join usuario u on u.usuario_id = md.asistente_id
+                    join motivos_bajas mb on mb.id = md.motivo_id ;`
+    
+    dbProxy.query(query, [], (err, results) => {
+        if (err) {
+            return res.status(200).json({ message: 'Error en el servidor' });
+        }
+        res.status(200).json({ success: true, data: results });
+    });
+   
+});
+
 module.exports = routes
