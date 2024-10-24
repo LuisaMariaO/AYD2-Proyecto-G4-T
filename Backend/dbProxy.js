@@ -1,12 +1,9 @@
-const connectToDatabase = require('./db');
+const { connectToDatabase, closeDatabaseConnection } = require('./db');
 
 const dbProxy = new Proxy(connectToDatabase(), {
     get(target, property) {
         if (typeof target[property] === 'function') {
             return function (...args) {
-                //console.log(`Interceptando llamada al método: ${property}`);
-                //console.log(`Parámetros: ${JSON.stringify(args)}`);
-                
                 // Ejecutar la función original
                 return target[property](...args);
             };
@@ -14,5 +11,8 @@ const dbProxy = new Proxy(connectToDatabase(), {
         return target[property];
     }
 });
+
+// Exponer también la función para cerrar la conexión
+dbProxy.closeDatabaseConnection = closeDatabaseConnection;
 
 module.exports = dbProxy;
