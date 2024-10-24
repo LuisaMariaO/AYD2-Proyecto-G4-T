@@ -149,4 +149,39 @@ routes.post('/create-assistant', async (req, res) => {
     }
 });
 
+routes.get('/info-asistente', (req, res) => {
+    let query = `SELECT usuario_id, nombre, fotografia, correo, dpi, username 
+                    FROM usuario 
+                    WHERE (username = ? OR correo = ? OR dpi = ?) and estado_cuenta = 2;`
+    dbProxy.query(query, [req.query.find, req.query.find, req.query.find], (err, results) => {
+        if (err) {
+            return res.status(200).json({ message: 'Error en el servidor' });
+        }
+        res.status(200).json({ success: true, data: results });
+    });
+   
+});
+
+routes.post('/baja-asistente', (req, res) => {
+    let query = `UPDATE usuario 
+                    SET estado_cuenta = 1 
+                    WHERE usuario_id = ?;`
+    dbProxy.query(query, [req.body.id], (err, results) => {
+        if (err) {
+            return res.status(200).json({ error: err });
+        }
+
+        query = `INSERT INTO motivos_despido (asistente_id, motivo_id)
+                VALUES (?, ?);`
+
+        dbProxy.query(query, [req.body.id, req.body.motivo], (err, results) => {
+            if (err) {
+                return res.status(200).json({ error: err });
+            } else {
+                return res.status(200).json({ "success": true, "res": results });
+            }
+        });
+    });
+});
+
 module.exports = routes

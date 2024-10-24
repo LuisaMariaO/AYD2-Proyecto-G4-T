@@ -13,7 +13,11 @@ function SidebarAdmin() {
                     </li>
                     <li>
                         <a href="/contratar-asistente" class="nav-link align-middle px-0 text-white">
-                            <i class="bi bi-calendar-check"></i> <span class="ms-1 d-none d-sm-inline">Contratar Asistentes</span> </a>
+                            <i class="bi bi-folder-plus"></i> <span class="ms-1 d-none d-sm-inline">Contratar Asistentes</span> </a>
+                    </li>
+                    <li>
+                        <a href="/baja-asistente" class="nav-link align-middle px-0 text-white">
+                            <i class="bi bi-x-circle"></i> <span class="ms-1 d-none d-sm-inline">Baja Asistentes</span> </a>
                     </li>
                 </ul>
             </div>

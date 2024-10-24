@@ -25,3 +25,8 @@ export const obtenerEstadosCiviles = async() =>{
     const { data } = await instance.get("/catalogos/estado_civil")
     return data
 }
+
+export const obtenerMotivosBajas = async() =>{
+    const { data } = await instance.get("/catalogos/motivos-bajas")
+    return data
+}
