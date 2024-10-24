@@ -287,7 +287,7 @@ routes.post("/updateUsuario", (req, res) => {
 routes.get('/getCalificacionConductor/:usuarioId', (req, res) => {
     const { usuarioId } = req.params;
     dbProxy.query(`
-        SELECT AVG(cc.puntaje) AS calificacion
+        SELECT ROUND(AVG(cc.puntaje),1) AS calificacion
         FROM calificacion_conductor cc
         LEFT JOIN viaje v ON v.viaje_id = cc.viaje 
         WHERE v.usuario_conductor  = ?;
@@ -300,5 +300,15 @@ routes.get('/getCalificacionConductor/:usuarioId', (req, res) => {
     });
 });
 
+routes.post('/calificarViaje', (req, res) => {
+    const { viaje_id, calificacion, comentario } = req.body;
+    dbProxy.query('INSERT INTO calificacion_conductor (viaje, puntaje, comentario) VALUES (?,?,?)', [viaje_id, calificacion, comentario], (err, results) => {
+        if (err) {
+            console.error('Error al calificar el viaje:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.json({ message: 'Calificación guardada', data: results[0] });
+    });
+});
 
 module.exports = routes

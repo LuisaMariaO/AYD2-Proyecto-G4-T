@@ -37,9 +37,16 @@ function emitirViajesConductores(viajes) {
     }
 }
 
+function emitirViajeId(viaje) {
+    if (io) {
+        io.emit('viajeFinalizado', viaje);  // Emite todos los viajes pendientes a todos los clientes conectados
+    }
+}
+
 module.exports = {
     initSocket,
     emitirActualizacionViajes,
     emitirViajeUsusario,
-    emitirViajesConductores
+    emitirViajesConductores,
+    emitirViajeId
 };

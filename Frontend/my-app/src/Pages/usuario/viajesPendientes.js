@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import Service from '../../Services/service';
 import Swal from 'sweetalert2';
+import Rating from '@mui/material/Rating';
 
 
 
@@ -76,34 +77,21 @@ function ViajesPendientes({ viajesPendientes }) {
 
     const handleGetCalificacionConductor = (conductor_id) => {
         Service.obtenerCalificacionConductor(conductor_id)
-            .then(({ calificacion_conductor }) => {
-                if(calificacion_conductor){
-                    setCalificacionConductor(calificacion_conductor);
-                }else{
+            .then(({ data }) => {
+                console.log(data.calificacion);
+                if (data.calificacion) {
+                    setCalificacionConductor(parseFloat(data.calificacion));
+                } else {
                     setCalificacionConductor(0)
                 }
-                
+
             })
             .catch((error) => {
                 throw error
             })
     }
 
-    const getEstrellas = (calificacion) => {
-        const estrellas = [];
-        calificacion = Math.round(calificacion); // Redondear la calificación a un número entero    s
-        // Añadir estrellas llenas
-        for (let i = 0; i < calificacion; i++) {
-          estrellas.push(<i key={i} className="bi bi-star-fill text-warning"></i>);
-        }
-      
-        // Añadir estrellas vacías (si no son las 5 llenas)
-        for (let i = calificacion; i < 5; i++) {
-          estrellas.push(<i key={i + 5} className="bi bi-star text-warning"></i>);
-        }
-      
-        return estrellas;
-    };
+
     return (
         <>
             <div className="container">
@@ -146,12 +134,12 @@ function ViajesPendientes({ viajesPendientes }) {
                                         <div className='col-md-12 text-center'>
                                             <p className='card-footer text-center'>
                                                 {(viaje.estado === 2) && (
-                                                    <button className="btn btn-primary btn-sm float-start" data-bs-toggle="modal" data-bs-target="#infoConductorModal" onClick={() => { 
-                                                        handleGetCalificacionConductor(viaje.usuario_conductor); 
-                                                        setViaje(viaje); 
-                                                      }}>
+                                                    <button className="btn btn-primary btn-sm float-start" data-bs-toggle="modal" data-bs-target="#infoConductorModal" onClick={() => {
+                                                        handleGetCalificacionConductor(viaje.usuario_conductor);
+                                                        setViaje(viaje);
+                                                    }}>
                                                         Ver información del conductor
-                                                        
+
                                                     </button>
                                                 )}
 
@@ -212,7 +200,17 @@ function ViajesPendientes({ viajesPendientes }) {
                                     <p><strong>Placa del Vehículo:</strong> {viaje.placa}</p>
                                     <p><strong>Marca del Vehículo:</strong> {viaje.marca_nombre}</p>
                                     <img src={viaje.fotografia} alt="Fotografía del vehículo" className="img-fluid" />
-                                    <p><strong>Calificación:</strong>  {getEstrellas(calificacion_conductor)} ({calificacion_conductor})</p>
+                                    <p>
+                                        <strong>Calificación:</strong>
+                                        <Rating
+                                            name="read-only"
+                                            value={calificacion_conductor}
+                                            precision={0.5}
+                                            readOnly
+                                            style={{ verticalAlign: 'middle' }}
+                                        />
+                                        ({calificacion_conductor})
+                                    </p>
                                 </>
                             ) : (
                                 <p>No hay información del conductor disponible.</p>

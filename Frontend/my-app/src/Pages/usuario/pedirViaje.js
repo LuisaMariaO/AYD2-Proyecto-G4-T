@@ -5,9 +5,12 @@ import Service from "../../Services/service";
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
 import ViajesPendientes from "./viajesPendientes";
+import Rating from '@mui/material/Rating';
+import Modal from 'bootstrap/js/dist/modal';
 
 
 function PedirViaje() {
+    window.bootstrap = require('bootstrap');
     const username = localStorage.getItem('username');
     const user_id = localStorage.getItem('user_id');
     const [esConductor, setEsConductor] = useState(true);
@@ -18,6 +21,9 @@ function PedirViaje() {
     const [destino, setDestino] = useState(0);
     const [viajeActivo, setViajeActivo] = useState([]);
     const [viajesPendientes, setViajesPendientes] = useState([])
+    const [viajeFinalizado, setViajeFinalizado] = useState(0);
+    const [calificacion, setCalificacion] = useState(0);
+    const [comentario, setComentario] = useState('');
 
     useEffect(() => {
         const socket = io('http://localhost:9001');
@@ -63,7 +69,14 @@ function PedirViaje() {
             // Filtrar los viajes pendientes del usuario actual
             const viajesFiltrados = viajes.filter(viaje => viaje.usuario_solicitud == user_id);
             setViajesPendientes(viajesFiltrados);
-            
+
+        });
+
+        socket.on('viajeFinalizado', (viaje) => {
+            setViajeFinalizado(viaje.viajeId);
+            const modalElement = document.getElementById('calificarViajeModal');
+            const modalInstance = new window.bootstrap.Modal(modalElement);
+            modalInstance.show(); // Abre el modal
         });
 
         // Limpiar el socket cuando el componente se desmonte
@@ -121,6 +134,25 @@ function PedirViaje() {
     const obtenerPrecio = (zonaInicio, zonaFin) => {
         const tarifa = tarifas.find(t => t.inicio == zonaInicio && t.fin == zonaFin);
         return tarifa ? tarifa.precio : 0;
+    };
+
+    const handleCalificar = () => {
+       
+        Service.calificarViaje(viajeFinalizado, calificacion, comentario)
+        .then(({ message }) => {
+
+            Swal.fire({
+                title: "¡Viaje calificado!",
+                text: "Gracias por viajar con QNave :3",
+                icon: "success"
+            }).then(() => {
+                window.location.reload();
+            });
+
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     };
     return (
         <>
@@ -188,6 +220,41 @@ function PedirViaje() {
                             )}
 
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Modal para calificar un viaje recién finalizado */}
+            <div className="modal fade" id="calificarViajeModal" tabIndex="-1" aria-labelledby="infoCalificarLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="infoCalificarLabel">¡Viaje finalizado!</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body text-center">
+                            <strong>Calificación:</strong>
+                            <p>
+                            <Rating
+                                name="simple-controlled"
+                                value={calificacion}
+                                onChange={(event, newValue) => {
+                                    setCalificacion(newValue);
+                                }}
+                            />
+                            </p>
+                            <strong>Comentario: </strong>(Opcional)
+                            <textarea
+                                className="form-control"
+                                value={comentario}
+                                onChange={(e) => setComentario(e.target.value)}
+                            ></textarea>
+                            <br></br>
+                            <button type="button" className="btn btn-success" onClick={handleCalificar}>Calificar</button>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>

@@ -68,5 +68,11 @@ export const actualizarUsuario = async(userId, nombre, fecha_nacimiento, genero,
 
 export const obtenerCalificacionConductor = async(conductor_id) =>{
     const { data } = await instance.get("/usuario/getCalificacionConductor/"+conductor_id)
+    console.log(data)
+    return data
+}
+
+export const calificarViaje = async(viaje_id, calificacion, comentario) =>{
+    const { data } = await instance.post("/usuario/calificarViaje", {viaje_id: viaje_id, calificacion: calificacion, comentario: comentario})
     return data
 }

@@ -6,7 +6,7 @@ const crypto = require('crypto'); // Para generar la contraseña temporal
 require('dotenv').config(); // Cargar variables de entorno
 const bcrypt = require('bcrypt'); // 
 const dbProxy = require('../dbProxy');
-const { emitirViajeUsusario } = require('../socket');  // Función de WebSocket
+const { emitirViajeUsusario, emitirViajeId } = require('../socket');  // Función de WebSocket
 const util = require('util');
 const query = util.promisify(dbProxy.query).bind(dbProxy);
 
@@ -470,6 +470,7 @@ routes.post('/finalizarViaje/:viajeId', async (req, res) => {
 
         // Emite la actualización al cliente con el estado de los viajes
         emitirViajeUsusario(viajes);
+        emitirViajeId({viajeId: viajeId});
 
         return res.status(200).json({ status: 'success', message: 'Viaje finalizado y calificación registrada.' });
 
