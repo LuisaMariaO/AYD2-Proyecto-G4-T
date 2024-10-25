@@ -203,4 +203,47 @@ routes.post('/comentarios-puntuacion-conductor', (req, res) => {
     });
 });
 
+routes.get('/obtener-ofertas', (req, res) => {
+    dbProxy.query(`SELECT * FROM ofertas;`, [], (err, results) => {
+        if (err) {
+            console.error('Error al obtener las ofertas:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.json({ message: 'Registros obtenidos', data: results });
+    });
+});
+
+routes.post('/crear-oferta', (req, res) => {
+    const { descripcion, descuento, fecha_inicio, fecha_fin, estado } = req.body;
+    const nuevaOferta = {
+        descripcion,
+        descuento,
+        fecha_inicio,
+        fecha_fin,
+        estado: estado || 'ACTIVA'
+    };
+    dbProxy.query('INSERT INTO ofertas SET ?', nuevaOferta, (err, results) => {
+        if (err) {
+            console.error('Error al crear la oferta:', err);
+            res.status(500).json({ error: 'Error al crear la oferta' });
+            return;
+        }
+        // Devolver la oferta recién creada
+        res.json({ id: results.insertId, ...nuevaOferta });
+    });
+});
+
+routes.post('/editar-conductor/:id', (req, res) => {
+    const conductorId = req.params.id;
+    const { nombre, correo, celular, direccion, edad } = req.body;
+    dbProxy.query('UPDATE usuario SET nombre = ?, correo = ?, celular = ?, direccion = ?, edad = ?  WHERE usuario_id = ?;', 
+        [nombre, correo, celular, direccion, edad, conductorId], (err, results) => {
+        if (err) {
+            console.error('Error al actualizar los datos del conductor', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.status(200).json({ message: 'Todo bien' });
+    });
+});
+
 module.exports = routes

@@ -11,6 +11,7 @@ import Asistente from "./Pages/asistente/Asistente";
 import SolicitudesEmpleos from "./Pages/asistente/SolicitudesEmpleos";
 import GestionUsuarios from "./Pages/asistente/GestionUsuarios";
 import GestionConductores from "./Pages/asistente/GestionConductores";
+import GestionarOfertas from "./Pages/asistente/GestionarOfertas";
 import Usuario from "./Pages/usuario/usuario";
 import Conductor from "./Pages/conductor/conductor";
 import InicioSesionAsistente from "./Pages/asistente/InicioSesionAsistente";
@@ -39,6 +40,7 @@ function App() {
       <Route path="/solicitudes-empleos" element={<SolicitudesEmpleos/>}/>
       <Route path="/gestion-usuarios" element={<GestionUsuarios/>}/>
       <Route path="/gestion-conductores" element={<GestionConductores/>}/>
+      <Route path="/gestion-ofertas" element={<GestionarOfertas/>}/>
       <Route path="/usuario" element={<Usuario/>}></Route>
       <Route path="/conductor" element={<Conductor/>}></Route>
       <Route path="/inicio-sesion-asistente" element={<InicioSesionAsistente/>}/>
