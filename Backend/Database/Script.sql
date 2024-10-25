@@ -210,3 +210,14 @@ CREATE TABLE motivos_despido (
     FOREIGN KEY (motivo_id) REFERENCES motivos_bajas(id),
     FOREIGN KEY (asistente_id) REFERENCES usuario(usuario_id)
 );
+
+CREATE TABLE ofertas (
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- ID único para cada oferta
+    descripcion VARCHAR(255) NOT NULL,  -- Descripción de la oferta
+    descuento DECIMAL(5,2) NOT NULL,    -- Porcentaje de descuento (por ejemplo, 8.00 para 8%)
+    fecha_inicio DATE NOT NULL,         -- Fecha de inicio de la oferta
+    fecha_fin DATE NOT NULL,            -- Fecha de fin de la oferta
+    estado ENUM('ACTIVA', 'EXPIRADA', 'USADA') DEFAULT 'ACTIVA',  -- Estado de la oferta
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Fecha de creación
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  -- Fecha de última actualización
+);
