@@ -72,4 +72,15 @@ routes.get('/tarifas', (req, res) => {
             })
 })
 
+routes.get('/motivos-bajas', (req, res) => {
+  
+    dbProxy.query('SELECT * FROM motivos_bajas;', [], (err, rows) => {
+        if (err) {
+            return res.status(200).json({ error: err });
+        } else {
+            return res.status(200).json({"motivos":rows});
+        }
+    })
+})
+
 module.exports = routes

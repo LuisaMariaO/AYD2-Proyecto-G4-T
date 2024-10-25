@@ -25,3 +25,18 @@ export const obtenerInformacionAdmin = async(userId) =>{
     const { data } = await instance.get("/admin/obtenerDatos", {id: userId})
     return data
 }
+
+export const buscarAsistente = async(asistente) =>{
+    const { data } = await instance.get(`/admin/info-asistente?find=${asistente}`)
+    return data
+}
+
+export const bajaAsistente = async(id, motivo) =>{
+    const { data } = await instance.post("/admin/baja-asistente", {id: id, motivo: motivo})
+    return data
+}
+
+export const listadoBajas = async() =>{
+    const { data } = await instance.get(`/admin/lista-bajas`)
+    return data
+}

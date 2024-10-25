@@ -28,6 +28,9 @@ import ReportarProblemaUsuario from "./Pages/usuario/reportarProblema";
 import PedirViaje from "./Pages/usuario/pedirViaje";
 import Ganancias from "./Pages/conductor/ganancias";
 import PerfilConductor from "./Pages/conductor/perfilConductor";
+import RegistrarAsistente from "./Pages/admin/registrar-asistente";
+import BajaAsistente from "./Pages/admin/baja-asistente";
+import BajasListado from "./Pages/admin/bajas-lista";
 
 function App() {
   return (
@@ -57,6 +60,9 @@ function App() {
       <Route path="/usuario/solicitarViaje" element={<PedirViaje/>}></Route>
       <Route path="/ganancias" element={<Ganancias/>}></Route>
       <Route path="/perfil-conductor" element={<PerfilConductor/>}></Route>
+      <Route path="/contratar-asistente" element={<RegistrarAsistente/>}></Route>
+      <Route path="/baja-asistente" element={<BajaAsistente/>}></Route>
+      <Route path="/ver-bajas" element={<BajasListado />}></Route>
       <Route path="*" element={<Navigate to="/" replace={true}></Navigate>} exact={true}></Route>
     </Routes>
   </BrowserRouter>
