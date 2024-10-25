@@ -76,3 +76,8 @@ export const calificarViaje = async(viaje_id, calificacion, comentario) =>{
     const { data } = await instance.post("/usuario/calificarViaje", {viaje_id: viaje_id, calificacion: calificacion, comentario: comentario})
     return data
 }
+
+export const guardarUbicacion = async (user_id, nombre, zona) =>{
+    const { data } = await instance.post("/usuario/guardarUbicacion",{usuario_id:user_id, nombre:nombre, zona:zona })
+    return data
+}

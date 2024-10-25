@@ -31,6 +31,7 @@ import RegistrarAsistente from "./Pages/admin/registrar-asistente";
 import BajaAsistente from "./Pages/admin/baja-asistente";
 import BajasListado from "./Pages/admin/bajas-lista";
 import VerPerfil from "./Pages/usuario/verPerfil";
+import GuardarUbicacion from "./Pages/usuario/guardarUbicacion";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
       <Route path="/baja-asistente" element={<BajaAsistente/>}></Route>
       <Route path="/ver-bajas" element={<BajasListado />}></Route>
       <Route path="/usuario/verPerfil" element={<VerPerfil/>}></Route>
+      <Route path="/usuario/guardarUbicacion" element={<GuardarUbicacion/>}></Route>
       <Route path="*" element={<Navigate to="/" replace={true}></Navigate>} exact={true}></Route>
     </Routes>
   </BrowserRouter>

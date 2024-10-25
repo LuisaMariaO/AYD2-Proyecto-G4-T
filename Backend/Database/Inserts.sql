@@ -166,3 +166,17 @@ INSERT INTO motivos_bajas (descripcion) VALUES
 ('Infracciones graves'),
 ('Desempeño inadecuado'),
 ('Quejas reiteradas');
+
+INSERT INTO destino (nombre, zona) VALUES
+('Zona 1', 1),
+('Zona 2', 2),
+('Zona 3', 3),
+('Zona 4', 4),
+('Zona 5', 5),
+('Zona 6', 6),
+('Zona 7', 7),
+('Zona 8', 8),
+('Zona 9', 9),
+('Zona 10', 10),
+('Zona 11', 11),
+('Zona 12', 12);

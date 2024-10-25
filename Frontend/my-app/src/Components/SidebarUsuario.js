@@ -26,6 +26,10 @@ function SidebarUsuario() {
                         <a href="/usuario/problemas" class="nav-link align-middle px-0 text-white">
                             <i class="bi bi-exclamation-octagon-fill"></i> <span class="ms-1 d-none d-sm-inline">Problemas</span> </a>
                     </li>
+                    <li>
+                        <a href="/usuario/guardarUbicacion" class="nav-link align-middle px-0 text-white">
+                            <i class="bi bi-geo-alt-fill"></i> <span class="ms-1 d-none d-sm-inline">Guardar ubicación</span> </a>
+                    </li>
                 </ul>
             </div>
         </div>

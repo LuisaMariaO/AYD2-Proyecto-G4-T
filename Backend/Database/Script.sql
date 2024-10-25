@@ -210,3 +210,9 @@ CREATE TABLE motivos_despido (
     FOREIGN KEY (motivo_id) REFERENCES motivos_bajas(id),
     FOREIGN KEY (asistente_id) REFERENCES usuario(usuario_id)
 );
+
+CREATE TABLE destino (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	nombre VARCHAR(255) NOT NULL,
+	zona INT NOT NULL,
+);

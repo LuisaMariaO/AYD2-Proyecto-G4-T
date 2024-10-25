@@ -311,4 +311,15 @@ routes.post('/calificarViaje', (req, res) => {
     });
 });
 
+routes.post('/guardarUbicacion', (req, res) => {
+    const { usuario_id, nombre, zona } = req.body;
+    dbProxy.query('INSERT INTO destino (nombre, zona, usuario_id) VALUES (?,?,?)', [nombre, zona, usuario_id], (err, results) => {
+        if (err) {
+            console.error('Error al guardar la ubicación:', err);
+            return res.status(500).json({ message: 'Error en el servidor' });
+        }
+        res.json({ message: 'Ubicación guardada', data: results[0] });
+    });
+});
+
 module.exports = routes

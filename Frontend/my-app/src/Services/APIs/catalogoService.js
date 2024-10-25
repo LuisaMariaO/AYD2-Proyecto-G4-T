@@ -30,3 +30,8 @@ export const obtenerMotivosBajas = async() =>{
     const { data } = await instance.get("/catalogos/motivos-bajas")
     return data
 }
+
+export const obtenerDestinos = async() =>{
+    const { data } = await instance.get("/catalogos/destinos")
+    return data
+}

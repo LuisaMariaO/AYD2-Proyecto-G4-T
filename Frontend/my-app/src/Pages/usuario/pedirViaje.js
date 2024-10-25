@@ -24,6 +24,7 @@ function PedirViaje() {
     const [viajeFinalizado, setViajeFinalizado] = useState(0);
     const [calificacion, setCalificacion] = useState(0);
     const [comentario, setComentario] = useState('');
+    const [destinos, setDestinos] = useState([]);
 
     useEffect(() => {
         const socket = io('http://localhost:9001');
@@ -47,6 +48,16 @@ function PedirViaje() {
         Service.obtenerTarifas()
             .then(({ tarifas }) => {
                 setTarifas(tarifas)
+
+            })
+            .catch((error) => {
+                throw error
+            })
+
+            Service.obtenerDestinos()
+            .then(({ data }) => {
+
+                setDestinos(data)
 
             })
             .catch((error) => {
@@ -94,7 +105,6 @@ function PedirViaje() {
 
     const handleChangeDestino = (e) => {
         setDestino(e.target.value);
-
 
         setTarifa(obtenerPrecio(partida, e.target.value))
     };
@@ -192,12 +202,12 @@ function PedirViaje() {
                                                     id="destino"
                                                     name="destino"
                                                     onChange={handleChangeDestino}
-                                                    value={destino}
+                                                    //value={destino}
                                                 >
                                                     <option value="">Seleccione el destino</option>
-                                                    {zonas.map((destino) => (
-                                                        <option key={destino.zona} value={destino.zona}>
-                                                            Zona {destino.zona}
+                                                    {destinos.map((destino) => (
+                                                        <option key={destino.nombre} value={destino.zona}>
+                                                            {destino.nombre}
                                                         </option>
                                                     ))}
                                                 </select>
