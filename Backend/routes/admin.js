@@ -199,4 +199,44 @@ routes.get('/lista-bajas', (req, res) => {
    
 });
 
+routes.get('/viajes-por-estado', (req, res) => {
+
+    let query = `SELECT 
+                    ev.estado_descripcion as label,
+                    (COUNT(v.estado) * 100.0 / (SELECT COUNT(*) FROM viaje)) AS value
+                FROM 
+                    viaje v
+                JOIN 
+                    estado_viaje ev ON ev.estado_id = v.estado
+                GROUP BY 
+                    ev.estado_descripcion;`
+    
+    dbProxy.query(query, [], (err, results) => {
+        if (err) {
+            return res.status(200).json({ message: 'Error en el servidor' });
+        }
+        res.status(200).json({ success: true, data: results });
+    });
+   
+});
+
+routes.get('/promedio-calificacion-conductor', (req, res) => {
+
+    let query = `SELECT
+                    u.nombre AS label, 
+                    AVG(c.puntaje) AS value
+                FROM calificacion_conductor c
+                JOIN viaje v ON c.viaje = v.viaje_id
+                JOIN usuario u ON v.usuario_conductor = u.usuario_id
+                GROUP BY u.usuario_id, u.nombre;`
+    
+    dbProxy.query(query, [], (err, results) => {
+        if (err) {
+            return res.status(200).json({ message: 'Error en el servidor' });
+        }
+        res.status(200).json({ success: true, data: results });
+    });
+   
+});
+
 module.exports = routes
