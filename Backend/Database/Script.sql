@@ -211,7 +211,6 @@ CREATE TABLE motivos_despido (
     FOREIGN KEY (asistente_id) REFERENCES usuario(usuario_id)
 );
 
-<<<<<<< HEAD
 CREATE TABLE ofertas (
     id INT AUTO_INCREMENT PRIMARY KEY,  -- ID único para cada oferta
     descripcion VARCHAR(255) NOT NULL,  -- Descripción de la oferta
@@ -222,10 +221,8 @@ CREATE TABLE ofertas (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Fecha de creación
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  -- Fecha de última actualización
 );
-=======
 CREATE TABLE destino (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	nombre VARCHAR(255) NOT NULL,
 	zona INT NOT NULL,
 );
->>>>>>> feature202003381
