@@ -40,3 +40,15 @@ export const listadoBajas = async() =>{
     const { data } = await instance.get(`/admin/lista-bajas`)
     return data
 }
+
+export const viajesPorEstado = async() =>{
+    const { data } = await instance.get(`/admin/viajes-por-estado`)
+    console.log(data)
+    return data
+}
+
+export const promedioCalificacionConductor = async() =>{
+    const { data } = await instance.get(`/admin/promedio-calificacion-conductor`)
+    console.log(data)
+    return data
+}
