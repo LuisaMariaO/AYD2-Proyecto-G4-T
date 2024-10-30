@@ -4,7 +4,7 @@ let io;
 function initSocket(server) {
     io = socketIO(server, {
         cors: {
-            origin: "http://localhost:3000", // Permite el acceso desde tu frontend React
+            origin: "http://34.172.137.187:3000", // Permite el acceso desde tu frontend React
             methods: ["GET", "POST"]
         }
     });
