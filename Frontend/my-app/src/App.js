@@ -33,6 +33,7 @@ import BajaAsistente from "./Pages/admin/baja-asistente";
 import BajasListado from "./Pages/admin/bajas-lista";
 import VerPerfil from "./Pages/usuario/verPerfil";
 import GuardarUbicacion from "./Pages/usuario/guardarUbicacion";
+import AdminReportes from "./Pages/admin/admin-reportes";
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
       <Route path="/ver-bajas" element={<BajasListado />}></Route>
       <Route path="/usuario/verPerfil" element={<VerPerfil/>}></Route>
       <Route path="/usuario/guardarUbicacion" element={<GuardarUbicacion/>}></Route>
+      <Route path="/reportes-admin" element={<AdminReportes/>}></Route>
       <Route path="*" element={<Navigate to="/" replace={true}></Navigate>} exact={true}></Route>
     </Routes>
   </BrowserRouter>
