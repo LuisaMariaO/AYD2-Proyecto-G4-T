@@ -54,7 +54,7 @@ function PedirViaje() {
                 throw error
             })
 
-            Service.obtenerDestinos()
+        Service.obtenerDestinos()
             .then(({ data }) => {
 
                 setDestinos(data)
@@ -147,22 +147,22 @@ function PedirViaje() {
     };
 
     const handleCalificar = () => {
-       
+
         Service.calificarViaje(viajeFinalizado, calificacion, comentario)
-        .then(({ message }) => {
+            .then(({ message }) => {
 
-            Swal.fire({
-                title: "¡Viaje calificado!",
-                text: "Gracias por viajar con QNave :3",
-                icon: "success"
-            }).then(() => {
-                window.location.reload();
-            });
+                Swal.fire({
+                    title: "¡Viaje calificado!",
+                    text: "Gracias por viajar con QNave :3",
+                    icon: "success"
+                }).then(() => {
+                    window.location.reload();
+                });
 
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     };
     return (
         <>
@@ -202,14 +202,16 @@ function PedirViaje() {
                                                     id="destino"
                                                     name="destino"
                                                     onChange={handleChangeDestino}
-                                                    //value={destino}
+                                                //value={destino}
                                                 >
                                                     <option value="">Seleccione el destino</option>
-                                                    {destinos.map((destino) => (
-                                                        <option key={destino.nombre} value={destino.zona}>
-                                                            {destino.nombre}
-                                                        </option>
-                                                    ))}
+                                                    {destinos.map((destino) =>
+                                                        (destino.usuario == null || destino.usuario==user_id) && (
+                                                            <option key={destino.nombre} value={destino.zona}>
+                                                                {destino.nombre}
+                                                            </option>
+                                                        )
+                                                    )}
                                                 </select>
                                             </div>
 
@@ -246,13 +248,13 @@ function PedirViaje() {
                         <div className="modal-body text-center">
                             <strong>Calificación:</strong>
                             <p>
-                            <Rating
-                                name="simple-controlled"
-                                value={calificacion}
-                                onChange={(event, newValue) => {
-                                    setCalificacion(newValue);
-                                }}
-                            />
+                                <Rating
+                                    name="simple-controlled"
+                                    value={calificacion}
+                                    onChange={(event, newValue) => {
+                                        setCalificacion(newValue);
+                                    }}
+                                />
                             </p>
                             <strong>Comentario: </strong>(Opcional)
                             <textarea
