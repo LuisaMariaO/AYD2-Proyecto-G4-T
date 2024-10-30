@@ -19,7 +19,7 @@ function GestionarViajes() {
     useEffect(() => {
         const fetchViajes = async () => {
             if (!viajeEnCurso) {
-                const response = await fetch('http://http://34.44.160.131:9000/conductor/viajesDisponibles');
+                const response = await fetch('http://34.44.160.131:9000/conductor/viajesDisponibles');
                 const result = await response.json();
                 setViajes(result);
             }
@@ -36,7 +36,7 @@ function GestionarViajes() {
 
     const mostrarInformacionUsuario = async (usuarioId) => {
         try {
-            const response = await fetch(`http://http://34.44.160.131:9000/conductor/informacionUsuario/${usuarioId}`);
+            const response = await fetch(`http://34.44.160.131:9000/conductor/informacionUsuario/${usuarioId}`);
             const result = await response.json();
     
             if (result.status === 'success') {
@@ -53,7 +53,7 @@ function GestionarViajes() {
 
     const aceptarViaje = async (viajeId, usuarioId) => {
         try {
-            const response = await fetch(`http://http://34.44.160.131:9000/conductor/aceptarViaje/${viajeId}`, {
+            const response = await fetch(`http://34.44.160.131:9000/conductor/aceptarViaje/${viajeId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ conductorId })
@@ -80,7 +80,7 @@ function GestionarViajes() {
         }
 
         try {
-            const response = await fetch(`http://http://34.44.160.131:9000/conductor/cancelarViaje/${viajeEnCurso}`, {
+            const response = await fetch(`http://34.44.160.131:9000/conductor/cancelarViaje/${viajeEnCurso}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ conductorId, motivo: motivoCancelacion })
@@ -122,7 +122,7 @@ function GestionarViajes() {
         }
     
         try {
-            const response = await fetch(`http://http://34.44.160.131:9000/conductor/finalizarViaje/${viajeEnCurso}`, {
+            const response = await fetch(`http://34.44.160.131:9000/conductor/finalizarViaje/${viajeEnCurso}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ conductorId, pagoRecibido, calificacion, comentarioManual, usuarioId })

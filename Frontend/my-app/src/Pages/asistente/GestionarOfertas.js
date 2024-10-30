@@ -11,7 +11,7 @@ const GestionarOfertas = () => {
 
     // Cargar ofertas existentes desde el backend
     useEffect(() => {
-        fetch('http://http://34.44.160.131:9000/asistente/obtener-ofertas')
+        fetch('http://34.44.160.131:9000/asistente/obtener-ofertas')
             .then(response => response.json())
             .then(data => setOfertas(data.data))
             .catch(error => console.error("Error al obtener las ofertas", error));
@@ -28,7 +28,7 @@ const GestionarOfertas = () => {
             estado: "ACTIVA"
         };
 
-        fetch('http://http://34.44.160.131:9000/asistente/crear-oferta', {
+        fetch('http://34.44.160.131:9000/asistente/crear-oferta', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

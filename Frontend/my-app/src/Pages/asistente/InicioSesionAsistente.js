@@ -18,7 +18,7 @@ const InicioSesionAsistente = () => {
 
         try {
             // Realizamos la solicitud con fetch
-            const response = await fetch('http://http://34.44.160.131:9000/asistente/sesion-asistente', {
+            const response = await fetch('http://34.44.160.131:9000/asistente/sesion-asistente', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

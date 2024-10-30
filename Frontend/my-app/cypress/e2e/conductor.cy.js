@@ -67,7 +67,7 @@ describe('Pruebas E2E para la página de Ganancias', () => {
 
   it('Debe mostrar el resumen de ganancias correctamente', () => {
     // Intercepta la solicitud al backend y simula una respuesta exitosa
-    cy.intercept('POST', 'http://http://34.44.160.131:9000/conductor/ganancias', {
+    cy.intercept('POST', 'http://34.44.160.131:9000/conductor/ganancias', {
       statusCode: 200,
       body: {
         status: 'success',
@@ -91,7 +91,7 @@ describe('Pruebas E2E para la página de Ganancias', () => {
 
   it('Debe mostrar un mensaje de error si no se encuentran ganancias', () => {
     // Simula una respuesta de error
-    cy.intercept('POST', 'http://http://34.44.160.131:9000/conductor/ganancias', {
+    cy.intercept('POST', 'http://34.44.160.131:9000/conductor/ganancias', {
       statusCode: 404,
       body: {
         status: 'error',

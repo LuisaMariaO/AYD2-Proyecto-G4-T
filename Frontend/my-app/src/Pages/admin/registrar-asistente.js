@@ -63,7 +63,7 @@ function RegistrarAsistente() {
         formData.cv = cvBase64.split(',')[1];
         formData.fotografia = fotografiaBase64.split(',')[1];
 
-        const response = await fetch('http://http://34.44.160.131:9000/admin/create-assistant', {
+        const response = await fetch('http://34.44.160.131:9000/admin/create-assistant', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

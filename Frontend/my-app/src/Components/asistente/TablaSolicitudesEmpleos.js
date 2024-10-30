@@ -3,7 +3,7 @@ import React from "react";
 const TablaSolicitudesEmpleos = ({ drivers, viewCV }) => {
 
     const handleAprobar = (usuario_id) => {
-        fetch('http://http://34.44.160.131:9000/asistente/aprobar-solicitud-empleo', {
+        fetch('http://34.44.160.131:9000/asistente/aprobar-solicitud-empleo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ const TablaSolicitudesEmpleos = ({ drivers, viewCV }) => {
     }
 
     const handleRechazar = (usuario_id) => {
-        fetch('http://http://34.44.160.131:9000/asistente/rechazar-solicitud-empleo', {
+        fetch('http://34.44.160.131:9000/asistente/rechazar-solicitud-empleo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
