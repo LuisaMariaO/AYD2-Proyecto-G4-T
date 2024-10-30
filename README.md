@@ -1345,7 +1345,16 @@ Las pruebas E2E se realizaron con cypress, siendo estas las siguientes:
 - Regreso desde login a la página principal
 - Visualización del reporte de ganancias de un conductor.
 
+## Terraform
+Inicio de la configuración de Terraform
+![TerraformInit](Imagenes/TerraformInit.jpeg)
+ 
+Terraform en backend
+![TerraformBackend](Imagenes/TerraformBack.jpeg)
+ 
+Init en backend
+![TerraformInitBack](Imagenes/TerraformInitBack.jpeg) 
 
-
-
-
+Terraform Plan
+![TerraformPlan](Imagenes/TerraformPlan.jpeg) 
+ 
