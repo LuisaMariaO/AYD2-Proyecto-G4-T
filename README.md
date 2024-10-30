@@ -33,6 +33,14 @@ Laboratorio de analisis y diseño 2
 10. [Prototipos de Interfaces](#10-prototipos-de-interfaces)
 11. [Patrones de Diseño](#11-patrones-de-diseño)
 12. [Tablero Kanban](#12-tablero-kanban)
+13. [SCRUM](#13-scrum)
+    - [Sprint 1](#sprint-1)
+    - [Sprint 2](#sprint-2)
+14. [Pruebas](#14.pruebas)
+  - [Pruebas unitarias]("#pruebas-unitarias")
+  - [Pruebas de integración](#pruebas-de-integracion)
+  - [Pruebas de acpetación]("#pruebas-de-aceptacion")
+  - [Pruebas E2E]("#pruebas-E2E")
 
 
 ## 1. Antecedentes
@@ -635,7 +643,7 @@ La arquitectura compuesta por React, Node.js, Axios y MySQL se ha convertido en 
 La combinación de React, Node.js, Axios y MySQL ofrece una solución completa y robusta para el desarrollo de aplicaciones web modernas. Al elegir esta tecnología, estarás invirtiendo en un futuro a prueba del tiempo y en la creación de aplicaciones de alta calidad que satisfacen las necesidades de los usuarios.
 
 ## 9. Diagrama Entidad - Relación
-![Diagrama componentes](./Imagenes/Fase1-DiagramaER.png)
+![Diagrama componentes](./Imagenes/Fase2-DiagramaER.png)
 
 ## 10. Prototipos de interfaces
 
@@ -812,12 +820,532 @@ Este patrón es utilizado para enviar notificaciones a los conductores cuando un
  
 Permite enmascarar el envío de correos de verificación, para poder personalizar el mensaje según el tipo de registro (asitente o conductor) y luego acceder al servicio de envíos de correo electrónico.
 
-### Patrón Estrategia
-![Patron Estrategia](Imagenes/PatronEstrategia.jpg)
+### Facade
+![Patron Facade](Imagenes/PatronFacade.png)
 
-El patrón Estrategia es útil cuando existen diferentes comportamientos que pueden variar según el contexto. Una interfaz en la que se encuentran las operaciones en común de cada tipo de rol, un contexto encargado de delegar operaciones de acuerdo al rol. Cada rol implementa la estrategia.
+Permite utilizar funciones para realizar peticiones a la capa de aplicación desde la capa de presentación, con el objetivo de enviar solo los parámetros necesarios y recibir las respuestas, dejando las configuraciones tras la fachada de "servicio"
 
 ## 12. Tablero Kanban
-[Tablero Kanban](https://luisamaria.atlassian.net/jira/software/projects/AYD2P/boards/3?atlOrigin=eyJpIjoiNjk2NzhmZTkyYzRkNDhjNmI2MTY2ZTBhODAxODM2MGMiLCJwIjoiaiJ9) 
+[Tablero Kanban](https://luisamaria.atlassian.net/jira/software/projects/QNAYD/boards/5) 
+
+## 13. Scrum
+### Sprint 1
+**Del 01/09/2024 al 15/09/2024**
+
+### Sprint Planning
+[Sprint Planning 1](https://drive.google.com/file/d/1BjL9gKDFIMENalmYqOFy2fA-V3TB6Zt-/view?usp=sharing)
+### Tablero inicial
+![Tablero1-1](Imagenes/TableroSprint1-1.png)
+![Tablero1-2](Imagenes/TableroSprint1-2.png)
+![Tablero1-3](Imagenes/TableroSprint1-3.png)
+
+### Tablero Final
+![Tablero1-4](Imagenes/TableroSprint1-4.png)
+![Tablero1-5](Imagenes/TableroSprint1-5.png)
+![Tablero1-6](Imagenes/TableroSprint1-6.png)
+
+### Sprint Retrospective 
+[Sprint Retrospective 1](https://drive.google.com/file/d/1OX6YIbJ4yCQ1N-2-zIPJXww1rY_nIzOs/view?usp=sharing)
+
+### Daily Scrum
+*04/09/2024*
+- Luis Chay:
+    - **¿Qué hiciste ayer?**: Descargue y configure todo el entorno de trabajo en mi computadora
+    - ¿Qué vas a hacer hoy?: Empezar a trabajar el registro de usuarios en la parte de frontend
+    - ¿Hay algo que te bloquea?: No me proporcionaron el archivo de credenciales
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Armé el entorno de trabajo para el frontend, instalando dependencias necesarias, estructurando las carpetas de trabajo, colocando el diseño de las páginas y los componentes como navbar y sidebar para ser reutilizados a lo largo del proyecto.
+
+    - ¿Qué vas a hacer hoy?: Empezar a trabajar en el entorno base para el lado del backend, estructurando carpeta para rutas, agregando conexiones a base de datos y Bucket de imágenes.
+
+   - Hay algo que te bloquea?: No
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: leer el enunciado.
+    - ¿Qué vas a hacer hoy?: analizar la forma para aplicar el enunciado.
+    - ¿Hay algo que te bloquee?: No
+
+- Luisa Ortiz
+    - ¿Qué hiciste ayer?: Preparar el entorno de trabajo en mi computadora.
+    - ¿Qué vas a hacer hoy?: Comenzar a trabajar en el registro de nuevos usuarios
+    - ¿Hay algo que te bloquee?: No
+
+*07/09/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Termine el registro en su parte de frontend y backend
+    - ¿Qué vas a hacer hoy?: Arreglar la subida de archivos al bucket y comenzar el login en frontend
+   - Hay algo que te bloquea?: No se están guardando bien los documentos en el bucket
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Agregué a la base de datos la lógica para el manejo de viajes.
+    - ¿Qué vas a hacer hoy?: Agregar a la base de datos la lógica para el manejo de reporte de problemas y calificaciones de usuarios.
+    - ¿Hay algo que te bloquea?: No saber la forma en que el resto del equipo planea la lógica del proyecto.
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: analizar la forma para aplicar el enunciado.
+    - ¿Qué vas a hacer hoy?: esperar que la base de datos esté terminada.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortiz
+    - ¿Qué hiciste ayer?:Comenzar a trabajar en la vista para  la verificación de cuentas de usuario.
+    - ¿Qué vas a hacer hoy?: Trabajar en el envío de correos de verificación.
+    - ¿Hay algo que te bloquea?: No
+
+*09/09/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Termine el login en su parte frontend y backend
+    - ¿Qué vas a hacer hoy?: Crear el ruteo y páginas para cada funcionalidad del conductor tanto en el frontend como el backend
+    - ¿Hay algo que te bloquea?: Nada
+
+-	Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Agregar rutas para catálogos en el backend con información como estados, zonas, precios, marcas, etc.
+    - ¿Qué vas a hacer hoy?: Agregar vista home en frontend.
+    - ¿Hay algo que te bloquea?: No
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: esperar que la base de datos esté terminada.
+    - ¿Qué vas a hacer hoy?: crear el login para el asistente.
+    -  ¿Hay algo que te bloquea?: No
+
+- Luisa Ortiz:
+    - ¿Qué hiciste ayer?: Solucionar errores en el registro y verificación de usuarios.
+    - ¿Qué vas a hacer hoy?: Trabajar en el login de usuarios
+    -  ¿Hay algo que te bloquea?: No
+
+*11/09/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Las vistas de conductor en frontend
+    - ¿Qué vas a hacer hoy?: Las rutas de conductor en backend y la ruta de ver información del usuario
+    - ¿Hay algo que te bloquea?: No se ha configurado correctamente el proxy de la base de datos
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Creé la vista para el login del administrador
+    - ¿Qué vas a hacer hoy?: Crear las consultas para el login del administrador
+    - ¿Hay algo que te bloquea?: Esperar requerimiento para re diseño de la base de datos.
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: crear el login para el asistente.
+    - ¿Qué vas a hacer hoy?: terminar el modulo del login.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortiz
+    - ¿Qué hiciste ayer?: Finaliar el login de usuarios
+    - ¿Qué vas a hacer hoy?: Trabajar en la recuperación de contraseña de usuarios.
+    - ¿Hay algo que te bloquea?: No
+
+*15/09/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Terminar la vista de información de usuario en frontend
+    - ¿Qué vas a hacer hoy?: Terminar de revisar y corregir las tareas del sprint
+    - ¿Hay algo que te bloquea?: Nada
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Terminé la autenticación por archivo del usuario administrador.
+    - ¿Qué vas a hacer hoy?: Validar el correcto funcionamiento de las tareas del sprint.
+    - ¿Hay algo que te bloquea?: El repositorio crea conflictos con los otros inicios de sesión.
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: iniciar con la creación de enpoints para consumir querys hacia la base de datos y obtención de datos.
+    - ¿Qué vas a hacer hoy?: Iniciar la creación de vistas en el frontend.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortiz
+    - ¿Qué hiciste ayer?: Arreglar errores en el envío de enlace para recuperar cuenta.
+    - ¿Qué vas a hacer hoy?: Hacer mejoras en la interfaz de login y registro de usuarios
+    - ¿Hay algo que te bloquea?: No
+
+
+### Sprint 2
+**Del 15/09/2024 al 29/09/2024**
+
+### Sprint Planning
+[Sprint Planning 2](https://drive.google.com/file/d/1rT4F1CnckaVj9lJOs7y5kmjWi8mDbZE5/view?usp=sharing)
+
+### Tablero inicial
+![Tablero2-1](Imagenes/TableroSprint2-1.png)
+![Tablero2-2](Imagenes/TableroSprint2-2.png)
+![Tablero2-3](Imagenes/TableroSprint2-3.png)
+
+### Tablero Final
+![Tablero2-4](Imagenes/TableroSprint2-4.png)
+![Tablero2-5](Imagenes/TableroSprint2-5.png)
+![Tablero2-6](Imagenes/TableroSprint2-6.png)
+
+### Sprint Retrospective
+[Sprint Retrospective 2](https://drive.google.com/file/d/1NYyyfoPM5S73B7w4gAZci9n_oh2kNzoV/view?usp=sharing)
+
+### Daily Scrum
+*18/09/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Descargue y configure los nuevos cambios que se hicieron en este nuevo sprint
+    - ¿Qué vas a hacer hoy?: Empezar a trabajar en aceptar los viajes de los usuarios
+    - ¿Hay algo que te bloquea?: No hay nada que me bloquee por el momento
+
+- Alexander Mejia:
+    - ¿Qué hiciste ayer?: hice un marge de develop a mi rama 
+    - ¿Qué vas a hacer hoy?: Instalar las dependencias del - front y el backend
+    - ¿Hay algo que te bloquea?: No hay nada que me bloquee por el momento
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Corregí problemas de permisos del Bucket 
+    - ¿Qué vas a hacer hoy?: Arreglar los conflictos del login
+    - ¿Hay algo que te bloquea?: No hay nada que me bloquee por el momento
+  
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: creacion de vistas en el frontend.
+    - ¿Qué vas a hacer hoy?: manejo de array nulos o indefinidos para evitar que el programa falle.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortíz:
+    - ¿Qué hiciste ayer?: Iniciar con la funcionalidad de solicitar viajes.
+    - ¿Qué vas a hacer hoy?: Emisión de viajes pendientes a todos ls conductores cuando un usuario solicita unn viaje.
+    - ¿Hay algo que te bloquea?: No
+
+*20/09/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Termine la parte de aceptar los viajes
+    - ¿Qué vas a hacer hoy?: Empezar a trabajar en la logica de la cancelacion de viajes
+    - ¿Hay algo que te bloquea?: Nada
+
+- Alexander Mejia:
+    - ¿Qué hiciste ayer?: Hice un marge de develop a mi rama para obtener los cambios del dia 
+    - ¿Qué vas a hacer hoy?: Cree y probe el dockerfile para el frontend
+    - ¿Hay algo que te bloquea?: No esta todo bien
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Crear usuarios AMI y budget para uso de AWS. 
+    - ¿Qué vas a hacer hoy?: Agregar encriptación a contraseña.
+    - ¿Hay algo que te bloquea?: No hay nada que me bloquee por el momento
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: manejo de array nulos o indefinidos para evitar que el programa falle.
+    - ¿Qué vas a hacer hoy?: iniciar con la obtención de datos en el frontend.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortíz:
+    - ¿Qué hiciste ayer?: Arreglar errores en el socket que emite viajes pendientes a los conductores.
+    - ¿Qué vas a hacer hoy?: Trabajar en la cancelación de viajes
+    - ¿Hay algo que te bloquea?: No
+
+*22/09/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Continuar con el procedimiento de cancelación de viajes
+    - ¿Qué vas a hacer hoy?: Terminar la cancelación de viaje y comenzar con la vista de reporte de problemas
+    - ¿Hay algo que te bloquea?: Guardar correctamente el conteo de los viajes cancelados y el almacenamiento de la justificación
+
+- Alexander Mejia:
+    - ¿Qué hiciste ayer?: Hice un marge de develop a mi rama para obtener los cambios del dia 
+    - ¿Qué vas a hacer hoy?: Cree y probé el dockerfile para el backend
+    - ¿Hay algo que te bloquea?: No de momento
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Crear usuario administrador
+    - ¿Qué vas a hacer hoy?: Crear la vista de la información del administrador
+    - ¿Hay algo que te bloquea?: No de momento
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: obtención de datos en el frontend.
+    - ¿Qué vas a hacer hoy?: obtención de datos en el frontend.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortíz:
+    - ¿Qué hiciste ayer?: Diseñar tarjetas para observar viajes pendientes de aceptar y en curso.
+    - ¿Qué vas a hacer hoy?: Comenzar a trabajar en un modal que muestre la información del conductor de un viaje cuand este fue aceptado.
+    - ¿Hay algo que te bloquea?: No
+
+*25/09/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Termine con la parte de reportar problemas
+    - ¿Qué vas a hacer hoy?: Realizar el procedimiento de finalizar viaje y si se ha pagado o no
+    - ¿Hay algo que te bloquea?: El socket de aceptar Viajes no esta funcionando
+
+- Alexander Mejia:
+    - ¿Qué hiciste ayer?: Hice un marge de develop a mi rama para obtener los cambios del dia 
+    - ¿Qué vas a hacer hoy?: Creé y probé el archivo nginx para el front 
+    - ¿Hay algo que te bloquea?: No de momento no todo excelente
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Crear consultas para recolectar la información del administrador
+    - ¿Qué vas a hacer hoy?: Crear rutas para recolectar la información del administrador
+    - ¿Hay algo que te bloquea?: No de momento
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: obtención de datos en el frontend.
+    - ¿Qué vas a hacer hoy?: creación de modales para una mejor vista e intuición con el usuario.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortíz:
+    - ¿Qué hiciste ayer?: Emisión de viajes a conductores cuando un usuario cancela un viaje.
+    - ¿Qué vas a hacer hoy?: Iniciar el móodulo para reportar problemas de usuario.
+    - ¿Hay algo que te bloquea?: No
+
+*27/09/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Arreglar el funcionamiento del socket de aceptar viajes
+    - ¿Qué vas a hacer hoy?: Terminar el procesamiento de reseñar para cada usuario que haga un viaje
+    - ¿Hay algo que te bloquea?: Nada
+
+- Alexander Mejia:
+    - ¿Qué hiciste ayer?: Hice un marge de develop a mi rama para obtener los cambios del dia 
+    - ¿Qué vas a hacer hoy?: Cree y probe el docker-compose para el frontend
+    - ¿Hay algo que te bloquea?: No de momento no todo esta bien
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Implementé la información del administrador en la vista.
+    - ¿Qué vas a hacer hoy?: Corregir problemas al mostrar la foto de perfil del administrador.
+    - ¿Hay algo que te bloquea?: No de momento no todo esta bien
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: terminar modales para una mejor vista e intuición con el usuario.
+    - ¿Qué vas a hacer hoy?: modificaciones pequeñas en algunas querys para poder tener una mejor obtención de datos.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortiz
+    - ¿Qué hiciste ayer?: Finzalización de módulo para reportar problemas de usuari.
+    - ¿Qué vas a hacer hoy?: Mejorar la visualización de los datos del conductor de un viaje aceptado.
+    - ¿Hay algo que te bloquea?: No
+
+*29/09/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Terminar en su totalidad las funcionalidades de conductor
+    - ¿Qué vas a hacer hoy?: Dar los últimos detalles a mis vistas trabajadas y corroborar que todo se esté enviando correctamente
+    - ¿Hay algo que te bloquea?: Nada
+
+- Alexander Mejia:
+    - ¿Qué hiciste ayer?: Hice un marge de develop a mi rama para obtener los cambios del dia 
+    - ¿Qué vas a hacer hoy?: Cree y todo en conjunto y lo añadi a la EC2 para el frontend
+    - ¿Hay algo que te bloquea?: Nada todo en orden
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Verifiqué que el redireccionamiento de páginas funcionara bien.
+    - ¿Qué vas a hacer hoy?: Mejora de detalles de vistas y comprobar correcto funcionamiento.
+    - ¿Hay algo que te bloquea?: Nada todo en orden
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: modificaciones pequeñas en algunas querys para poder tener una mejor obtención de datos.
+    - ¿Qué vas a hacer hoy?: entrega de mis tareas asignadas.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortíz:
+    - ¿Qué hiciste ayer?: Mejora en la visualización de datos del usuario loggeado.
+    - ¿Qué vas a hacer hoy?: Documentación de cambios respecto a la fase 1.
+    - ¿Hay algo que te bloquea?: No
+
+### Sprint 3
+**Del 11/10/2024 al 25/10/2024**
+
+### Sprint Planning
+[Sprint Planning 3](https://drive.google.com/file/d/1GYMnvJlxEriEjS9LWrl7NU69PWyjiarN/view?usp=sharing)
+### Tablero inicial
+![Tablero3-1](Imagenes/TableroSprint3-1.jpeg)
+![Tablero3-2](Imagenes/TableroSprint3-2.jpeg)
+![Tablero3-3](Imagenes/TableroSprint3-3.jpeg)
+![Tablero3-4](Imagenes/TableroSprint3-4.jpeg)
+
+### Tablero Final
+![Tablero3-5](Imagenes/TableroSprint3-5.jpeg)
+![Tablero3-6](Imagenes/TableroSprint3-6.jpeg)
+![Tablero3-7](Imagenes/TableroSprint3-7.jpeg)
+![Tablero3-8](Imagenes/TableroSprint3-8.jpeg)
+
+### Sprint Retrospective 
+[Sprint Retrospective 3](https://drive.google.com/file/d/143MRaqHHTFwTufpC-OdrwnrqI4dnJj3V/view?usp=sharing)
+- Luis Chay:
+  - ¿Qué se hizo bien durante el Sprint?
+    Hubo mejor manejo de conflictos en el repositorio.
+  - ¿Qué se hizo mal durante el Sprint?
+    Falta de comunicación en cuanto al manejo de la base de datos,
+  - ¿Qué mejoras se deben implementar para el próximo sprint?
+  Mejorar la comunicación al presentar conflictos.
+- Marjorie Reyes:
+  - ¿Qué se hizo bien durante el Sprint?
+    Buena distribución de tareas y manejo de conflictos.
+  - ¿Qué se hizo mal durante el Sprint?
+    Mala distribuión individual de tiempo.
+  - ¿Qué mejoras se deben implementar para el próximo sprint?
+  Realizar un diagrama de Gantt o algún cronograma que mejore la disciplina de trabajo.
+- Christian Blanco:
+  - ¿Qué se hizo bien durante el Sprint? 
+    Todo estuvo bien, no tuve mayor inconveniente.
+  - ¿Qué se hizo mal durante el Sprint?
+    Problemas de comunicación mientras cada quien desarrolla su parte.
+  - ¿Qué mejoras se deben implementar para el próximo sprint?
+  Mejorar la comunicación de problemas y dudas.
+- Alex Mejía:
+  - ¿Qué se hizo bien durante el Sprint?
+  Buen orden y distribución de los componentes
+  - ¿Qué se hizo mal durante el Sprint?
+  Considero que todo se trabajó de buena manera.
+  - ¿Qué mejoras se deben implementar para el próximo sprint?
+  Mejorar habilidades de trabajo tanto en Windows como en Linux.
+- Luisa Ortíz
+  - ¿Qué se hizo bien durante el Sprint?
+  Se tuvo una buena distribución de tareas al dividir por épicas, además de buen manejo de conflictos en git.
+  - ¿Qué se hizo mal durante el Sprint?
+  Mal manejo del tiempo individual y falta de comunicación de problemas.
+  - ¿Qué mejoras se deben implementar para el próximo sprint?
+  Realizar cronogramas que alienten al complimiento en tiempo de las tareas y comunicar mejor los problemas de desarrollo.
+
+### Daily Scrum
+*12/10/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?:Diseñar el formulario para modificar información de conductor
+    - ¿Qué vas a hacer hoy?: Trabajar la modificación en base de la información de un conductor.
+    - ¿Hay algo que te bloquea?: No
+
+- Marjorie Reyes:
+    - Diseñar el módulo para contratar asistentes
+
+    - ¿Qué vas a hacer hoy?: Trabajar en la lógica para contratar asaistentes.
+
+   - Hay algo que te bloquea?: No
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: leer el enunciado.
+    - ¿Qué vas a hacer hoy?: analizar la forma para aplicar el enunciado.
+    - ¿Hay algo que te bloquee?: No
+
+- Luisa Ortiz
+    - ¿Qué hiciste ayer?: Diseñar la vista para modificar la información de conductores.
+    - ¿Qué vas a hacer hoy?: Trabajar la lógica de calificación de conductores.
+    - ¿Hay algo que te bloquee?: No
+
+*15/10/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Terminé la modificación de la información de un conductor.
+    - ¿Qué vas a hacer hoy?: Arreglar la subida de archivos al bucket y comenzar la calificación de usuarios.
+   - Hay algo que te bloquea?:No.
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Agregué a la base de datos la lógica para el manejo de viajes.
+    - ¿Qué vas a hacer hoy?: Agregar a la base de datos la lógica para el manejo de reporte de problemas y calificaciones de usuarios.
+    - ¿Hay algo que te bloquea?: No saber la forma en que el resto del equipo planea la lógica del proyecto.
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: analizar la forma para aplicar el enunciado.
+    - ¿Qué vas a hacer hoy?: esperar que la base de datos esté terminada.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortiz
+    - ¿Qué hiciste ayer?: Finalizar la calificación de conductores.
+    - ¿Qué vas a hacer hoy?: Agregar la información del conductor en la información del viaje.
+    - ¿Hay algo que te bloquea?: No
+
+*18/10/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Termine el login en su parte frontend y backend
+    - ¿Qué vas a hacer hoy?: Crear el ruteo y páginas para cada funcionalidad del conductor tanto en el frontend como el backend
+    - ¿Hay algo que te bloquea?: Nada
+
+-	Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Agregar rutas para catálogos en el backend con información como estados, zonas, precios, marcas, etc.
+    - ¿Qué vas a hacer hoy?: Agregar vista home en frontend.
+    - ¿Hay algo que te bloquea?: No
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: esperar que la base de datos esté terminada.
+    - ¿Qué vas a hacer hoy?: crear el login para el asistente.
+    -  ¿Hay algo que te bloquea?: No
+
+- Luisa Ortiz:
+    - ¿Qué hiciste ayer?: Solucionar errores en la calificación de conductores.
+    - ¿Qué vas a hacer hoy?: Diseñar el módulo para guardar ubicación de viaje.
+    -  ¿Hay algo que te bloquea?: No
+
+*20/10/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Las vistas de conductor en frontend
+    - ¿Qué vas a hacer hoy?: Las rutas de conductor en backend y la ruta de ver información del usuario
+    - ¿Hay algo que te bloquea?: No se ha configurado correctamente el proxy de la base de datos
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Creé la vista para el login del administrador
+    - ¿Qué vas a hacer hoy?: Crear las consultas para el login del administrador
+    - ¿Hay algo que te bloquea?: Esperar requerimiento para re diseño de la base de datos.
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: crear el login para el asistente.
+    - ¿Qué vas a hacer hoy?: terminar el modulo del login.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortiz
+    - ¿Qué hiciste ayer?: Guardar ubicaciones de viaje
+    - ¿Qué vas a hacer hoy?: Realizar los cambios necesarios para que se pueda solicitra viajes a ubicaciones guardadas.
+    - ¿Hay algo que te bloquea?: No
+
+*22/10/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Terminar la vista de información de usuario en frontend
+    - ¿Qué vas a hacer hoy?: Terminar de revisar y corregir las tareas del sprint
+    - ¿Hay algo que te bloquea?: Nada
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Terminé la autenticación por archivo del usuario administrador.
+    - ¿Qué vas a hacer hoy?: Validar el correcto funcionamiento de las tareas del sprint.
+    - ¿Hay algo que te bloquea?: El repositorio crea conflictos con los otros inicios de sesión.
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: iniciar con la creación de enpoints para consumir querys hacia la base de datos y obtención de datos.
+    - ¿Qué vas a hacer hoy?: Iniciar la creación de vistas en el frontend.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortiz
+    - ¿Qué hiciste ayer?: Arreglar errores en el socket que notifica cuando un viaje ha sido finalizado.
+    - ¿Qué vas a hacer hoy?: Mejoras en el almacenamiento de viajes de usuarios, haciendo una tabla distinta para los destinos.
+    - ¿Hay algo que te bloquea?: No
+
+*24/10/2024*
+- Luis Chay:
+    - ¿Qué hiciste ayer?: Terminar la vista de información de usuario en frontend
+    - ¿Qué vas a hacer hoy?: Terminar de revisar y corregir las tareas del sprint
+    - ¿Hay algo que te bloquea?: Nada
+
+- Marjorie Reyes:
+    - ¿Qué hiciste ayer?: Terminé la autenticación por archivo del usuario administrador.
+    - ¿Qué vas a hacer hoy?: Validar el correcto funcionamiento de las tareas del sprint.
+    - ¿Hay algo que te bloquea?: El repositorio crea conflictos con los otros inicios de sesión.
+
+- Christian Blanco:
+    - ¿Qué hiciste ayer?: iniciar con la creación de enpoints para consumir querys hacia la base de datos y obtención de datos.
+    - ¿Qué vas a hacer hoy?: Iniciar la creación de vistas en el frontend.
+    - ¿Hay algo que te bloquea?: No
+
+- Luisa Ortiz
+    - ¿Qué hiciste ayer?: Resolver errores de comnicación con sockets.
+    - ¿Qué vas a hacer hoy?: Pruebas de las funcionalidades de usuarios.
+    - ¿Hay algo que te bloquea?: No
+
+## 14. Pruebas
+Para elaborar pruebas unitarias y de integración se utilizó **Mocha** como framework de pruebas y **Chai** como biblioteca de aserciones para Node.js.
+### Pruebas unitarias
+- Generación de contraseña temporal
+- Cifrado de contraseñas
+- Envío de correos electrónicos
+- Calculo del total de una tarifa
+- Manejo de viajes cancelados
+
+### Pruebas de integración
+- Login de conductor con credenciales inválidas
+- Login de conductor con credenciales correctas
+- Obtención de categorías
+- Obtención de los viajes de un conductor existente
+- Obtención de viajes de un conductor sin viajes
+
+### Pruebas de aceptación
+![PruebaAceptacion1](Imagenes/PruebaAceptacion1.png)
+![PruebaAceptacion2](Imagenes/PruebaAceptacion2.png)
+![PruebaAceptacion3](Imagenes/PruebaAceptacion3.png)
+![PruebaAceptacion4](Imagenes/PruebaAceptacion4.png)
+![PruebaAceptacion5](Imagenes/PruebaAceptacion5.png)
+### Pruebas E2E
+Las pruebas E2E se realizaron con cypress, siendo estas las siguientes:
+- Mostrar formulario de inicio de sesión de conductor
+- Inicio de sesión de conductor con correo o DPI
+-  Muestra de error si el inicio de sesión es fallido
+- Inicio de sesión con código de trabajador
+- Regreso desde login a la página principal
+- Visualización del reporte de ganancias de un conductor.
+
+
+
 
 
