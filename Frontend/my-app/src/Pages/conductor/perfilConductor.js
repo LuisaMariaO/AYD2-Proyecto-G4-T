@@ -22,7 +22,7 @@ function PerfilConductor() {
     useEffect(() => {
         const fetchMarcas = async () => {
             try {
-                const response = await fetch('http://localhost:9000/conductor/marcas');
+                const response = await fetch('http://http://34.44.160.131:9000/conductor/marcas');
                 const result = await response.json();
                 if (result.status === 'success') {
                     setMarcas(result.marcas);
@@ -41,7 +41,7 @@ function PerfilConductor() {
         const conductorId = localStorage.getItem('conductorId');
         const fetchConductorInfo = async () => {
             try {
-                const response = await fetch('http://localhost:9000/conductor/perfil', {
+                const response = await fetch('http://http://34.44.160.131:9000/conductor/perfil', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ conductorId })
@@ -122,7 +122,7 @@ function PerfilConductor() {
         console.log(vehiculo.placa);
 
         try {
-            const response = await fetch('http://localhost:9000/conductor/perfil/update', {
+            const response = await fetch('http://http://34.44.160.131:9000/conductor/perfil/update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

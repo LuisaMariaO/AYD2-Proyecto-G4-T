@@ -24,7 +24,7 @@ const TablaUsuarios = ({ users, tipoUsuario }) => {
 
     // Función para cambiar el estado de la cuenta del usuario (dar de baja o activar)
     const handleEstadoCuenta = (usuario_id, nuevoEstado) => {
-        fetch('http://localhost:9000/asistente/baja-activar-cuenta', {
+        fetch('http://http://34.44.160.131:9000/asistente/baja-activar-cuenta', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const TablaUsuarios = ({ users, tipoUsuario }) => {
 
     // Función para guardar los cambios del usuario
     const handleGuardarCambios = () => {
-        fetch(`http://localhost:9000/asistente/editar-conductor/${editUser.usuario_id}`, {
+        fetch(`http://http://34.44.160.131:9000/asistente/editar-conductor/${editUser.usuario_id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

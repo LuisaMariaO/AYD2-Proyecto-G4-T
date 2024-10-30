@@ -63,8 +63,8 @@ function RegistroConductor() {
 
             console.log(cvBase64);
 
-            // Enviar el objeto como un JSON al servidor en localhost:9000
-            const response = await fetch('http://localhost:9000/conductor/registro', {
+            // Enviar el objeto como un JSON al servidor en http://34.44.160.131:9000
+            const response = await fetch('http://http://34.44.160.131:9000/conductor/registro', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -18,7 +18,7 @@ function ReportarProblema() {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await fetch('http://localhost:9000/conductor/categoriasProblema');
+                const response = await fetch('http://http://34.44.160.131:9000/conductor/categoriasProblema');
                 const result = await response.json();
                 setCategorias(result);
             } catch (error) {
@@ -35,7 +35,7 @@ function ReportarProblema() {
         const fetchViajes = async () => {
             try {
                 if (conductorId) {
-                    const response = await fetch(`http://localhost:9000/conductor/viajesConductor/${conductorId}`);
+                    const response = await fetch(`http://http://34.44.160.131:9000/conductor/viajesConductor/${conductorId}`);
                     const result = await response.json();
                     if (result.status === 'success') {
                         setViajes(result.viajes);
@@ -91,7 +91,7 @@ function ReportarProblema() {
         };
 
         try {
-            const response = await fetch('http://localhost:9000/conductor/reportarProblema', {
+            const response = await fetch('http://http://34.44.160.131:9000/conductor/reportarProblema', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)

@@ -16,7 +16,7 @@ function Ganancias() {
             // Obtener las ganancias del backend
             const fetchGanancias = async () => {
                 try {
-                    const response = await fetch('http://localhost:9000/conductor/ganancias', {
+                    const response = await fetch('http://http://34.44.160.131:9000/conductor/ganancias', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

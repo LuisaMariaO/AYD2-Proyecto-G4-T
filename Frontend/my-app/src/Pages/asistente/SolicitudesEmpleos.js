@@ -16,7 +16,7 @@ const SolicitudesEmpleos = () => {
     };
 
     useEffect(() => {
-        fetch('http://localhost:9000/asistente/solicitudes-empleo')
+        fetch('http://http://34.44.160.131:9000/asistente/solicitudes-empleo')
             .then(response => response.json())
             .then(data => {
                 // Verifica si data.data es un array

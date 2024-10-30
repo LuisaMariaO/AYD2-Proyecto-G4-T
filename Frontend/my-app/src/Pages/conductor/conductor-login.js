@@ -20,7 +20,7 @@ function LoginConductor() {
         };
     
         try {
-            const response = await fetch('http://localhost:9000/conductor/login', {
+            const response = await fetch('http://http://34.44.160.131:9000/conductor/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(loginData)
@@ -54,7 +54,7 @@ function LoginConductor() {
         };
     
         try {
-            const response = await fetch('http://localhost:9000/conductor/loginCodigo', { // Nuevo endpoint
+            const response = await fetch('http://http://34.44.160.131:9000/conductor/loginCodigo', { // Nuevo endpoint
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(codigoData)
@@ -84,7 +84,7 @@ function LoginConductor() {
         const updatePasswordData = { userId, newPassword };
 
         try {
-            const response = await fetch('http://localhost:9000/conductor/actualizarContrasena', {
+            const response = await fetch('http://http://34.44.160.131:9000/conductor/actualizarContrasena', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updatePasswordData)

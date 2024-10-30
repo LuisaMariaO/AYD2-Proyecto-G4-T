@@ -8,7 +8,7 @@ const GestionConductores = () => {
     const [searchTerm, setSearchTerm] = useState(''); // Estado para almacenar el término de búsqueda
 
     useEffect(() => {
-        fetch('http://localhost:9000/asistente/conductores')
+        fetch('http://http://34.44.160.131:9000/asistente/conductores')
             .then(response => response.json())
             .then(data => {
                 if (data.message === 'Registros obtenidos') {
