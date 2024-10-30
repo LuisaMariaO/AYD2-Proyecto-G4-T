@@ -27,7 +27,7 @@ function PedirViaje() {
     const [destinos, setDestinos] = useState([]);
 
     useEffect(() => {
-        const socket = io('http://localhost:9001');
+        const socket = io('http://34.44.160.131:9001');
         socket.on('connect', () => {
             console.log('Conectado al servidor');
         });
